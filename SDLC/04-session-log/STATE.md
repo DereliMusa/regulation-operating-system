@@ -40,7 +40,7 @@ been written and none should be written until the product owner explicitly says 
 
 - Writing the SDLC documentation set (Gate A). Order: README + state (done) ->
   product -> architecture + STYLE_GUIDE + ADRs -> standards -> requirements + phase plans
-  -> references -> root CLAUDE.md / AGENTS.md.
+  -> references -> root AGENTS.md.
 
 ## Next
 

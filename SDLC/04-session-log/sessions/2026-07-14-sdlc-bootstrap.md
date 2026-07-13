@@ -22,7 +22,7 @@ code yet.
 ## Decisions made
 
 - Introduce a `SDLC/` knowledge base as the single source of truth, with a start/end
-  session protocol bridged by root `CLAUDE.md` and `.agents/AGENTS.md`.
+  session protocol bridged by a root `AGENTS.md`.
 - Two-gate process: Gate A (documentation, no code) then Gate B (implementation, only on
   explicit owner go-ahead).
 - Archive `planlama/` to `eski-veriler/` (kept as visual reference for the mockups).

@@ -69,4 +69,4 @@ export function calculateReadiness(fileId: number): number { /* ... */ }
 
 - ESLint (`@nuxt/eslint`) must pass with no errors.
 - These rules are mirrored for AI agents in [`agent-rules.md`](agent-rules.md) and bridged
-  by the repo-root `CLAUDE.md` / `.agents/AGENTS.md`.
+  by the repo-root `AGENTS.md`.

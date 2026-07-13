@@ -1,7 +1,7 @@
 # Agent Working Rules
 
-Rules for any AI agent/chatbot working on Certra. The repo-root `CLAUDE.md` and
-`.agents/AGENTS.md` point here so every tool follows the same protocol.
+Rules for any AI agent/chatbot working on Certra. The repo-root `AGENTS.md` points here so
+every tool follows the same protocol.
 
 ## Session protocol
 

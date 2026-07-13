@@ -14,8 +14,8 @@ it each time.
 1. Keep **one Nuxt application at the repo root** serving both public and app routes
    (auth-guarded), rather than a monorepo or split marketing/app projects.
 2. Maintain a **`SDLC/` knowledge base** as the project's single source of truth, with a
-   start/end **session protocol**. Bridge it to tools via a root `CLAUDE.md` and
-   `.agents/AGENTS.md`. Archive the old `planlama/` folder to `eski-veriler/`.
+   start/end **session protocol**. Bridge it to tools via a root `AGENTS.md`. Archive the
+   old `planlama/` folder to `eski-veriler/`.
 
 ## Consequences
 

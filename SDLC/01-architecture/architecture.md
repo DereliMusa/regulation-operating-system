@@ -71,7 +71,7 @@ certra/ (repo root)
   SDLC/                        # this knowledge base (source of truth)
   eski-veriler/                # archived planning + UI mockups (visual reference)
   tests/{unit,integration}/
-  .agents/AGENTS.md  CLAUDE.md
+  AGENTS.md                    # session-protocol bridge for agent tools
   .github/workflows/{ci.yml, deploy.yml}
   Dockerfile docker-compose.yml drizzle.config.ts nuxt.config.ts app.config.ts
   .env.example eslint.config.mjs README.md CHANGELOG.md

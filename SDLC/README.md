@@ -22,8 +22,8 @@ Read, in this order:
    progress, what is next.
 3. The specific docs relevant to your task (product / architecture / standards / planning).
 
-The repo-root `CLAUDE.md` and `.agents/AGENTS.md` point here so any agent tool follows
-the same protocol automatically.
+The repo-root `AGENTS.md` points here so any agent tool follows the same protocol
+automatically.
 
 ### At the END of a session
 
