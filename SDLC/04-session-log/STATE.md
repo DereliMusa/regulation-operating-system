@@ -21,6 +21,7 @@ been written and none should be written until the product owner explicitly says 
 - Marketing in MVP: Product Overview (landing) + Book a Demo; Solutions + Pricing in Phase 1.
 - AI in MVP: mock (rule/template based); real Claude integration in Phase 1.
 - Repo: single Nuxt app at repo root; `SDLC/` is the source of truth; `planlama/` archived to `eski-veriler/`.
+- Commits and docs carry no tool-attribution trailers (owner preference).
 
 ## Timeline framing
 
@@ -34,19 +35,19 @@ been written and none should be written until the product owner explicitly says 
 - All 6 app mockups and 4 marketing mockups reviewed; design tokens extracted.
 - Node.js 22 installed via Homebrew.
 - `planlama/` archived to `eski-veriler/`; `.gitignore` added.
-- SDLC knowledge base authoring in progress (see next).
+- **Gate A complete:** full SDLC knowledge base authored (product, architecture,
+  STYLE_GUIDE, ADRs, standards, requirements, phase plans, references), root `AGENTS.md`
+  and `README.md` added, committed in logical groups on `docs/sdlc-bootstrap`.
 
 ## In progress
 
-- Writing the SDLC documentation set (Gate A). Order: README + state (done) ->
-  product -> architecture + STYLE_GUIDE + ADRs -> standards -> requirements + phase plans
-  -> references -> root AGENTS.md.
+- None. Gate A (documentation) is complete; awaiting the owner's go-ahead for Gate B.
 
 ## Next
 
-1. Finish all Gate A docs and commit each logical group.
-2. **STOP.** Wait for the owner to say "start" before any implementation (Gate B).
-3. Gate B first step (when approved): S0 — scaffold Nuxt project (see
+1. **STOP.** Await the owner's explicit "start" before writing any application code (Gate B).
+2. Collect owner-dependent design assets (see Open items) so S8 marketing is unblocked.
+3. Gate B first step (when approved): S0 — scaffold the Nuxt project (see
    [`../03-planning/mvp-plan.md`](../03-planning/mvp-plan.md)).
 
 ## Open items awaiting the owner
