@@ -1,0 +1,570 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Post-Market Surveillance | Certra</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Geist+Mono:wght@100..900&amp;family=Inter:wght@100..900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+        }
+        .traceability-thread-h {
+            background-image: linear-gradient(to right, #E4E9F0 50%, rgba(255,255,255,0) 0%);
+            background-position: bottom;
+            background-size: 8px 1px;
+            background-repeat: repeat-x;
+        }
+        .traceability-thread-v {
+            background-image: linear-gradient(to bottom, #E4E9F0 50%, rgba(255,255,255,0) 0%);
+            background-position: right;
+            background-size: 1px 8px;
+            background-repeat: repeat-y;
+        }
+        .ai-glow {
+            box-shadow: 0 0 15px rgba(96, 76, 216, 0.1);
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #E4E9F0; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #d1d5db; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#e6e8eb",
+                        "secondary-fixed-dim": "#bac7de",
+                        "surface-variant": "#e0e3e6",
+                        "on-surface": "#191c1e",
+                        "status-deficiency-bg": "#FBE9E9",
+                        "status-approved": "#1E8E5A",
+                        "primary-fixed": "#dce1ff",
+                        "inverse-primary": "#b7c4ff",
+                        "secondary-fixed": "#d6e3fb",
+                        "ink-muted": "#8A94A6",
+                        "tertiary-fixed": "#e5deff",
+                        "primary-wash": "#EAF0FF",
+                        "on-tertiary-fixed-variant": "#4228ba",
+                        "status-approved-bg": "#E7F5EE",
+                        "tertiary": "#482fbf",
+                        "surface-container-low": "#f2f4f7",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#2456e6",
+                        "on-surface-variant": "#434655",
+                        "surface-dim": "#d8dadd",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary-container": "#e3ddff",
+                        "primary-hover": "#1B45C4",
+                        "surface-container": "#eceef1",
+                        "on-tertiary-fixed": "#180065",
+                        "on-primary-fixed": "#001551",
+                        "outline-variant": "#c4c5d8",
+                        "primary": "#003dc1",
+                        "ink-soft": "#55627A",
+                        "error": "#ba1a1a",
+                        "inverse-on-surface": "#eff1f4",
+                        "secondary-container": "#d6e3fb",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#194fe0",
+                        "surface-container-highest": "#e0e3e6",
+                        "on-secondary-fixed-variant": "#3b475a",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#dbe0ff",
+                        "outline": "#747687",
+                        "on-background": "#191c1e",
+                        "on-error": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-alt": "#FAFBFC",
+                        "on-secondary-container": "#596579",
+                        "on-secondary-fixed": "#001b3d",
+                        "line": "#E4E9F0",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#0039b5",
+                        "background": "#f7f9fc",
+                        "surface-bright": "#f7f9fc",
+                        "status-draft-bg": "#EEF1F5",
+                        "status-deficiency": "#C43D3D",
+                        "status-review-bg": "#FBF1DE",
+                        "tertiary-fixed-dim": "#c7bfff",
+                        "status-review": "#B9770A",
+                        "surface": "#FFFFFF",
+                        "tertiary-container": "#604cd8",
+                        "primary-fixed-dim": "#b7c4ff",
+                        "secondary": "#535f73",
+                        "status-draft": "#6B7688",
+                        "ai-wash": "#F0EDFD"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "4px",
+                        "lg": "8px",
+                        "xl": "12px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "md": "16px",
+                        "lg": "24px",
+                        "container-max": "1280px",
+                        "sm": "8px",
+                        "base": "4px",
+                        "gutter": "24px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "h1": ["Geist"],
+                        "display": ["Geist"],
+                        "caption": ["Inter"],
+                        "body": ["Inter"],
+                        "body-strong": ["Inter"],
+                        "h2": ["Geist"],
+                        "mono": ["Geist Mono"],
+                        "small": ["Inter"],
+                        "display-mobile": ["Geist"],
+                        "h3": ["Geist"]
+                    },
+                    "fontSize": {
+                        "h1": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "caption": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+                        "body": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "body-strong": ["14px", { "lineHeight": "22px", "fontWeight": "500" }],
+                        "h2": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "mono": ["13px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "small": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "display-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "h3": ["16px", { "lineHeight": "24px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background font-body text-on-surface selection:bg-primary-fixed-dim overflow-hidden">
+<!-- Shell Container -->
+<div class="flex h-screen overflow-hidden">
+<!-- SideNavBar Anchor -->
+<aside class="w-[240px] h-full flex flex-col p-md bg-surface border-r border-line z-50 fixed left-0 top-0">
+<div class="mb-xl flex flex-col">
+<span class="font-h2 text-h2 text-on-surface">Certra</span>
+<span class="font-small text-small text-ink-muted -mt-1 uppercase tracking-wider">Regulatory Suite</span>
+</div>
+<nav class="flex-1 space-y-xs overflow-y-auto">
+<a class="flex items-center gap-md p-sm rounded-lg transition-colors duration-200 text-secondary font-body hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-md p-sm rounded-lg transition-colors duration-200 text-secondary font-body hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined text-[20px]">description</span>
+<span>Technical Documentation</span>
+</a>
+<a class="flex items-center gap-md p-sm rounded-lg transition-colors duration-200 text-secondary font-body hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined text-[20px]">report_problem</span>
+<span>Risk Management</span>
+</a>
+<a class="flex items-center gap-md p-sm rounded-lg transition-colors duration-200 text-secondary font-body hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+<span>Clinical Evaluation</span>
+</a>
+<!-- ACTIVE TAB: Post-Market -->
+<a class="flex items-center gap-md p-sm rounded-lg transition-colors duration-200 text-primary font-body-strong border-r-2 border-primary bg-primary-wash/50" href="#">
+<span class="material-symbols-outlined text-[20px]">biotech</span>
+<span>Post-Market</span>
+</a>
+<a class="flex items-center gap-md p-sm rounded-lg transition-colors duration-200 text-secondary font-body hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined text-[20px]">history</span>
+<span>Audit Log</span>
+</a>
+</nav>
+<button class="mt-xl bg-primary text-on-primary py-sm px-md rounded-lg font-body-strong flex items-center justify-center gap-sm hover:bg-primary-hover transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                New Submission
+            </button>
+<div class="mt-auto pt-md border-t border-line space-y-xs">
+<a class="flex items-center gap-md p-sm rounded-lg transition-colors duration-200 text-secondary font-body hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center gap-md p-sm rounded-lg transition-colors duration-200 text-secondary font-body hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+<span>Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-[240px] flex flex-col h-screen overflow-hidden">
+<!-- TopAppBar Anchor -->
+<header class="h-[56px] px-lg w-full flex justify-between items-center bg-surface border-b border-line sticky top-0 z-40">
+<div class="flex items-center gap-xl">
+<h1 class="font-h3 text-h3 text-on-surface">Technical File Explorer</h1>
+<nav class="hidden md:flex gap-lg items-center">
+<a class="font-body text-body text-on-surface-variant hover:text-primary-hover transition-transform scale-95" href="#">Documents</a>
+<a class="font-body text-body text-on-surface-variant hover:text-primary-hover transition-transform scale-95" href="#">Evidence</a>
+<a class="font-body text-body text-primary border-b-2 border-primary pb-1 transition-transform scale-95" href="#">Review</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<div class="relative flex items-center bg-surface-container-low px-sm rounded-lg h-9 border border-line">
+<span class="material-symbols-outlined text-ink-muted text-[18px]">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-small px-xs w-48" placeholder="Search files..." type="text">
+</div>
+<button class="bg-surface border border-line py-xs px-sm rounded h-9 font-body-strong text-ink-soft hover:bg-surface-alt transition-transform scale-95">Export</button>
+<button class="bg-primary text-on-primary py-xs px-md rounded-lg h-9 font-body-strong hover:bg-primary-hover transition-transform scale-95 flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+                        Verify AI
+                    </button>
+<div class="flex items-center gap-sm ml-md pl-md border-l border-line">
+<span class="material-symbols-outlined text-ink-muted cursor-pointer hover:text-on-surface">notifications</span>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-line overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up professional portrait of a medical regulatory officer, clean clinical background, soft natural lighting, high resolution photography, professional corporate attire." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7DS4nqnGdJpoBe9aEfUMcnaKX88DvUk-8MPN14WYUZgQ0dQ4IUkzK2Yrj1Y8P1ly_GRFoI-9wllEqGwSiBS90p-5_fudxIWdc_zoR40gjtu2em0jpgABVXcvZLYr3WqH9Hwd9TmAGkPrsnmcvKqmyg0wS2NfmNGCmTqN6xyaA24-bGJCkM6ZQuXUq899maSQxbieF6Cu5ZgykmgYsLnwE7RVFaejox7RxPmEkZx-wYGTpEan_E0jXhgoMMOvtlwCjLMm0dI3qFAA">
+</div>
+</div>
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto p-lg">
+<div class="max-w-container-max mx-auto space-y-xl">
+<!-- Section Header -->
+<div class="flex justify-between items-end">
+<div>
+<span class="font-caption text-caption text-primary uppercase tracking-[0.1em]">MDR COMPLIANCE SECTION 2.7</span>
+<h2 class="font-display text-display text-on-surface mt-xs">Post-Market Surveillance (PMS)</h2>
+</div>
+<button class="bg-tertiary text-on-tertiary px-lg py-sm rounded-lg font-body-strong flex items-center gap-sm transition-all hover:opacity-90 active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                            Generate PSUR
+                        </button>
+</div>
+<!-- PMS Timeline Component -->
+<section class="bg-surface border border-line rounded-xl p-xl shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between mb-lg">
+<h3 class="font-h3 text-h3 flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">event_upcoming</span>
+                                Milestone Timeline
+                            </h3>
+<div class="flex gap-md">
+<span class="flex items-center gap-xs text-small text-ink-muted">
+<span class="w-2 h-2 rounded-full bg-primary"></span> PMS
+                                </span>
+<span class="flex items-center gap-xs text-small text-ink-muted">
+<span class="w-2 h-2 rounded-full bg-status-review"></span> PMCF
+                                </span>
+<span class="flex items-center gap-xs text-small text-ink-muted">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span> PSUR
+                                </span>
+</div>
+</div>
+<!-- Timeline Visual -->
+<div class="relative py-xl">
+<div class="absolute top-[52px] left-0 w-full h-[2px] bg-line z-0"></div>
+<div class="relative z-10 flex justify-between items-start gap-md">
+<!-- Milestone 1 -->
+<div class="flex flex-col items-center text-center w-1/5 group">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center mb-sm group-hover:scale-110 transition-transform cursor-pointer shadow-sm">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<span class="font-caption text-caption text-ink-muted uppercase">Q1 2024</span>
+<p class="font-body-strong text-on-surface mt-xs">PMS Plan Review</p>
+<span class="text-small text-status-approved font-mono">COMPLETED</span>
+</div>
+<!-- Milestone 2 -->
+<div class="flex flex-col items-center text-center w-1/5 group">
+<div class="w-8 h-8 rounded-full bg-status-review text-white flex items-center justify-center mb-sm group-hover:scale-110 transition-transform cursor-pointer shadow-sm">
+<span class="material-symbols-outlined text-[16px]">pending</span>
+</div>
+<span class="font-caption text-caption text-ink-muted uppercase">May 12</span>
+<p class="font-body-strong text-on-surface mt-xs">PMCF Study Start</p>
+<span class="text-small text-status-review font-mono">IN PROGRESS</span>
+</div>
+<!-- Milestone 3 (Current Focus) -->
+<div class="flex flex-col items-center text-center w-1/5 relative">
+<div class="absolute -top-4 w-12 h-1 bg-primary rounded-full"></div>
+<div class="w-10 h-10 rounded-full bg-white border-2 border-primary text-primary flex items-center justify-center mb-sm shadow-md animate-pulse">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">flag</span>
+</div>
+<span class="font-caption text-caption text-primary uppercase font-bold">Aug 15</span>
+<p class="font-body-strong text-on-surface mt-xs">PMS Annual Report</p>
+<span class="text-small text-ink-muted font-mono">UPCOMING</span>
+</div>
+<!-- Milestone 4 -->
+<div class="flex flex-col items-center text-center w-1/5 group">
+<div class="w-8 h-8 rounded-full bg-surface border border-line text-ink-muted flex items-center justify-center mb-sm group-hover:bg-surface-container-low transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+</div>
+<span class="font-caption text-caption text-ink-muted uppercase">Nov 20</span>
+<p class="font-body-strong text-on-surface mt-xs">PMCF Interim Data</p>
+<span class="text-small text-ink-muted font-mono">PLANNED</span>
+</div>
+<!-- Milestone 5 -->
+<div class="flex flex-col items-center text-center w-1/5 group">
+<div class="w-8 h-8 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center mb-sm group-hover:scale-110 transition-transform cursor-pointer shadow-sm">
+<span class="material-symbols-outlined text-[16px]">description</span>
+</div>
+<span class="font-caption text-caption text-ink-muted uppercase">Jan 10, 2025</span>
+<p class="font-body-strong text-on-surface mt-xs">Final PSUR Review</p>
+<span class="text-small text-ink-muted font-mono">DUE</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Active Plans Table Section -->
+<div class="space-y-md">
+<div class="flex items-center justify-between">
+<h3 class="font-h2 text-h2 text-on-surface">Active Surveillance Plans</h3>
+<div class="flex gap-sm">
+<button class="p-xs bg-surface border border-line rounded hover:bg-surface-alt transition-colors"><span class="material-symbols-outlined text-[20px] text-ink-soft">filter_list</span></button>
+<button class="p-xs bg-surface border border-line rounded hover:bg-surface-alt transition-colors"><span class="material-symbols-outlined text-[20px] text-ink-soft">sort</span></button>
+</div>
+</div>
+<div class="bg-surface border border-line rounded-xl overflow-hidden shadow-sm">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-alt border-b border-line h-9">
+<th class="px-lg font-caption text-caption text-ink-muted uppercase">Plan Type</th>
+<th class="px-lg font-caption text-caption text-ink-muted uppercase">Device</th>
+<th class="px-lg font-caption text-caption text-ink-muted uppercase">Next Due</th>
+<th class="px-lg font-caption text-caption text-ink-muted uppercase">Status</th>
+<th class="px-lg font-caption text-caption text-ink-muted uppercase text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-line">
+<!-- Row 1 -->
+<tr class="h-11 hover:bg-surface-alt transition-colors">
+<td class="px-lg">
+<div class="flex items-center gap-sm">
+<div class="w-2 h-6 bg-primary rounded-full"></div>
+<span class="font-body-strong text-on-surface">PMS - Annual Cycle</span>
+</div>
+</td>
+<td class="px-lg">
+<span class="font-mono text-small text-ink-soft bg-surface-container-low px-xs py-0.5 rounded">CER-204-Pulse</span>
+</td>
+<td class="px-lg">
+<span class="font-body text-body">Aug 15, 2024</span>
+</td>
+<td class="px-lg">
+<span class="px-sm py-0.5 rounded-full font-mono text-small bg-status-review-bg text-status-review border border-status-review/20">Pending Review</span>
+</td>
+<td class="px-lg text-right">
+<button class="text-primary hover:underline text-small font-body-strong">Open Plan</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="h-11 hover:bg-surface-alt transition-colors">
+<td class="px-lg">
+<div class="flex items-center gap-sm">
+<div class="w-2 h-6 bg-status-review rounded-full"></div>
+<span class="font-body-strong text-on-surface">PMCF - Clinical Study</span>
+</div>
+</td>
+<td class="px-lg">
+<span class="font-mono text-small text-ink-soft bg-surface-container-low px-xs py-0.5 rounded">VAL-99-Heart</span>
+</td>
+<td class="px-lg">
+<span class="font-body text-body">Oct 02, 2024</span>
+</td>
+<td class="px-lg">
+<span class="px-sm py-0.5 rounded-full font-mono text-small bg-status-approved-bg text-status-approved border border-status-approved/20">Active Collection</span>
+</td>
+<td class="px-lg text-right">
+<button class="text-primary hover:underline text-small font-body-strong">Open Plan</button>
+</td>
+</tr>
+<!-- Row 3 - AI Suggested Item -->
+<tr class="h-11 bg-ai-wash/30 hover:bg-ai-wash/50 transition-colors border-l-4 border-l-tertiary">
+<td class="px-lg">
+<div class="flex items-center gap-sm">
+<div class="w-2 h-6 bg-tertiary rounded-full"></div>
+<span class="font-body-strong text-on-surface">PSUR - Periodic Report</span>
+</div>
+</td>
+<td class="px-lg">
+<span class="font-mono text-small text-ink-soft bg-surface-container-low px-xs py-0.5 rounded">CER-204-Pulse</span>
+</td>
+<td class="px-lg">
+<div class="flex flex-col">
+<span class="font-body text-body font-bold text-tertiary">Jan 10, 2025</span>
+<span class="text-[10px] font-mono text-tertiary/70 flex items-center gap-xs">
+<span class="material-symbols-outlined text-[10px]">auto_awesome</span>
+                                                    AI ESTIMATED
+                                                </span>
+</div>
+</td>
+<td class="px-lg">
+<span class="px-sm py-0.5 rounded-full font-mono text-small bg-status-draft-bg text-status-draft border border-status-draft/20">Drafting Required</span>
+</td>
+<td class="px-lg text-right">
+<button class="bg-tertiary text-on-tertiary px-sm py-1 rounded text-small font-body-strong hover:bg-tertiary-container transition-colors">Start Draft</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="h-11 hover:bg-surface-alt transition-colors">
+<td class="px-lg">
+<div class="flex items-center gap-sm">
+<div class="w-2 h-6 bg-status-deficiency rounded-full"></div>
+<span class="font-body-strong text-on-surface">PMS - Urgent Follow-up</span>
+</div>
+</td>
+<td class="px-lg">
+<span class="font-mono text-small text-ink-soft bg-surface-container-low px-xs py-0.5 rounded">IMP-12-Stent</span>
+</td>
+<td class="px-lg">
+<span class="font-body text-body text-error font-bold">OVERDUE</span>
+</td>
+<td class="px-lg">
+<span class="px-sm py-0.5 rounded-full font-mono text-small bg-status-deficiency-bg text-status-deficiency border border-status-deficiency/20">Deficiency</span>
+</td>
+<td class="px-lg text-right">
+<button class="text-error hover:underline text-small font-body-strong">Escalate</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- AI Insights Bento Section -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+<div class="md:col-span-2 bg-surface border border-tertiary rounded-xl p-lg ai-glow relative group">
+<div class="absolute top-md right-md px-sm py-0.5 bg-ai-wash text-tertiary text-[10px] font-mono rounded-full border border-tertiary/20 flex items-center gap-xs">
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                                AI SUGGESTED
+                            </div>
+<h4 class="font-h3 text-h3 text-on-surface mb-md">Risk Trend Analysis</h4>
+<div class="flex gap-xl h-40">
+<div class="flex-1 flex flex-col justify-end gap-xs h-full relative">
+<div class="w-full bg-primary/20 h-1/2 rounded-t transition-all group-hover:bg-primary/30"></div>
+<div class="w-full bg-primary/20 h-3/4 rounded-t transition-all group-hover:bg-primary/30"></div>
+<div class="w-full bg-primary h-full rounded-t"></div>
+<div class="w-full bg-primary/60 h-2/3 rounded-t transition-all group-hover:bg-primary/70"></div>
+<div class="w-full bg-primary/40 h-5/6 rounded-t transition-all group-hover:bg-primary/50"></div>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-surface/80 backdrop-blur-sm p-md rounded">
+<p class="text-small text-ink-soft text-center italic">"Detected 12% increase in signal sensitivity for CER-204 Pulse over the last 90 days. Recommend updating Risk Benefit analysis."</p>
+</div>
+</div>
+<div class="w-48 flex flex-col justify-center gap-md">
+<div class="p-sm bg-surface-container-low rounded border border-line">
+<p class="font-caption text-caption text-ink-muted uppercase">Confidence Level</p>
+<p class="font-h3 text-h3 text-tertiary">94.2%</p>
+</div>
+<div class="p-sm bg-surface-container-low rounded border border-line">
+<p class="font-caption text-caption text-ink-muted uppercase">Source Data</p>
+<p class="font-body-strong">Clinical (Interim)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface border border-line rounded-xl p-lg flex flex-col justify-between">
+<div>
+<h4 class="font-h3 text-h3 text-on-surface">Resource Alloc.</h4>
+<p class="text-small text-ink-muted mt-xs">Active PMS workload across departments.</p>
+</div>
+<div class="space-y-md my-md">
+<div class="space-y-xs">
+<div class="flex justify-between text-small">
+<span>Clinical Dept</span>
+<span>85%</span>
+</div>
+<div class="w-full h-1.5 bg-line rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[85%]"></div>
+</div>
+</div>
+<div class="space-y-xs">
+<div class="flex justify-between text-small">
+<span>Regulatory</span>
+<span>42%</span>
+</div>
+<div class="w-full h-1.5 bg-line rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[42%]"></div>
+</div>
+</div>
+<div class="space-y-xs">
+<div class="flex justify-between text-small">
+<span>Quality Eng.</span>
+<span>68%</span>
+</div>
+<div class="w-full h-1.5 bg-line rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[68%]"></div>
+</div>
+</div>
+</div>
+<button class="w-full text-center py-xs border border-line rounded hover:bg-surface-alt transition-colors font-body-strong text-small text-ink-soft">View Load Balancer</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Anchor -->
+<footer class="bg-surface-container-lowest border-t border-line py-xl mt-auto">
+<div class="max-w-container-max mx-auto px-gutter grid grid-cols-4 gap-xl">
+<div class="col-span-1">
+<span class="font-h2 text-h2 text-on-surface block mb-md">Certra</span>
+<p class="font-small text-small text-ink-muted">Next-generation regulatory precision for global compliance management.</p>
+</div>
+<div class="col-span-3 grid grid-cols-3 gap-xl">
+<div>
+<h5 class="font-body-strong text-on-surface mb-sm">Product</h5>
+<ul class="space-y-xs">
+<li><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Technical Files</a></li>
+<li><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Risk Engine</a></li>
+<li><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Compliance Matrix</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-body-strong text-on-surface mb-sm">Resources</h5>
+<ul class="space-y-xs">
+<li><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">MDR/IVDR Guide</a></li>
+<li><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">API Documentation</a></li>
+<li><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Webinars</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-body-strong text-on-surface mb-sm">Legal</h5>
+<ul class="space-y-xs">
+<li><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Privacy Policy</a></li>
+<li><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Terms of Service</a></li>
+<li><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Security</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-gutter mt-xl pt-lg border-t border-line flex justify-between items-center">
+<p class="font-small text-small text-ink-muted">© 2024 Certra Regulatory Systems. All rights reserved.</p>
+<div class="flex gap-md">
+<span class="material-symbols-outlined text-ink-muted cursor-pointer hover:text-primary">language</span>
+<span class="material-symbols-outlined text-ink-muted cursor-pointer hover:text-primary">hub</span>
+</div>
+</div>
+</footer>
+</main>
+</div>
+<!-- Traceability Thread Animation Script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Subtle micro-interactions for timeline items
+            const timelineItems = document.querySelectorAll('.group');
+            timelineItems.forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    item.style.transform = 'translateY(-2px)';
+                    item.style.transition = 'transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                });
+                item.addEventListener('mouseleave', () => {
+                    item.style.transform = 'translateY(0px)';
+                });
+            });
+
+            // Smooth scroll shadow for sticky header
+            const mainContent = document.querySelector('main > div');
+            const topBar = document.querySelector('header');
+            mainContent.addEventListener('scroll', () => {
+                if (mainContent.scrollTop > 10) {
+                    topBar.classList.add('shadow-md');
+                } else {
+                    topBar.classList.remove('shadow-md');
+                }
+            });
+        });
+    </script>
+</body></html>

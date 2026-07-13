@@ -1,0 +1,460 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Certra | The Complete MDR &amp; IVDR Compliance Suite</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface": "#191c1e",
+                    "surface-container-highest": "#e0e3e6",
+                    "status-approved-bg": "#E7F5EE",
+                    "primary-fixed": "#dce1ff",
+                    "on-primary-fixed-variant": "#0039b5",
+                    "on-error": "#ffffff",
+                    "ai-wash": "#F0EDFD",
+                    "surface-tint": "#194fe0",
+                    "tertiary-fixed": "#e5deff",
+                    "on-tertiary-fixed": "#180065",
+                    "on-secondary": "#ffffff",
+                    "status-review-bg": "#FBF1DE",
+                    "surface-variant": "#e0e3e6",
+                    "secondary-fixed-dim": "#bac7de",
+                    "surface": "#FFFFFF",
+                    "on-tertiary-container": "#e3ddff",
+                    "status-draft": "#6B7688",
+                    "primary-fixed-dim": "#b7c4ff",
+                    "secondary": "#535f73",
+                    "on-tertiary": "#ffffff",
+                    "status-review": "#B9770A",
+                    "surface-bright": "#f7f9fc",
+                    "inverse-primary": "#b7c4ff",
+                    "on-surface-variant": "#434655",
+                    "tertiary-fixed-dim": "#c7bfff",
+                    "status-draft-bg": "#EEF1F5",
+                    "status-approved": "#1E8E5A",
+                    "on-secondary-container": "#596579",
+                    "background": "#f7f9fc",
+                    "surface-alt": "#FAFBFC",
+                    "surface-container": "#eceef1",
+                    "surface-container-low": "#f2f4f7",
+                    "on-secondary-fixed": "#0f1c2d",
+                    "line": "#E4E9F0",
+                    "inverse-on-surface": "#eff1f4",
+                    "surface-dim": "#d8dadd",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#e6e8eb",
+                    "secondary-container": "#d6e3fb",
+                    "ink-soft": "#55627A",
+                    "tertiary-container": "#604cd8",
+                    "tertiary": "#482fbf",
+                    "on-primary-container": "#dbe0ff",
+                    "on-primary-fixed": "#001551",
+                    "status-deficiency-bg": "#FBE9E9",
+                    "error": "#ba1a1a",
+                    "status-deficiency": "#C43D3D",
+                    "on-primary": "#ffffff",
+                    "inverse-surface": "#2d3133",
+                    "on-tertiary-fixed-variant": "#4228ba",
+                    "on-secondary-fixed-variant": "#3b475a",
+                    "primary-hover": "#1B45C4",
+                    "ink-muted": "#8A94A6",
+                    "on-background": "#191c1e",
+                    "outline": "#747687",
+                    "outline-variant": "#c4c5d8",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed": "#d6e3fb",
+                    "primary-container": "#2456e6",
+                    "primary-wash": "#EAF0FF",
+                    "error-container": "#ffdad6",
+                    "primary": "#003dc1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "md": "16px",
+                    "sm": "8px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "gutter": "24px",
+                    "container-max": "1280px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "mono": ["Geist Mono"],
+                    "display-mobile": ["Geist"],
+                    "body-strong": ["Inter"],
+                    "h2": ["Geist"],
+                    "caption": ["Inter"],
+                    "h3": ["Geist"],
+                    "body": ["Inter"],
+                    "h1": ["Geist"],
+                    "small": ["Inter"],
+                    "display": ["Geist"]
+            },
+            "fontSize": {
+                    "mono": ["13px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "display-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-strong": ["14px", {"lineHeight": "22px", "fontWeight": "500"}],
+                    "h2": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "caption": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                    "h3": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "body": ["14px", {"lineHeight": "22px", "fontWeight": "400"}],
+                    "h1": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "small": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "display": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { @apply bg-background text-on-surface font-body; }
+        .traceability-thread {
+            background-image: linear-gradient(to right, #E4E9F0 1px, transparent 1px),
+                              linear-gradient(to bottom, #E4E9F0 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+        }
+    </style>
+</head>
+<body class="antialiased">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 bg-surface border-b border-line h-[64px] flex items-center">
+<div class="max-w-container-max mx-auto w-full px-lg flex justify-between items-center">
+<div class="flex items-center gap-xl">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings: &quot;FILL&quot; 1;">biotech</span>
+<span class="font-h2 text-h2 tracking-tight">Certra</span>
+</div>
+<nav class="hidden md:flex items-center gap-lg">
+<a class="text-on-surface-variant font-body-strong hover:text-primary transition-colors" href="#">Product</a>
+<a class="text-on-surface-variant font-body-strong hover:text-primary transition-colors" href="#">Solutions</a>
+<a class="text-on-surface-variant font-body-strong hover:text-primary transition-colors" href="#">Pricing</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<a class="text-on-surface-variant font-body-strong hover:text-primary transition-colors hidden sm:block" href="#">Sign in</a>
+<button class="bg-primary text-on-primary px-md py-sm rounded-lg font-body-strong hover:bg-primary-hover transition-all active:scale-95 shadow-sm">
+                    Book a demo
+                </button>
+</div>
+</div>
+</header>
+<!-- Hero Section -->
+<section class="pt-xl pb-32 overflow-hidden bg-surface-bright relative">
+<div class="max-w-container-max mx-auto px-lg relative z-10">
+<div class="grid lg:grid-cols-2 gap-xl items-center">
+<div class="max-w-xl">
+<div class="inline-flex items-center gap-sm px-sm py-base bg-ai-wash rounded-full mb-md border border-tertiary/20">
+<span class="material-symbols-outlined text-tertiary text-sm" style="font-variation-settings: &quot;FILL&quot; 1;">auto_awesome</span>
+<span class="font-caption text-tertiary uppercase tracking-wider">Built for MDR &amp; IVDR Excellence</span>
+</div>
+<h1 class="font-h1 text-[56px] leading-[1.1] mb-md tracking-tight">
+                            MDR &amp; IVDR technical files, <span class="text-primary italic">built to pass.</span>
+</h1>
+<p class="font-body text-h2 text-on-surface-variant mb-xl leading-relaxed">
+                            Stop wasting months on manual documentation. Certra uses AI-driven traceability to generate audit-ready technical files in weeks, not years.
+                        </p>
+<div class="flex flex-wrap gap-md">
+<button class="bg-primary text-on-primary px-xl py-md rounded-lg font-h3 hover:bg-primary-hover transition-all shadow-md">
+                                Book a demo
+                            </button>
+<button class="bg-surface border border-line text-on-surface px-xl py-md rounded-lg font-h3 hover:bg-surface-container-low transition-all">
+                                See the product
+                            </button>
+</div>
+</div>
+<div class="relative mt-xl lg:mt-0">
+<div class="glass-card rounded-xl shadow-xl overflow-hidden border-line transform rotate-1 hover:rotate-0 transition-transform duration-700">
+<div class="bg-surface-container-high px-md py-sm flex items-center justify-between border-b border-line">
+<div class="flex gap-xs">
+<div class="w-3 h-3 rounded-full bg-error/40"></div>
+<div class="w-3 h-3 rounded-full bg-status-review/40"></div>
+<div class="w-3 h-3 rounded-full bg-status-approved/40"></div>
+</div>
+<div class="text-caption text-ink-muted font-mono">technical_file_v2.4.docx</div>
+</div>
+<div class="p-lg bg-surface">
+<div class="w-full rounded-lg border-line shadow-sm overflow-hidden"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCR3dGVmkp4IaZ3UH34I0DxgfRmMAiftf-nSC-XAzw5kGYvC378vxEAUvLdrG2s568K34XrzTsvY9nu1aFxTmQoDmziapaSNzv0HskzVLHhU4nwl90zOT1KkRgR4n4mpNxHsgK_7ZIlS8-jLg8Z_IoifboF3cSYHjFNlA7DRjsdf-iDbfoGX2qFincucE_ru19ahdAAXIvexcAF5DX6NVRYsY3c_cUxFM3_ZKJpr2YbdGqlqyZ1yhratbL0RfG5Sif8GNB2mHkFvsJ8bQ" alt="Regulatory compliance software dashboard" class="w-full h-full object-cover rounded-lg"></div>
+<div class="mt-md flex gap-sm">
+<div class="h-4 w-1/3 bg-surface-container rounded"></div>
+<div class="h-4 w-1/4 bg-surface-container rounded"></div>
+</div>
+</div>
+</div>
+<div class="absolute -bottom-10 -left-10 p-md rounded-lg shadow-lg border-line z-50 bg-white">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-status-approved-bg flex items-center justify-center">
+<span class="material-symbols-outlined text-status-approved">check_circle</span>
+</div>
+<div>
+<div class="font-h3 text-primary">100% Traceability</div>
+<div class="font-caption text-ink-muted">Ready for Notified Body review</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute top-0 right-0 w-1/3 h-full opacity-5 pointer-events-none">
+<div class="traceability-thread-v h-full ml-auto mr-12"></div>
+<div class="traceability-thread-v h-full ml-auto mr-24"></div>
+</div>
+</section>
+<!-- Module Showcase: Bento Grid Layout -->
+<section class="py-xl bg-background">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="mb-xl">
+<h2 class="font-h1 text-h1 text-on-surface mb-sm">Modular Excellence</h2>
+<p class="font-body text-body text-ink-soft max-w-xl">Deep-dive into our specialized modules designed to handle the complexity of modern medical device regulations.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-lg">
+<!-- Technical File Builder -->
+<div class="md:col-span-8 bg-surface border border-line p-xl rounded-xl relative overflow-hidden group">
+<div class="relative z-10">
+<span class="font-mono text-caption text-primary uppercase mb-sm block">Module 01</span>
+<h3 class="font-h2 text-h2 mb-md">Technical File Builder</h3>
+<p class="font-body text-body text-ink-soft mb-lg max-w-md">Structured GSPR management with automated cross-referencing to standards and clinical data.</p>
+<ul class="space-y-sm mb-lg">
+<li class="flex items-center gap-sm font-small text-small text-on-surface">
+<span class="material-symbols-outlined text-status-approved text-[18px]">check_circle</span>
+                                Dynamic Annex II &amp; III Templates
+                            </li>
+<li class="flex items-center gap-sm font-small text-small text-on-surface">
+<span class="material-symbols-outlined text-status-approved text-[18px]">check_circle</span>
+                                Version Control &amp; Baselines
+                            </li>
+</ul>
+</div>
+<div class="absolute bottom-0 right-0 w-1/2 h-full opacity-10 group-hover:opacity-20 transition-opacity">
+<div class="w-full h-full bg-cover bg-center" data-alt="A clean, minimalist UI dashboard mockup showing complex regulatory document hierarchies and data visualizations. The aesthetic is professional, using a primary palette of signal blue and white with thin hairline grid lines to represent precision and medical-grade software compliance." style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuBbFdBwEwDN8YIPe8NZEjtvc1KN_vAoIITkurXB0BZv3oFkEJ6ktPBqw_Cy3rN22-LjbnF3JqcKZ2nGMSphoJ5c9R_9ntit8h_2TmDEMyp1Q5vf0iJWU2-iMOpL2VPFhf5GKCuCdx0ckIvj3ew7Ap2uDV_jg5IcZUHKcAfJGVAw9xT1nAG4TYhDSdOHQyQqhpHscWlue06oisjR6IAIRSoIL116y-MrGM2cBxgyXGaANGLAGeK6KWv7BBhZ_41eiqTlLs2SYmFwLAE&quot;);"></div>
+</div>
+</div>
+<!-- AI Document Generation -->
+<div class="md:col-span-4 bg-ai-wash border border-tertiary-container/30 p-xl rounded-xl relative">
+<div class="absolute top-md right-md px-sm py-1 bg-white/50 backdrop-blur rounded border border-tertiary-container/20">
+<span class="font-mono text-[10px] text-tertiary-container uppercase tracking-wider">AI Suggested</span>
+</div>
+<span class="font-mono text-caption text-tertiary-container uppercase mb-sm block">Module 02</span>
+<h3 class="font-h2 text-h2 mb-md text-tertiary-container">AI Generation</h3>
+<p class="font-body text-body text-on-surface-variant mb-lg">Draft CERs and PMCF plans in minutes using our specialized regulatory LLM.</p>
+<div class="p-md bg-white rounded-lg border border-line shadow-sm">
+<div class="h-2 w-full bg-surface-container rounded-full mb-sm overflow-hidden">
+<div class="h-full bg-tertiary w-3/4 animate-pulse"></div>
+</div>
+<p class="font-mono text-[11px] text-ink-muted italic">Generating clinical summary...</p>
+</div>
+</div>
+<!-- Traceability Matrix -->
+<div class="md:col-span-4 bg-surface border border-line p-xl rounded-xl">
+<span class="font-mono text-caption text-primary uppercase mb-sm block">Module 03</span>
+<h3 class="font-h3 text-h3 mb-md">Traceability Thread</h3>
+<p class="font-body text-body text-ink-soft mb-md">Link every risk to a requirement and every requirement to a test result automatically.</p>
+<div class="flex flex-col gap-xs py-md">
+<div class="flex items-center gap-sm">
+<div class="w-24 h-6 rounded bg-primary-wash border border-primary/20"></div>
+<div class="h-[1px] flex-1 bg-line"></div>
+<div class="w-24 h-6 rounded bg-status-approved-bg border border-status-approved/20"></div>
+</div>
+<div class="flex items-center gap-sm ml-12">
+<div class="w-24 h-6 rounded bg-status-review-bg border border-status-review/20"></div>
+<div class="h-[1px] flex-1 bg-line"></div>
+<div class="w-20 h-6 rounded bg-surface-container border border-line"></div>
+</div>
+</div>
+</div>
+<!-- Change Control & Post-Market -->
+<div class="md:col-span-4 bg-surface border border-line p-xl rounded-xl">
+<span class="font-mono text-caption text-primary uppercase mb-sm block">Module 04 &amp; 05</span>
+<h3 class="font-h3 text-h3 mb-md">Lifecycle Management</h3>
+<p class="font-body text-body text-ink-soft mb-md">Real-time impact analysis for design changes and continuous PMS signal detection.</p>
+<div class="grid grid-cols-2 gap-sm">
+<div class="p-sm bg-surface-alt border border-line rounded">
+<span class="font-mono text-[10px] text-ink-muted">ACTIVE SIGNALS</span>
+<div class="text-h3 font-h3 text-status-deficiency">02</div>
+</div>
+<div class="p-sm bg-surface-alt border border-line rounded">
+<span class="font-mono text-[10px] text-ink-muted">OPEN CHANGES</span>
+<div class="text-h3 font-h3 text-primary">14</div>
+</div>
+</div>
+</div>
+<!-- Auditor Simulation -->
+<div class="md:col-span-4 bg-surface border border-line p-xl rounded-xl border-dashed">
+<span class="font-mono text-caption text-secondary uppercase mb-sm block">Module 06</span>
+<h3 class="font-h3 text-h3 mb-md">Auditor Simulation</h3>
+<p class="font-body text-body text-ink-soft mb-md">Stress-test your technical file against common Notified Body findings before submission.</p>
+<button class="w-full py-sm bg-surface-container text-on-surface rounded font-body-strong text-body-strong flex items-center justify-center gap-sm hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+                        Run Pre-Audit Scan
+                    </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Trust Section: Human-in-the-loop -->
+<section class="py-32 bg-surface overflow-hidden">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="flex flex-col lg:flex-row items-center gap-32">
+<div class="lg:w-1/2">
+<h2 class="font-display text-display text-on-surface mb-md">Verified Precision: The Human-in-the-loop AI.</h2>
+<p class="font-body text-body text-ink-soft text-lg mb-xl">
+                        Regulatory compliance cannot be left to a black box. Our AI acts as a specialized assistant, drafting content and flagging inconsistencies, but every final decision remains in the hands of the expert.
+                    </p>
+<div class="space-y-lg">
+<div class="flex gap-md">
+<div class="flex-shrink-0 w-12 h-12 rounded-lg bg-primary-wash flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">psychology</span>
+</div>
+<div>
+<h4 class="font-h3 text-h3 mb-xs">Specialized Regulatory LLMs</h4>
+<p class="font-body text-body text-ink-soft">Trained on thousands of pages of MDR/IVDR guidance, MDCG documents, and harmonized standards.</p>
+</div>
+</div>
+<div class="flex gap-md">
+<div class="flex-shrink-0 w-12 h-12 rounded-lg bg-ai-wash flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary">history_edu</span>
+</div>
+<div>
+<h4 class="font-h3 text-h3 mb-xs">Immutable Audit Trail</h4>
+<p class="font-body text-body text-ink-soft">Every AI suggestion is tracked. Human reviews, edits, and approvals are timestamped for full auditability.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:w-1/2 relative">
+<!-- Complex Abstract Visual -->
+<div class="w-full aspect-square rounded-2xl border border-line bg-surface-alt p-xl flex items-center justify-center relative">
+<div class="absolute inset-0 opacity-5 traceability-thread"></div>
+<div class="relative w-full max-w-sm">
+<!-- AI Layer -->
+<div class="p-lg bg-ai-wash border border-tertiary/20 rounded-xl shadow-lg transform -rotate-3 z-0">
+<div class="flex items-center gap-sm mb-md">
+<span class="w-3 h-3 rounded-full bg-tertiary animate-pulse"></span>
+<span class="font-mono text-caption text-tertiary">AI SUGGESTION ENGINE</span>
+</div>
+<div class="space-y-xs">
+<div class="h-2 w-full bg-tertiary/10 rounded"></div>
+<div class="h-2 w-5/6 bg-tertiary/10 rounded"></div>
+<div class="h-2 w-4/6 bg-tertiary/10 rounded"></div>
+</div>
+</div>
+<!-- Human Layer -->
+<div class="p-lg bg-surface border border-line rounded-xl shadow-xl transform rotate-2 -mt-16 ml-12 z-10 relative">
+<div class="flex items-center justify-between mb-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">person</span>
+<span class="font-body-strong text-body-strong">Regulatory Lead</span>
+</div>
+<span class="px-sm py-0.5 bg-status-approved-bg text-status-approved font-mono text-[10px] rounded">VERIFIED</span>
+</div>
+<div class="h-24 bg-surface-container rounded-lg border border-line border-dashed flex items-center justify-center text-ink-muted text-small italic">
+                                    Reviewing AI technical draft...
+                                </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom CTA Banner -->
+<section class="py-xl">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="bg-primary p-xl md:p-32 rounded-3xl relative overflow-hidden flex flex-col items-center text-center">
+<!-- Decorative element -->
+<div class="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -mr-48 -mt-48"></div>
+<div class="relative z-10">
+<h2 class="font-display text-display text-on-primary mb-md lg:text-[40px] lg:leading-[48px]">Ready to streamline your regulatory workflow?</h2>
+<p class="font-body text-body text-primary-fixed mb-xl max-w-xl mx-auto opacity-90">
+                        Join hundreds of medical device companies transitioning to data-driven compliance. Book a 30-minute technical consultation today.
+                    </p>
+<div class="flex flex-wrap justify-center gap-md">
+<button class="px-32 py-md bg-white text-primary rounded-lg font-body-strong text-body-strong hover:bg-primary-fixed transition-all">
+                            Book a Demo
+                        </button>
+</div>
+<p class="mt-xl font-small text-small text-primary-fixed opacity-70">
+                        No credit card required. Experience the full platform in 5 minutes.
+                    </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-line py-xl">
+<div class="max-w-container-max mx-auto px-gutter grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-xl mb-xl">
+<div class="col-span-2">
+<span class="font-h2 text-h2 text-on-surface mb-md block">Certra</span>
+<p class="font-small text-small text-ink-soft max-w-xs mb-md">
+                    Leading the transition to digital-first regulatory evidence for the MedTech industry.
+                </p>
+</div>
+<div>
+<h5 class="font-body-strong text-body-strong mb-md">Product</h5>
+<ul class="space-y-sm">
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Modules</a></li>
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Integrations</a></li>
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Security</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-body-strong text-body-strong mb-md">Solutions</h5>
+<ul class="space-y-sm">
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">MDR Strategy</a></li>
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">IVDR Migration</a></li>
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Class III Devices</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-body-strong text-body-strong mb-md">Compliance</h5>
+<ul class="space-y-sm">
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">ISO 13485</a></li>
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Part 11 Compliant</a></li>
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">GDPR</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-body-strong text-body-strong mb-md">Resources</h5>
+<ul class="space-y-sm">
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Whitepapers</a></li>
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Webinars</a></li>
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Help Center</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-gutter pt-xl border-t border-line flex flex-col md:flex-row justify-between items-center gap-md">
+<p class="font-small text-small text-ink-muted">© 2024 Certra Regulatory Systems. All rights reserved.</p>
+<div class="flex gap-xl">
+<a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Privacy Policy</a>
+<a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+<script>
+        // Simple micro-interaction for the verification button
+        const verifyBtn = document.querySelector('button');
+        verifyBtn.addEventListener('mouseenter', () => {
+            verifyBtn.classList.add('scale-105');
+        });
+        verifyBtn.addEventListener('mouseleave', () => {
+            verifyBtn.classList.remove('scale-105');
+        });
+    </script>
+
+
+</body></html>

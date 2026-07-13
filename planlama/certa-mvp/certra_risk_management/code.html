@@ -1,0 +1,479 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Certra Regulatory Suite - Risk Management</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600&amp;family=Geist+Mono:wght@400;500&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "surface-container-high": "#e6e8eb",
+                "secondary-fixed-dim": "#bac7de",
+                "surface-variant": "#e0e3e6",
+                "on-surface": "#191c1e",
+                "status-deficiency-bg": "#FBE9E9",
+                "status-approved": "#1E8E5A",
+                "primary-fixed": "#dce1ff",
+                "inverse-primary": "#b7c4ff",
+                "secondary-fixed": "#d6e3fb",
+                "ink-muted": "#8A94A6",
+                "tertiary-fixed": "#e5deff",
+                "primary-wash": "#EAF0FF",
+                "on-tertiary-fixed-variant": "#4228ba",
+                "status-approved-bg": "#E7F5EE",
+                "tertiary": "#482fbf",
+                "surface-container-low": "#f2f4f7",
+                "on-tertiary": "#ffffff",
+                "on-primary": "#ffffff",
+                "primary-container": "#2456e6",
+                "on-surface-variant": "#434655",
+                "surface-dim": "#d8dadd",
+                "inverse-surface": "#2d3133",
+                "on-tertiary-container": "#e3ddff",
+                "primary-hover": "#1B45C4",
+                "surface-container": "#eceef1",
+                "on-tertiary-fixed": "#180065",
+                "on-primary-fixed": "#001551",
+                "outline-variant": "#c4c5d8",
+                "primary": "#003dc1",
+                "ink-soft": "#55627A",
+                "error": "#ba1a1a",
+                "inverse-on-surface": "#eff1f4",
+                "secondary-container": "#d6e3fb",
+                "on-error-container": "#93000a",
+                "surface-tint": "#194fe0",
+                "surface-container-highest": "#e0e3e6",
+                "on-secondary-fixed-variant": "#3b475a",
+                "error-container": "#ffdad6",
+                "on-primary-container": "#dbe0ff",
+                "outline": "#747687",
+                "on-background": "#191c1e",
+                "on-error": "#ffffff",
+                "surface-container-lowest": "#ffffff",
+                "surface-alt": "#FAFBFC",
+                "on-secondary-container": "#596579",
+                "on-secondary-fixed": "#001c2d",
+                "line": "#E4E9F0",
+                "on-secondary": "#ffffff",
+                "on-primary-fixed-variant": "#0039b5",
+                "background": "#f7f9fc",
+                "surface-bright": "#f7f9fc",
+                "status-draft-bg": "#EEF1F5",
+                "status-deficiency": "#C43D3D",
+                "status-review-bg": "#FBF1DE",
+                "tertiary-fixed-dim": "#c7bfff",
+                "status-review": "#B9770A",
+                "surface": "#FFFFFF",
+                "tertiary-container": "#604cd8",
+                "primary-fixed-dim": "#b7c4ff",
+                "secondary": "#535f73",
+                "status-draft": "#6B7688",
+                "ai-wash": "#F0EDFD"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.8px",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "xs": "4px",
+                "md": "16px",
+                "lg": "24px",
+                "container-max": "1280px",
+                "sm": "8px",
+                "base": "4px",
+                "gutter": "24px",
+                "xl": "32px"
+            },
+            "fontFamily": {
+                "h1": ["Geist"], "display": ["Geist"], "caption": ["Inter"], "body": ["Inter"], "body-strong": ["Inter"], "h2": ["Geist"], "mono": ["Geist Mono"], "small": ["Inter"], "display-mobile": ["Geist"], "h3": ["Geist"]
+            },
+            "fontSize": {
+                "h1": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "display": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                "caption": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                "body": ["14px", {"lineHeight": "22px", "fontWeight": "400"}],
+                "body-strong": ["14px", {"lineHeight": "22px", "fontWeight": "500"}],
+                "h2": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                "mono": ["13px", {"lineHeight": "20px", "fontWeight": "500"}],
+                "small": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+                "display-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "h3": ["16px", {"lineHeight": "24px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      .traceability-thread-v {
+        position: relative;
+      }
+      .traceability-thread-v::before {
+        content: '';
+        position: absolute;
+        left: -12px;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background: #E4E9F0;
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+        font-size: 20px;
+        vertical-align: middle;
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #E4E9F0;
+        border-radius: 10px;
+      }
+    </style>
+</head>
+<body class="bg-background font-body text-on-surface antialiased">
+<!-- SideNavBar -->
+<aside class="w-[240px] h-full fixed left-0 top-0 bg-surface border-r border-line flex flex-col p-md z-50">
+<div class="mb-xl px-sm">
+<h1 class="font-h2 text-h2 text-on-surface">Certra</h1>
+<p class="text-small text-ink-muted leading-tight">Regulatory Suite</p>
+</div>
+<button class="mb-lg w-full flex items-center justify-center gap-sm bg-primary text-on-primary py-sm px-md rounded-[8px] font-body-strong transition-all hover:bg-primary-hover shadow-sm">
+<span class="material-symbols-outlined">add</span>
+            New Submission
+        </button>
+<nav class="flex-grow space-y-xs overflow-y-auto custom-scrollbar">
+<!-- Nav Item: Dashboard -->
+<a class="flex items-center gap-md px-sm py-sm rounded-lg text-secondary font-body hover:bg-surface-container-low transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<!-- Nav Item: Technical Documentation -->
+<a class="flex items-center gap-md px-sm py-sm rounded-lg text-secondary font-body hover:bg-surface-container-low transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span>Technical Documentation</span>
+</a>
+<!-- Nav Item: Risk Management (ACTIVE) -->
+<a class="flex items-center gap-md px-sm py-sm rounded-lg text-primary font-body-strong bg-surface-container-low border-r-2 border-primary transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="report_problem">report_problem</span>
+<span>Risk Management</span>
+</a>
+<!-- Nav Item: Clinical Evaluation -->
+<a class="flex items-center gap-md px-sm py-sm rounded-lg text-secondary font-body hover:bg-surface-container-low transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>Clinical Evaluation</span>
+</a>
+<!-- Nav Item: Post-Market -->
+<a class="flex items-center gap-md px-sm py-sm rounded-lg text-secondary font-body hover:bg-surface-container-low transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="biotech">biotech</span>
+<span>Post-Market</span>
+</a>
+<!-- Nav Item: Audit Log -->
+<a class="flex items-center gap-md px-sm py-sm rounded-lg text-secondary font-body hover:bg-surface-container-low transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span>Audit Log</span>
+</a>
+</nav>
+<div class="pt-md border-t border-line mt-md space-y-xs">
+<a class="flex items-center gap-md px-sm py-sm rounded-lg text-secondary font-body hover:bg-surface-container-low transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center gap-md px-sm py-sm rounded-lg text-secondary font-body hover:bg-surface-container-low transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span>Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Shell -->
+<main class="ml-[240px] flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="sticky top-0 z-40 bg-surface border-b border-line flex justify-between items-center h-[56px] px-lg w-full">
+<div class="flex items-center gap-xl">
+<span class="font-h3 text-h3 text-on-surface">Technical File Explorer</span>
+<nav class="hidden md:flex items-center gap-lg">
+<a class="text-on-surface-variant font-body hover:text-primary-hover transition-transform scale-95" href="#">Documents</a>
+<a class="text-on-surface-variant font-body hover:text-primary-hover transition-transform scale-95" href="#">Evidence</a>
+<a class="text-on-surface-variant font-body hover:text-primary-hover transition-transform scale-95" href="#">Review</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<div class="relative flex items-center">
+<input class="bg-surface-container-low border-none rounded-lg py-xs px-md pl-xl text-small w-[240px] focus:ring-2 focus:ring-primary/30 outline-none" placeholder="Search risks..." type="text">
+<span class="material-symbols-outlined absolute left-sm text-ink-muted">search</span>
+</div>
+<button class="text-primary font-body-strong px-md py-xs rounded-lg hover:bg-primary-wash transition-colors">Verify AI</button>
+<div class="flex items-center gap-sm">
+<button class="p-xs text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-xs text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-lg max-w-container-max mx-auto w-full">
+<!-- Header Section -->
+<div class="flex justify-between items-end mb-xl">
+<div>
+<div class="flex items-center gap-sm mb-xs">
+<span class="text-small font-mono text-primary bg-primary-wash px-sm py-0.5 rounded-lg border border-primary/10">ISO 14971:2019</span>
+<span class="text-small text-ink-muted">/ Current Cycle</span>
+</div>
+<h2 class="font-h1 text-h1 text-on-surface">Risk Management Register</h2>
+</div>
+<div class="flex gap-sm">
+<button class="flex items-center gap-sm border border-line text-on-surface-variant py-sm px-md rounded-lg font-body-strong hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">filter_list</span>
+                        Filter
+                    </button>
+<button class="flex items-center gap-sm bg-primary text-on-primary py-sm px-md rounded-[8px] font-body-strong hover:bg-primary-hover shadow-sm transition-all">
+<span class="material-symbols-outlined">add</span>
+                        New Risk
+                    </button>
+</div>
+</div>
+<!-- Dashboard Summary (Bento-style Cards) -->
+<div class="grid grid-cols-12 gap-lg mb-xl">
+<div class="col-span-12 lg:col-span-3 p-md bg-surface border border-line rounded-xl flex flex-col justify-between">
+<span class="text-caption text-ink-muted uppercase">Total Risks Identified</span>
+<div class="flex items-baseline gap-sm mt-md">
+<span class="text-display font-display text-on-surface">142</span>
+<span class="text-status-approved text-small font-body-strong">+12 this month</span>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-3 p-md bg-surface border border-line rounded-xl flex flex-col justify-between">
+<span class="text-caption text-ink-muted uppercase">High Severity (Critical)</span>
+<div class="flex items-baseline gap-sm mt-md">
+<span class="text-display font-display text-status-deficiency">08</span>
+<span class="text-ink-muted text-small">Requires Mitigation</span>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-6 p-md bg-ai-wash border border-tertiary/20 rounded-xl flex items-center justify-between relative overflow-hidden">
+<div class="relative z-10">
+<div class="flex items-center gap-sm mb-xs">
+<span class="bg-tertiary text-on-tertiary text-[10px] px-sm py-0.5 rounded-full font-bold uppercase tracking-wider">AI Insight</span>
+<span class="text-body-strong text-tertiary">Probability Cluster Detected</span>
+</div>
+<p class="text-small text-on-tertiary-fixed-variant max-w-[340px]">AI detected a trend in "Sensor Thermal Drift" across 4 hazard categories. Human review recommended.</p>
+</div>
+<button class="relative z-10 bg-tertiary text-on-tertiary text-small font-body-strong px-md py-sm rounded-lg hover:bg-tertiary-container transition-colors shadow-sm">Review Suggestions</button>
+<!-- Subtle background decoration for AI card -->
+<div class="absolute right-[-40px] top-[-20px] opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-[120px]">psychology</span>
+</div>
+</div>
+</div>
+<!-- Risk Register Table -->
+<div class="bg-surface border border-line rounded-xl overflow-hidden shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="px-md py-md text-caption text-ink-muted uppercase border-b border-line">Risk ID</th>
+<th class="px-md py-md text-caption text-ink-muted uppercase border-b border-line w-1/3">Hazard Description</th>
+<th class="px-md py-md text-caption text-ink-muted uppercase border-b border-line">Severity</th>
+<th class="px-md py-md text-caption text-ink-muted uppercase border-b border-line">Status</th>
+<th class="px-md py-md text-caption text-ink-muted uppercase border-b border-line">Traceability</th>
+<th class="px-md py-md text-caption text-ink-muted uppercase border-b border-line text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-line">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-alt transition-colors group">
+<td class="px-md py-md font-mono text-mono text-primary">RSK-4021</td>
+<td class="px-md py-md">
+<div class="font-body-strong text-on-surface">Thermal instability in laser-diode module</div>
+<div class="text-small text-ink-soft">Potential for skin irritation or minor burns during prolonged exposure.</div>
+</td>
+<td class="px-md py-md">
+<span class="bg-status-review-bg text-status-review px-sm py-0.5 rounded-lg text-small font-body-strong border border-status-review/20">Moderate</span>
+</td>
+<td class="px-md py-md">
+<span class="bg-status-approved-bg text-status-approved px-sm py-0.5 rounded-lg text-small font-body-strong border border-status-approved/20">Mitigated</span>
+</td>
+<td class="px-md py-md">
+<div class="flex flex-wrap gap-xs">
+<span class="bg-surface-container text-ink-soft text-[11px] px-sm py-0.5 rounded-sm font-mono border border-line">RQ-99</span>
+<span class="bg-surface-container text-ink-soft text-[11px] px-sm py-0.5 rounded-sm font-mono border border-line">TD-512</span>
+</div>
+</td>
+<td class="px-md py-md text-right">
+<button class="p-xs text-ink-muted hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2: AI Suggestion -->
+<tr class="bg-ai-wash/30 border-l-4 border-l-tertiary">
+<td class="px-md py-md font-mono text-mono text-tertiary">RSK-4022</td>
+<td class="px-md py-md">
+<div class="flex items-center gap-xs">
+<span class="font-body-strong text-on-surface">Electromagnetic interference (EMI) drift</span>
+<span class="material-symbols-outlined text-tertiary text-[14px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div class="text-small text-ink-soft italic">AI Suggestion: May impact wireless connectivity stability in hospital environment.</div>
+</td>
+<td class="px-md py-md">
+<span class="bg-status-deficiency-bg text-status-deficiency px-sm py-0.5 rounded-lg text-small font-body-strong border border-status-deficiency/20">Critical</span>
+</td>
+<td class="px-md py-md">
+<span class="bg-status-draft-bg text-status-draft px-sm py-0.5 rounded-lg text-small font-body-strong border border-line">Draft</span>
+</td>
+<td class="px-md py-md">
+<div class="flex flex-wrap gap-xs">
+<span class="bg-tertiary/10 text-tertiary text-[11px] px-sm py-0.5 rounded-sm font-mono border border-tertiary/20">PENDING</span>
+</div>
+</td>
+<td class="px-md py-md text-right">
+<button class="bg-tertiary text-on-tertiary px-md py-1 rounded text-[12px] font-body-strong hover:bg-tertiary-container">Verify</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-alt transition-colors group">
+<td class="px-md py-md font-mono text-mono text-primary">RSK-3988</td>
+<td class="px-md py-md">
+<div class="font-body-strong text-on-surface">Chemical leaching from manifold seal</div>
+<div class="text-small text-ink-soft">Potential biocompatibility risk under extreme pH conditions.</div>
+</td>
+<td class="px-md py-md">
+<span class="bg-status-deficiency-bg text-status-deficiency px-sm py-0.5 rounded-lg text-small font-body-strong border border-status-deficiency/20">Critical</span>
+</td>
+<td class="px-md py-md">
+<span class="bg-status-review-bg text-status-review px-sm py-0.5 rounded-lg text-small font-body-strong border border-status-review/20">Review</span>
+</td>
+<td class="px-md py-md">
+<div class="flex flex-wrap gap-xs">
+<span class="bg-surface-container text-ink-soft text-[11px] px-sm py-0.5 rounded-sm font-mono border border-line">BIO-04</span>
+<span class="bg-surface-container text-ink-soft text-[11px] px-sm py-0.5 rounded-sm font-mono border border-line">ISO-10993</span>
+</div>
+</td>
+<td class="px-md py-md text-right">
+<button class="p-xs text-ink-muted hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-alt transition-colors group">
+<td class="px-md py-md font-mono text-mono text-primary">RSK-3985</td>
+<td class="px-md py-md">
+<div class="font-body-strong text-on-surface">UI Latency in Critical Warning State</div>
+<div class="text-small text-ink-soft">Display refresh rate drops below 5Hz during system overload.</div>
+</td>
+<td class="px-md py-md">
+<span class="bg-status-review-bg text-status-review px-sm py-0.5 rounded-lg text-small font-body-strong border border-status-review/20">Moderate</span>
+</td>
+<td class="px-md py-md">
+<span class="bg-status-approved-bg text-status-approved px-sm py-0.5 rounded-lg text-small font-body-strong border border-status-approved/20">Mitigated</span>
+</td>
+<td class="px-md py-md">
+<div class="flex flex-wrap gap-xs">
+<span class="bg-surface-container text-ink-soft text-[11px] px-sm py-0.5 rounded-sm font-mono border border-line">UX-012</span>
+</div>
+</td>
+<td class="px-md py-md text-right">
+<button class="p-xs text-ink-muted hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Pagination -->
+<div class="px-md py-sm border-t border-line bg-surface-alt flex items-center justify-between text-small text-ink-muted">
+<span>Showing 1-10 of 142 risks</span>
+<div class="flex items-center gap-sm">
+<button class="p-1 rounded hover:bg-surface-container-low disabled:opacity-30" disabled=""><span class="material-symbols-outlined">chevron_left</span></button>
+<span class="font-body-strong text-on-surface">1</span>
+<button class="p-1 rounded hover:bg-surface-container-low"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+</div>
+</div>
+<!-- Traceability Thread Visual (Sidebar/Detail Preview) -->
+<div class="mt-xl grid grid-cols-1 md:grid-cols-3 gap-lg">
+<div class="md:col-span-2 bg-surface p-lg border border-line rounded-xl">
+<div class="flex items-center justify-between mb-lg">
+<h3 class="font-h3 text-h3 text-on-surface">Mitigation Strategy Detail</h3>
+<span class="text-caption text-primary bg-primary-wash px-sm py-0.5 rounded border border-primary/20">RSK-4021 Linked</span>
+</div>
+<div class="space-y-lg relative pl-md">
+<!-- Vertical line for thread -->
+<div class="absolute left-0 top-md bottom-md w-0.5 bg-line"></div>
+<div class="relative">
+<div class="absolute left-[-22px] top-1.5 w-3 h-3 rounded-full bg-primary border-2 border-surface"></div>
+<span class="text-caption text-ink-muted uppercase block mb-xs">Risk Control Measure</span>
+<p class="font-body-strong text-on-surface">Integrated thermal cutoff sensor with independent hardware logic. (RCM-42)</p>
+</div>
+<div class="relative">
+<div class="absolute left-[-22px] top-1.5 w-3 h-3 rounded-full bg-status-approved border-2 border-surface"></div>
+<span class="text-caption text-ink-muted uppercase block mb-xs">Verification Activity</span>
+<p class="font-body-strong text-on-surface">Environmental Stress Screening (ESS) at +55°C for 72 hours. (V&amp;V-102)</p>
+</div>
+<div class="relative">
+<div class="absolute left-[-22px] top-1.5 w-3 h-3 rounded-full bg-status-review border-2 border-surface"></div>
+<span class="text-caption text-ink-muted uppercase block mb-xs">Residual Risk Assessment</span>
+<p class="font-body-strong text-on-surface">Probability reduced to P2 (Unlikely). Severity remains S3 (Moderate).</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low p-lg border border-line rounded-xl flex flex-col items-center justify-center text-center">
+<div class="w-16 h-16 rounded-full bg-surface-container-highest flex items-center justify-center mb-md">
+<span class="material-symbols-outlined text-[32px] text-ink-muted">history_edu</span>
+</div>
+<h4 class="font-h3 text-h3 mb-sm">Audit Preparedness</h4>
+<p class="text-small text-ink-soft mb-lg px-md">Your Risk Management File is 94% complete according to IVDR Annex I requirements.</p>
+<button class="w-full bg-surface text-on-surface-variant border border-line py-sm rounded-lg font-body-strong hover:bg-surface-container-highest transition-colors">Generate Risk Report</button>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="mt-auto border-t border-line bg-surface-container-lowest py-xl">
+<div class="max-w-container-max mx-auto px-gutter grid grid-cols-4 gap-xl">
+<div class="col-span-2">
+<h2 class="font-h2 text-h2 text-on-surface mb-sm">Certra</h2>
+<p class="text-small text-secondary font-body max-w-sm">Leading precision regulatory platform for high-stakes medical device compliance. Built for trust and traceability.</p>
+</div>
+<div class="flex flex-col gap-sm">
+<span class="text-caption font-bold text-on-surface uppercase mb-xs">Platform</span>
+<a class="text-small text-secondary hover:underline decoration-primary" href="#">Product</a>
+<a class="text-small text-secondary hover:underline decoration-primary" href="#">Solutions</a>
+<a class="text-small text-secondary hover:underline decoration-primary" href="#">Compliance</a>
+</div>
+<div class="flex flex-col gap-sm">
+<span class="text-caption font-bold text-on-surface uppercase mb-xs">Legal</span>
+<a class="text-small text-secondary hover:underline decoration-primary" href="#">Resources</a>
+<a class="text-small text-secondary hover:underline decoration-primary" href="#">Privacy Policy</a>
+<a class="text-small text-secondary hover:underline decoration-primary" href="#">Terms of Service</a>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-gutter mt-xl pt-lg border-t border-line/50">
+<p class="text-small text-ink-muted">© 2024 Certra Regulatory Systems. All rights reserved.</p>
+</div>
+</footer>
+</main>
+<!-- Simple Hover Interaction Script -->
+<script>
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('click', () => {
+                // In a real app, this would update the detail view
+                console.log('Risk selected:', row.querySelector('.font-mono')?.innerText);
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Certra Solutions | Regulatory Excellence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Geist:wght@400;600;700&amp;family=Geist+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .traceability-thread-v {
+            width: 1px;
+            background: #E4E9F0;
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+        }
+        .traceability-thread-h {
+            height: 1px;
+            background: #E4E9F0;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-surface": "#191c1e",
+                      "surface-container-highest": "#e0e3e6",
+                      "status-approved-bg": "#E7F5EE",
+                      "primary-fixed": "#dce1ff",
+                      "on-primary-fixed-variant": "#0039b5",
+                      "on-error": "#ffffff",
+                      "ai-wash": "#F0EDFD",
+                      "surface-tint": "#194fe0",
+                      "tertiary-fixed": "#e5deff",
+                      "on-tertiary-fixed": "#180065",
+                      "on-secondary": "#ffffff",
+                      "status-review-bg": "#FBF1DE",
+                      "surface-variant": "#e0e3e6",
+                      "secondary-fixed-dim": "#bac7de",
+                      "surface": "#FFFFFF",
+                      "on-tertiary-container": "#e3ddff",
+                      "status-draft": "#6B7688",
+                      "primary-fixed-dim": "#b7c4ff",
+                      "secondary": "#535f73",
+                      "on-tertiary": "#ffffff",
+                      "status-review": "#B9770A",
+                      "surface-bright": "#f7f9fc",
+                      "inverse-primary": "#b7c4ff",
+                      "on-surface-variant": "#434655",
+                      "tertiary-fixed-dim": "#c7bfff",
+                      "status-draft-bg": "#EEF1F5",
+                      "status-approved": "#1E8E5A",
+                      "on-secondary-container": "#596579",
+                      "background": "#f7f9fc",
+                      "surface-alt": "#FAFBFC",
+                      "surface-container": "#eceef1",
+                      "surface-container-low": "#f2f4f7",
+                      "on-secondary-fixed": "#0f1c2d",
+                      "line": "#E4E9F0",
+                      "inverse-on-surface": "#eff1f4",
+                      "surface-dim": "#d8dadd",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container-high": "#e6e8eb",
+                      "secondary-container": "#d6e3fb",
+                      "ink-soft": "#55627A",
+                      "tertiary-container": "#604cd8",
+                      "tertiary": "#482fbf",
+                      "on-primary-container": "#dbe0ff",
+                      "on-primary-fixed": "#001551",
+                      "status-deficiency-bg": "#FBE9E9",
+                      "error": "#ba1a1a",
+                      "status-deficiency": "#C43D3D",
+                      "on-primary": "#ffffff",
+                      "inverse-surface": "#2d3133",
+                      "on-tertiary-fixed-variant": "#4228ba",
+                      "on-secondary-fixed-variant": "#3b475a",
+                      "primary-hover": "#1B45C4",
+                      "ink-muted": "#8A94A6",
+                      "on-background": "#191c1e",
+                      "outline": "#747687",
+                      "outline-variant": "#c4c5d8",
+                      "on-error-container": "#93000a",
+                      "secondary-fixed": "#d6e3fb",
+                      "primary-container": "#2456e6",
+                      "primary-wash": "#EAF0FF",
+                      "error-container": "#ffdad6",
+                      "primary": "#003dc1"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xl": "32px",
+                      "md": "16px",
+                      "sm": "8px",
+                      "lg": "24px",
+                      "xs": "4px",
+                      "gutter": "24px",
+                      "container-max": "1280px",
+                      "base": "4px"
+              },
+              "fontFamily": {
+                      "mono": ["Geist Mono"],
+                      "display": ["Geist"],
+                      "h1": ["Geist"],
+                      "h2": ["Geist"],
+                      "h3": ["Geist"],
+                      "body": ["Inter"],
+                      "body-strong": ["Inter"],
+                      "caption": ["Inter"],
+                      "small": ["Inter"]
+              }
+            }
+          }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body overflow-x-hidden">
+<!-- Top Navigation Shell -->
+<nav class="bg-surface sticky top-0 z-40 flex items-center h-20 px-gutter w-full border-b border-line shadow-sm"><div class="max-w-container-max mx-auto w-full flex justify-between items-center">
+  <div class="flex items-center gap-xl">
+    <span class="font-h3 text-h3 text-on-surface">Certra</span>
+    <div class="hidden md:flex gap-lg items-center">
+      <a class="text-on-surface-variant hover:text-primary-hover font-body text-body transition-colors" href="#">Product</a>
+      <a class="text-primary border-b-2 border-primary pb-1 font-body text-body transition-colors" href="#">Solutions</a>
+      <a class="text-on-surface-variant hover:text-primary-hover font-body text-body transition-colors" href="#">Pricing</a>
+    </div>
+  </div>
+  <div class="flex items-center gap-lg">
+    <a class="text-on-surface-variant hover:text-primary-hover font-body-strong text-body-strong transition-colors" href="#">Sign in</a>
+    <button class="bg-primary text-white px-lg py-2 rounded-lg font-body-strong text-body-strong hover:bg-primary-hover transition-all shadow-sm">Book a demo</button>
+  </div>
+</div></nav>
+<main class="w-full">
+<!-- Hero Section -->
+<section class="relative overflow-hidden pt-32 pb-24 px-gutter max-w-container-max mx-auto">
+
+<div class="max-w-3xl">
+<span class="font-mono text-caption text-primary tracking-widest uppercase mb-md block">Regulatory Intelligence</span>
+<h1 class="font-h1 text-display text-on-background mb-lg leading-tight">Regulatory solutions tailored to your scale.</h1>
+<p class="font-body text-h3 text-ink-soft mb-xl max-w-2xl">Streamline MDR and IVDR compliance with precision-engineered workflows designed for every stage of clinical innovation.</p>
+<div class="flex gap-md">
+<button class="bg-primary text-white px-xl py-md rounded-lg font-body-strong text-body-strong hover:bg-primary-hover transition-all shadow-md">Get Started</button>
+<button class="bg-white border border-line text-on-surface px-xl py-md rounded-lg font-body-strong text-body-strong hover:bg-surface-alt transition-all">View Pricing</button>
+</div>
+</div>
+</section>
+<!-- Segment Blocks (Bento Style) -->
+<section class="py-xl px-gutter max-w-container-max mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-lg">
+<!-- Startup Block -->
+<div class="md:col-span-5 bg-surface border border-line rounded-xl p-xl flex flex-col justify-between hover:border-primary/30 transition-colors">
+<div>
+<div class="w-12 h-12 bg-primary-wash rounded-lg flex items-center justify-center mb-lg">
+<span class="material-symbols-outlined text-primary">rocket_launch</span>
+</div>
+<h3 class="font-h2 text-h2 text-on-surface mb-md">Startups &amp; SMEs</h3>
+<p class="text-ink-soft font-body mb-xl">Fast-track market entry with pre-configured templates and automated technical file generation. Optimized for speed and cost-efficiency.</p>
+<ul class="space-y-md mb-xl">
+<li class="flex items-center gap-sm text-body text-on-surface-variant">
+<span class="material-symbols-outlined text-status-approved text-sm">check_circle</span>
+<span class="">Guided GSPR Mapping</span>
+</li>
+<li class="flex items-center gap-sm text-body text-on-surface-variant">
+<span class="material-symbols-outlined text-status-approved text-sm">check_circle</span>
+<span class="">Automated CER Templates</span>
+</li>
+<li class="flex items-center gap-sm text-body text-on-surface-variant">
+<span class="material-symbols-outlined text-status-approved text-sm">check_circle</span>
+<span class="">Sub-€1k Entry Pricing</span>
+</li>
+</ul>
+</div>
+<button class="w-full py-md border border-line rounded-lg font-body-strong hover:bg-surface-alt">Learn about Startup Path</button>
+</div>
+<!-- Enterprise Block -->
+<div class="md:col-span-7 bg-inverse-surface text-inverse-on-surface rounded-xl p-xl relative overflow-hidden group">
+<div class="relative z-10 h-full flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center mb-lg">
+<span class="material-symbols-outlined text-primary-fixed">corporate_fare</span>
+</div>
+<h3 class="font-h2 text-h2 mb-md">Global Enterprise</h3>
+<p class="text-outline-variant font-body mb-xl max-w-md">Orchestrate complex portfolios across multiple jurisdictions. Integrated approval workflows and multi-site data synchronization.</p>
+<div class="grid grid-cols-2 gap-lg mb-xl">
+<div class="p-md bg-white/5 rounded-lg border border-white/10">
+<div class="font-mono text-caption text-primary-fixed mb-xs">CONTROL</div>
+<div class="font-body-strong text-body">SSO &amp; RBAC</div>
+</div>
+<div class="p-md bg-white/5 rounded-lg border border-white/10">
+<div class="font-mono text-caption text-primary-fixed mb-xs">AUDIT</div>
+<div class="font-body-strong text-body">21 CFR Part 11</div>
+</div>
+</div>
+</div>
+<button class="bg-primary-container text-white px-xl py-md rounded-lg font-body-strong text-body-strong self-start hover:bg-primary-hover transition-all">Request Enterprise Demo</button>
+</div>
+<!-- Decorative Element -->
+<div class="absolute right-0 bottom-0 w-64 h-64 bg-primary/20 blur-[100px] rounded-full group-hover:scale-125 transition-transform"></div>
+</div>
+</div>
+</section>
+<!-- Regulation Specific Paths -->
+<section class="py-xl bg-surface-alt border-y border-line">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="text-center mb-xl">
+<h2 class="font-h2 text-display mb-md">Regulation-Specific Expertise</h2>
+<p class="text-ink-soft max-w-xl mx-auto">Precision mapping for specific device classes and regulatory paths.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-xl">
+<!-- MDR Path -->
+<div class="bg-surface p-lg border border-line rounded-xl flex gap-lg items-start shadow-sm hover:shadow-md transition-shadow">
+<div class="flex-shrink-0 w-14 h-14 rounded-full bg-primary-wash flex items-center justify-center font-mono text-primary font-bold text-lg">MDR</div>
+<div>
+<h4 class="font-h3 text-h3 mb-sm">Medical Device Regulation</h4>
+<p class="text-small text-on-surface-variant mb-md">Comprehensive technical documentation for Class I to III devices. Focus on Clinical Evaluation (CEP/CER) and Post-Market Clinical Follow-up.</p>
+<div class="flex flex-wrap gap-xs">
+<span class="px-sm py-xs bg-surface-container rounded text-caption font-mono border border-line">Annex IX</span>
+<span class="px-sm py-xs bg-surface-container rounded text-caption font-mono border border-line">GSPR</span>
+<span class="px-sm py-xs bg-surface-container rounded text-caption font-mono border border-line">ISO 13485</span>
+</div>
+</div>
+</div>
+<!-- IVDR Path -->
+<div class="bg-surface p-lg border border-line rounded-xl flex gap-lg items-start shadow-sm hover:shadow-md transition-shadow">
+<div class="flex-shrink-0 w-14 h-14 rounded-full bg-tertiary-fixed flex items-center justify-center font-mono text-tertiary font-bold text-lg">IVDR</div>
+<div>
+<h4 class="font-h3 text-h3 mb-sm">In Vitro Diagnostic Regulation</h4>
+<p class="text-small text-on-surface-variant mb-md">Specialized workflows for performance evaluation (PER) and scientific validity. Tailored for diagnostic complexity classes A-D.</p>
+<div class="flex flex-wrap gap-xs">
+<span class="px-sm py-xs bg-surface-container rounded text-caption font-mono border border-line">Annex VIII</span>
+<span class="px-sm py-xs bg-surface-container rounded text-caption font-mono border border-line">PER</span>
+<span class="px-sm py-xs bg-surface-container rounded text-caption font-mono border border-line">ISO 14971</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Compliance Workflow Diagram -->
+<section class="py-32 px-gutter max-w-container-max mx-auto overflow-hidden"><div class="text-center mb-24"><h2 class="font-h2 text-display mb-md">The Traceability Lifecycle</h2><p class="text-ink-soft max-w-xl mx-auto">See how Certra threads your regulatory data from clinical trial to market surveillance.</p></div><div class="relative max-w-5xl mx-auto px-xl"><div class="absolute top-1/2 left-0 right-0 h-[2px] bg-line -translate-y-1/2 z-0"></div><div class="relative z-10 flex justify-between items-center"><div class="flex flex-col items-center gap-md group"><div class="relative"><div class="w-20 h-20 bg-surface border border-line rounded-xl flex items-center justify-center shadow-sm group-hover:border-primary transition-all"><span class="material-symbols-outlined text-primary text-3xl">clinical_notes</span></div><div class="absolute -top-8 -left-4 px-2 py-1 bg-surface-container rounded border border-line shadow-sm animate-float"><span class="font-mono text-[10px] text-ink-muted">GSPR 10.2</span></div></div><div class="text-center"><div class="font-body-strong text-body">Raw Inputs</div><div class="text-caption text-ink-muted">Clinical / R&amp;D</div></div></div><div class="flex flex-col items-center gap-md group"><div class="relative"><div class="w-24 h-24 bg-ai-wash border border-tertiary/30 rounded-2xl flex items-center justify-center shadow-[0_0_20px_rgba(109,90,230,0.15)] animate-float"><span class="material-symbols-outlined text-tertiary text-4xl" style="font-variation-settings: 'FILL' 1;">auto_awesome</span></div><div class="absolute -bottom-4 left-1/2 -translate-x-1/2 px-2 py-1 bg-tertiary text-white rounded-full shadow-lg"><span class="font-mono text-[10px] uppercase tracking-tighter">Processing</span></div></div><div class="text-center"><div class="font-body-strong text-body text-tertiary">Certra Core</div><div class="text-caption text-ink-soft">AI Harmonization</div></div></div><div class="flex flex-col items-center gap-md group"><div class="relative"><div class="w-20 h-20 bg-surface border border-line rounded-xl flex items-center justify-center shadow-sm group-hover:border-primary transition-all"><span class="material-symbols-outlined text-on-surface-variant text-3xl">description</span></div><div class="absolute -top-8 -right-4 px-2 py-1 bg-surface-container rounded border border-line shadow-sm animate-float" style="animation-delay: 1s"><span class="font-mono text-[10px] text-ink-muted">RISK-014</span></div></div><div class="text-center"><div class="font-body-strong text-body">Technical File</div><div class="text-caption text-ink-muted">Audit Ready</div></div></div></div></div><div class="mt-32 max-w-3xl mx-auto"><div class="bg-surface border border-tertiary/20 rounded-2xl overflow-hidden shadow-lg flex flex-col md:flex-row"><div class="bg-tertiary p-md flex flex-col items-center justify-center text-white gap-sm md:w-48"><span class="material-symbols-outlined text-3xl">psychology</span><span class="font-mono text-[10px] uppercase tracking-widest text-center">AI Insight Engine</span></div><div class="p-xl bg-ai-wash/30 flex-1 relative"><div class="absolute top-4 right-4 px-sm py-xs bg-tertiary/10 text-tertiary text-caption rounded font-mono border border-tertiary/20">Suggested by AI</div><h5 class="font-h3 text-h3 text-tertiary mb-sm">Gap Analysis Automation</h5><p class="text-body text-on-surface-variant mb-lg">Our AI automatically scans your CER against the latest MEDDEV 2.7/1 Rev. 4 guidelines to identify missing clinical evidence in seconds.</p><div class="flex gap-sm"><span class="px-sm py-1 bg-white border border-line rounded font-mono text-[11px] text-ink-soft">MEDDEV 2.7/1</span><span class="px-sm py-1 bg-white border border-line rounded font-mono text-[11px] text-ink-soft">Rev. 4</span></div></div></div></div></section>
+<!-- CTA Section -->
+<section class="bg-primary py-24">
+<div class="max-w-container-max mx-auto px-gutter text-center">
+<h2 class="font-h1 text-display text-white mb-md">Ready to accelerate your submission?</h2>
+<p class="text-primary-fixed mb-xl max-w-xl mx-auto">Join over 200 medical device companies using Certra to bridge the gap between innovation and regulation.</p>
+<div class="flex flex-col sm:flex-row gap-md justify-center">
+<button class="bg-white text-primary px-xl py-md rounded-lg font-body-strong text-body-strong hover:bg-surface-alt transition-all">Talk to a specialist</button>
+<button class="bg-primary-container text-white border border-white/20 px-xl py-md rounded-lg font-body-strong text-body-strong hover:bg-white/10 transition-all">Book a Demo</button>
+</div>
+</div>
+</section>
+<!-- Footer Shell -->
+<footer class="bg-surface-container-lowest border-t border-line py-xl">
+<div class="max-w-container-max mx-auto px-gutter grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-xl mb-xl">
+<div class="col-span-2">
+<span class="font-h2 text-h2 text-on-surface mb-md block">Certra</span>
+<p class="font-small text-small text-ink-soft max-w-xs mb-md">
+                    Leading the transition to digital-first regulatory evidence for the MedTech industry.
+                </p>
+</div>
+<div>
+<h5 class="font-body-strong text-body-strong mb-md">Product</h5>
+<ul class="space-y-sm">
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Modules</a></li>
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Integrations</a></li>
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Security</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-body-strong text-body-strong mb-md">Solutions</h5>
+<ul class="space-y-sm">
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">MDR Strategy</a></li>
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">IVDR Migration</a></li>
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Class III Devices</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-body-strong text-body-strong mb-md">Compliance</h5>
+<ul class="space-y-sm">
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">ISO 13485</a></li>
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Part 11 Compliant</a></li>
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">GDPR</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-body-strong text-body-strong mb-md">Resources</h5>
+<ul class="space-y-sm">
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Whitepapers</a></li>
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Webinars</a></li>
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Help Center</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-gutter pt-xl border-t border-line flex flex-col md:flex-row justify-between items-center gap-md">
+<p class="font-small text-small text-ink-muted">© 2024 Certra Regulatory Systems. All rights reserved.</p>
+<div class="flex gap-xl">
+<a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Privacy Policy</a>
+<a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+</main>
+<!-- Contextual FAB (Hidden by default, shown on specific pages) -->
+<div class="fixed bottom-lg right-lg z-50">
+<button class="w-14 h-14 bg-primary text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">chat_bubble</span>
+</button>
+</div>
+<script>
+        // Micro-interactions for scrolling
+        document.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-md');
+            } else {
+                nav.classList.remove('shadow-md');
+            }
+        });
+    </script>
+
+
+</body></html>

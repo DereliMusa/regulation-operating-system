@@ -1,0 +1,343 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Certra | Book a Demo</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Geist:wght@400;600&amp;family=Geist+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#191c1e",
+                        "surface-container-highest": "#e0e3e6",
+                        "status-approved-bg": "#E7F5EE",
+                        "primary-fixed": "#dce1ff",
+                        "on-primary-fixed-variant": "#0039b5",
+                        "on-error": "#ffffff",
+                        "ai-wash": "#F0EDFD",
+                        "surface-tint": "#194fe0",
+                        "tertiary-fixed": "#e5deff",
+                        "on-tertiary-fixed": "#180065",
+                        "on-secondary": "#ffffff",
+                        "status-review-bg": "#FBF1DE",
+                        "surface-variant": "#e0e3e6",
+                        "secondary-fixed-dim": "#bac7de",
+                        "surface": "#FFFFFF",
+                        "on-tertiary-container": "#e3ddff",
+                        "status-draft": "#6B7688",
+                        "primary-fixed-dim": "#b7c4ff",
+                        "secondary": "#535f73",
+                        "on-tertiary": "#ffffff",
+                        "status-review": "#B9770A",
+                        "surface-bright": "#f7f9fc",
+                        "inverse-primary": "#b7c4ff",
+                        "on-surface-variant": "#434655",
+                        "tertiary-fixed-dim": "#c7bfff",
+                        "status-draft-bg": "#EEF1F5",
+                        "status-approved": "#1E8E5A",
+                        "on-secondary-container": "#596579",
+                        "background": "#f7f9fc",
+                        "surface-alt": "#FAFBFC",
+                        "surface-container": "#eceef1",
+                        "surface-container-low": "#f2f4f7",
+                        "on-secondary-fixed": "#0f1c2d",
+                        "line": "#E4E9F0",
+                        "inverse-on-surface": "#eff1f4",
+                        "surface-dim": "#d8dadd",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e6e8eb",
+                        "secondary-container": "#d6e3fb",
+                        "ink-soft": "#55627A",
+                        "tertiary-container": "#604cd8",
+                        "tertiary": "#482fbf",
+                        "on-primary-container": "#dbe0ff",
+                        "on-primary-fixed": "#001551",
+                        "status-deficiency-bg": "#FBE9E9",
+                        "error": "#ba1a1a",
+                        "status-deficiency": "#C43D3D",
+                        "on-primary": "#ffffff",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary-fixed-variant": "#4228ba",
+                        "on-secondary-fixed-variant": "#3b475a",
+                        "primary-hover": "#1B45C4",
+                        "ink-muted": "#8A94A6",
+                        "on-background": "#191c1e",
+                        "outline": "#747687",
+                        "outline-variant": "#c4c5d8",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed": "#d6e3fb",
+                        "primary-container": "#2456e6",
+                        "primary-wash": "#EAF0FF",
+                        "error-container": "#ffdad6",
+                        "primary": "#003dc1",
+                        "ai": "#604cd8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "32px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "mono": ["Geist Mono"],
+                        "display": ["Geist"],
+                        "body-strong": ["Inter"],
+                        "h1": ["Geist"],
+                        "h2": ["Geist"],
+                        "h3": ["Geist"],
+                        "body": ["Inter"],
+                        "small": ["Inter"],
+                        "caption": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+            vertical-align: middle;
+        }
+        .traceability-thread-v {
+            width: 1px;
+            background-color: #E4E9F0;
+            position: absolute;
+            left: 20px;
+            top: 40px;
+            bottom: -20px;
+        }
+        .ai-glow {
+            box-shadow: 0 0 15px rgba(96, 76, 216, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body min-h-screen flex flex-col">
+<!-- TopAppBar (As defined in JSON) -->
+<header class="sticky top-0 z-50 bg-surface border-b border-line h-[64px] flex items-center">
+<div class="max-w-container-max mx-auto w-full px-lg flex justify-between items-center">
+<div class="flex items-center gap-xl">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings: &quot;FILL&quot; 1;">biotech</span>
+<span class="font-h2 text-h2 tracking-tight">Certra</span>
+</div>
+<nav class="hidden md:flex items-center gap-lg">
+<a class="text-on-surface-variant font-body-strong hover:text-primary transition-colors" href="#">Product</a>
+<a class="text-on-surface-variant font-body-strong hover:text-primary transition-colors" href="#">Solutions</a>
+<a class="text-on-surface-variant font-body-strong hover:text-primary transition-colors" href="#">Pricing</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<a class="text-on-surface-variant font-body-strong hover:text-primary transition-colors hidden sm:block" href="#">Sign in</a>
+<button class="bg-primary text-on-primary px-md py-sm rounded-lg font-body-strong hover:bg-primary-hover transition-all active:scale-95 shadow-sm">
+                    Book a demo
+                </button>
+</div>
+</div>
+</header>
+<main class="flex-grow flex items-center justify-center py-xl">
+<div class="max-w-container-max w-full px-gutter grid grid-cols-1 lg:grid-cols-12 gap-xl items-start">
+<!-- Left Side: Content -->
+<div class="lg:col-span-5 flex flex-col gap-lg py-md">
+<div class="inline-flex items-center gap-xs bg-ai-wash text-ai px-sm py-1 rounded-lg border border-ai/20 w-fit">
+<span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+<span class="font-mono text-caption">AI-DRIVEN COMPLIANCE</span>
+</div>
+<h1 class="font-h1 text-display text-on-surface leading-tight">
+                    See Certra in action on your own files.
+                </h1>
+<p class="font-body text-body text-ink-soft max-w-md">
+                    Automate clinical evaluations and auditor gap analysis with precision. Our platform turns months of regulatory documentation into hours of verified output.
+                </p>
+<div class="space-y-md mt-md relative">
+<div class="flex gap-md relative">
+<div class="z-10 bg-primary-wash text-primary w-10 h-10 rounded-lg flex items-center justify-center shrink-0 border border-primary/10">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div class="traceability-thread-v"></div>
+<div>
+<h3 class="font-body-strong text-body-strong text-on-surface">Automated CER Generation</h3>
+<p class="font-small text-small text-ink-muted">Generate Clinical Evaluation Reports using state-of-the-art LLMs trained specifically on MEDDEV 2.7/1 Rev 4.</p>
+</div>
+</div>
+<div class="flex gap-md relative">
+<div class="z-10 bg-primary-wash text-primary w-10 h-10 rounded-lg flex items-center justify-center shrink-0 border border-primary/10">
+<span class="material-symbols-outlined">rule</span>
+</div>
+<div class="traceability-thread-v"></div>
+<div>
+<h3 class="font-body-strong text-body-strong text-on-surface">Auditor Simulation</h3>
+<p class="font-small text-small text-ink-muted">Stress-test your technical file against MDR/IVDR requirements before the actual audit occurs.</p>
+</div>
+</div>
+<div class="flex gap-md relative">
+<div class="z-10 bg-primary-wash text-primary w-10 h-10 rounded-lg flex items-center justify-center shrink-0 border border-primary/10">
+<span class="material-symbols-outlined">biotech</span>
+</div>
+<div>
+<h3 class="font-body-strong text-body-strong text-on-surface">Scientific Traceability</h3>
+<p class="font-small text-small text-ink-muted">Every AI-generated claim is mapped back to its original source in your technical documentation.</p>
+</div>
+</div>
+</div>
+<div class="mt-xl p-md border border-line rounded-xl bg-surface-alt">
+<div class="flex items-center gap-md">
+<div class="flex -space-x-2">
+<img class="w-10 h-10 rounded-full border-2 border-surface object-cover" data-alt="A professional headshot of a female regulatory manager in a clean, modern office setting. The lighting is soft and natural. She is wearing a dark navy blazer, and her expression is confident and trustworthy. The image follows a high-key, modern corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABDrc9DTWnwxgM9qX6--sBAYxOCd2SgetRq8B6BPoqn9O9wcRq8OPKg0CxVVAdvWfTzmyNApjpQWwGNapHe5a5wvXrwJqlIZiSjEpFmQZs9XJrWFDPBoXuf8oekdu7ugDxG2Kjgbt8zgsA69Sg8q41jJptY9WuEiQ0lAQsb4_zoKtxvf_TKRL6tK582vspGDMItJLGuvYYHcOhwqpf52oVM8PzHJBrtnsfz9Q4qjACtRpgVWqypHfgNlHxV2UQ-fvDhOwkg3dWghc">
+<img class="w-10 h-10 rounded-full border-2 border-surface object-cover" data-alt="A professional headshot of a male Quality Assurance Director in a bright, minimalist medical tech office. He is smiling warmly, conveying reliability and expertise. The background features blurred lab equipment, emphasizing the technical nature of his work. Modern corporate lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnvXOlIvqXKfWdsfxBmzBaLBFvM1drl2A3iA8FZcJdVUQMfwCZfMliOxBULA4NX5CkWknhO1t96tpdtsEHGVTLy9vorIfNPVssRFsb2LtyIEQb0EmEP1pBMvm7A6Up4jEJLjD--fy74YWf1qI-heoZqA7gTSIKdqh-f8PjeL2yW6hdFITPH1AFu2VUHPBALS9juU7ifV6cglRn5YNmtK5ua8vaiZ7c0mBWojPIBlDi-qfu45EZO98QLeLXu1LrCQDWSh7qW3BRvOI">
+</div>
+<p class="font-small text-small text-ink-soft italic">
+                            "Certra reduced our MDR submission prep time by 65% while increasing confidence."
+                        </p>
+</div>
+</div>
+</div>
+<!-- Right Side: Contact Form -->
+<div class="lg:col-span-7 flex flex-col items-center lg:items-end">
+<div class="w-full max-w-xl bg-surface border border-line rounded-xl p-xl ai-glow">
+<form class="grid grid-cols-2 gap-md" onsubmit="event.preventDefault(); alert('Demo request submitted.');">
+<div class="col-span-2 md:col-span-1 flex flex-col gap-xs">
+<label class="font-body-strong text-body-strong text-on-surface">Full Name</label>
+<input class="border-line focus:ring-primary/30 focus:border-primary rounded-lg font-body text-body px-md py-sm" placeholder="John Doe" required="" type="text">
+</div>
+<div class="col-span-2 md:col-span-1 flex flex-col gap-xs">
+<label class="font-body-strong text-body-strong text-on-surface">Work Email</label>
+<input class="border-line focus:ring-primary/30 focus:border-primary rounded-lg font-body text-body px-md py-sm" placeholder="john@company.com" required="" type="email">
+</div>
+<div class="col-span-2 md:col-span-1 flex flex-col gap-xs">
+<label class="font-body-strong text-body-strong text-on-surface">Company</label>
+<input class="border-line focus:ring-primary/30 focus:border-primary rounded-lg font-body text-body px-md py-sm" placeholder="MedTech Inc." required="" type="text">
+</div>
+<div class="col-span-2 md:col-span-1 flex flex-col gap-xs">
+<label class="font-body-strong text-body-strong text-on-surface">Role</label>
+<select class="border-line focus:ring-primary/30 focus:border-primary rounded-lg font-body text-body px-md py-sm">
+<option>RA/QA Specialist</option>
+<option>Founder / CEO</option>
+<option>Clinical Affairs</option>
+<option>Consultant</option>
+</select>
+</div>
+<div class="col-span-2 flex flex-col gap-xs">
+<label class="font-body-strong text-body-strong text-on-surface">Regulation Focus</label>
+<div class="flex gap-md mt-xs">
+<label class="flex items-center gap-sm cursor-pointer">
+<input class="text-primary border-line focus:ring-primary/30" name="reg" type="radio">
+<span class="font-body text-body">MDR</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer">
+<input class="text-primary border-line focus:ring-primary/30" name="reg" type="radio">
+<span class="font-body text-body">IVDR</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer">
+<input class="text-primary border-line focus:ring-primary/30" name="reg" type="radio">
+<span class="font-body text-body">Both</span>
+</label>
+</div>
+</div>
+<div class="col-span-2 flex flex-col gap-xs">
+<label class="font-body-strong text-body-strong text-on-surface">Message</label>
+<textarea class="border-line focus:ring-primary/30 focus:border-primary rounded-lg font-body text-body px-md py-sm" placeholder="Tell us about your specific device or challenge..." rows="3"></textarea>
+</div>
+<div class="col-span-2 pt-sm">
+<button class="w-full bg-primary text-on-primary py-md rounded-lg font-body-strong text-body-strong hover:bg-primary-hover transition-colors flex items-center justify-center gap-sm group" type="submit">
+                                Schedule My Demo
+                                <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</form>
+<!-- Trust Markers -->
+<div class="mt-xl pt-lg border-t border-line flex flex-wrap gap-xl justify-between items-center">
+<div class="flex items-center gap-sm text-status-approved">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+<span class="font-small text-small font-body-strong">Response within 24h</span>
+</div>
+<div class="flex items-center gap-sm text-ink-muted">
+<span class="material-symbols-outlined text-[20px]">lock</span>
+<span class="font-small text-small">ISO 13485 compliant data handling</span>
+</div>
+</div>
+</div>
+<div class="mt-lg flex items-center gap-lg">
+<img class="h-12 opacity-80 grayscale hover:grayscale-0 transition-all" data-alt="A clean, flat vector-style certification badge for ISO 13485. The design is minimalist, using the brand's Signal Blue and grey tones. It feels official and authoritative, emphasizing the regulatory compliance nature of the software platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUVE7M28s6Yn2xNsULthc1MhvIiNA6sgwBFpV3pOvAXuAyghDhuc_tNhrKDmxTDrT-1qEKvO9uDFdBy2s8m95fgTliBEZxj_xGfUcNH7i0hKWFBXbE8thFdKXTAhdtHB-Xim0ElL-Ou8gB__Xn7-Mu3sac2QTs3XlgpxLsr_DES5LTj7yGS6dHABSZYXZlBzHmFkwtmUR2yssByBtzcp4Y7gaQzF5NUD28JoaGv3dnwFxp3PlW2IopBdw5kg_ZMfiVmiJMyRKXlX0">
+<img class="h-12 opacity-80 grayscale hover:grayscale-0 transition-all" data-alt="A minimalist logo for a HIPAA compliance certification. The mark is subtle, professional, and fits perfectly into a modern corporate software landing page aesthetic. Neutral tones and clean geometric lines." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXfnmQA5B-2R00SPymMnUlK7pAbs9zKtyuLsAvvLWUgk9LIR1ooGbqc3au_pVn8NKllwBEmTeoCWYq4orPoGO3col3zWYtyCpdHdeRrIq-So9Lw7Y7pJxdAXnxzSM5TcrmKhBaFNYmFNnWRz3Q4QxGZAh72Un3-KZIDGB6jlY33HlK9oMKSClsZsChixz9N5u2Ov4JMO8wWkTYsrcBxiQwT_6lBzNRXRD5Lvp7ArJNGLWn1Pz7W3qXA9RqmJtZ785In6ePONlAA_w">
+</div>
+</div>
+</div>
+</main>
+<!-- Footer (As defined in JSON) -->
+<footer class="bg-surface-container-lowest border-t border-line py-xl">
+<div class="max-w-container-max mx-auto px-gutter grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-xl mb-xl">
+<div class="col-span-2">
+<span class="font-h2 text-h2 text-on-surface mb-md block">Certra</span>
+<p class="font-small text-small text-ink-soft max-w-xs mb-md">
+                    Leading the transition to digital-first regulatory evidence for the MedTech industry.
+                </p>
+</div>
+<div>
+<h5 class="font-body-strong text-body-strong mb-md">Product</h5>
+<ul class="space-y-sm">
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Modules</a></li>
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Integrations</a></li>
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Security</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-body-strong text-body-strong mb-md">Solutions</h5>
+<ul class="space-y-sm">
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">MDR Strategy</a></li>
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">IVDR Migration</a></li>
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Class III Devices</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-body-strong text-body-strong mb-md">Compliance</h5>
+<ul class="space-y-sm">
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">ISO 13485</a></li>
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Part 11 Compliant</a></li>
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">GDPR</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-body-strong text-body-strong mb-md">Resources</h5>
+<ul class="space-y-sm">
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Whitepapers</a></li>
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Webinars</a></li>
+<li class=""><a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Help Center</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-gutter pt-xl border-t border-line flex flex-col md:flex-row justify-between items-center gap-md">
+<p class="font-small text-small text-ink-muted">© 2024 Certra Regulatory Systems. All rights reserved.</p>
+<div class="flex gap-xl">
+<a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Privacy Policy</a>
+<a class="font-small text-small text-secondary hover:underline decoration-primary" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interaction for form inputs
+        document.querySelectorAll('input, select, textarea').forEach(el => {
+            el.addEventListener('focus', () => {
+                el.parentElement.querySelector('label')?.classList.add('text-primary');
+            });
+            el.addEventListener('blur', () => {
+                el.parentElement.querySelector('label')?.classList.remove('text-primary');
+            });
+        });
+    </script>
+
+
+</body></html>
