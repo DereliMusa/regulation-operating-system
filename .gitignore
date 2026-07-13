@@ -1,0 +1,35 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Node / package managers
+node_modules/
+.npm/
+*.log
+npm-debug.log*
+
+# Nuxt / Nitro build output (populated once implementation starts)
+.nuxt/
+.output/
+.data/
+dist/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Local databases (SQLite for MVP)
+*.sqlite
+*.sqlite3
+*.db
+
+# Test / coverage
+coverage/
+
+# Editor / OS
+.idea/
+.vscode/*
+!.vscode/extensions.json
+Thumbs.db
