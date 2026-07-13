@@ -35,6 +35,7 @@ description of about 50 characters or fewer.
 - **Commit after each logical unit of work.** Do not squash everything into one commit.
 - Do not bundle unrelated changes in one commit.
 - Keep the subject line short; put the reasoning in the body.
+- Commits carry no co-author or tool-attribution trailer.
 
 ## Example flow (MVP)
 
