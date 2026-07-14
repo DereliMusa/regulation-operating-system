@@ -7,8 +7,10 @@ the start of every session. Update it at the end of every session.
 
 ## Current phase
 
-**Gate A — Documentation.** Authoring the SDLC knowledge base. **No application code has
-been written and none should be written until the product owner explicitly says "start".**
+**Gate B — Implementation (started).** Owner gave the go-ahead. SDLC docs merged to `main`
+and pushed. Building the MVP sprint by sprint on branch `dev` (see
+[`../03-planning/mvp-plan.md`](../03-planning/mvp-plan.md)). Currently in **S0** (scaffold
+and tooling).
 
 ## Confirmed decisions (owner-approved)
 
@@ -46,17 +48,21 @@ been written and none should be written until the product owner explicitly says 
 - **Architecture detail gaps captured:** `01-architecture/api-conventions.md`,
   `storage-and-reports.md`, `deployment.md` (CI/CD, env vars, migrations/seed), plus auth
   edge cases + RBAC scope in `architecture.md` and test-data isolation in testing-strategy.
+- **S0 (scaffold + tooling) done:** Nuxt 4 app scaffolded; module stack installed and wired
+  (NuxtUI 4, @nuxt/fonts, @nuxt/eslint, nuxt-auth-utils, zod, drizzle-orm, better-sqlite3,
+  vitest); brand design tokens applied from STYLE_GUIDE; `npm run lint` and `npm run build`
+  both green. Committed on `dev`.
 
 ## In progress
 
-- None. Gate A (documentation) is complete; awaiting the owner's go-ahead for Gate B.
+- S0 complete. Next up: S1 (database schema, migrations, seed, shared types).
 
 ## Next
 
-1. **STOP.** Await the owner's explicit "start" before writing any application code (Gate B).
-2. Collect owner-dependent design assets (see Open items) so S8 marketing is unblocked.
-3. Gate B first step (when approved): S0 — scaffold the Nuxt project (see
-   [`../03-planning/mvp-plan.md`](../03-planning/mvp-plan.md)).
+1. **S1 — Database:** Drizzle schema for all entities + migrations + seed + `shared/types`.
+2. Then S2 (auth), S3 (app shell + shared components), S4 (dashboard), ... per
+   [`../03-planning/mvp-plan.md`](../03-planning/mvp-plan.md).
+3. Deferred to S9: Dockerfile + CI/CD workflows (no Docker on this machine; validated in CI).
 
 ## Open items awaiting the owner
 
@@ -71,4 +77,5 @@ been written and none should be written until the product owner explicitly says 
 
 ## Working branch
 
-- `docs/sdlc-bootstrap` (Gate A documentation). Default branch: `main`.
+- `dev` (Gate B implementation). Default branch `main` (SDLC docs merged and pushed to origin).
+  `dev` holds the S0 work ahead of `main`. Merge `dev -> main` at a milestone.
