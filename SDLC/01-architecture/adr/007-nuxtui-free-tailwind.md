@@ -20,7 +20,7 @@ not provide.
 
 - No license cost; components are Nuxt-native.
 - The mockup design system maps cleanly onto Tailwind tokens (see `STYLE_GUIDE.md`).
-- NuxtUI v3 uses **Tailwind v4**; tokens are defined via CSS `@theme`. Exact versions are
+- NuxtUI v4 uses **Tailwind v4**; tokens are defined via CSS `@theme`. Exact versions are
   pinned during S0 and recorded in `tech-stack.md`.
 - Trade-off: some polished templates from NuxtUI Pro must be built by hand; acceptable and
   bounded by the mockups.

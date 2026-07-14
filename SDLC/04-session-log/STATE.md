@@ -12,7 +12,7 @@ been written and none should be written until the product owner explicitly says 
 
 ## Confirmed decisions (owner-approved)
 
-- Stack: Nuxt 3 (Nitro) + TypeScript, Node.js 22 LTS + npm.
+- Stack: Nuxt 4 (Nitro) + TypeScript, Node.js 22 LTS + npm.
 - UI: NuxtUI (free) + TailwindCSS; Material Symbols via Iconify; Geist/Inter/Geist Mono fonts.
 - Data: Drizzle ORM; SQLite for MVP, PostgreSQL from Phase 1.
 - Auth (MVP): nuxt-auth-utils (encrypted session cookie).

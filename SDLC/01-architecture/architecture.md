@@ -2,7 +2,7 @@
 
 ## Overview
 
-Certra is a **single Nuxt 3 application** that serves both the public marketing surface and
+Certra is a **single Nuxt 4 application** that serves both the public marketing surface and
 the authenticated app, with Nitro providing the server/API layer and Drizzle talking to the
 database. One codebase, one deployable Docker image.
 
@@ -10,7 +10,7 @@ database. One codebase, one deployable Docker image.
 Browser
   |
   v
-Nuxt 3 (Vue SSR)  --- public pages (/, /book-a-demo, /login, /register)
+Nuxt 4 (Vue SSR)  --- public pages (/, /book-a-demo, /login, /register)
   |               --- app pages (/dashboard, /technical-files, /risk, ...)  [auth-guarded]
   v
 Nitro server (server/api/*)  --- Zod validation --- auth (nuxt-auth-utils session)

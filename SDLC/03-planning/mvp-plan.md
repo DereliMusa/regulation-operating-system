@@ -10,7 +10,7 @@ more commits. Sprints are units of work, not calendar days. Requirement IDs refe
 
 ## S0 — Scaffold & tooling
 
-- Scaffold the Nuxt 3 project (TypeScript strict) at the repo root.
+- Scaffold the Nuxt 4 project (TypeScript strict) at the repo root.
 - Add NuxtUI, Tailwind, `@nuxt/fonts` (Geist/Inter/Geist Mono), Iconify Material Symbols.
 - Implement design tokens in `app/assets/css/main.css` + `app.config.ts` per `STYLE_GUIDE.md`.
 - Configure ESLint, `.env.example` (`NUXT_SESSION_PASSWORD`), Dockerfile, docker-compose.

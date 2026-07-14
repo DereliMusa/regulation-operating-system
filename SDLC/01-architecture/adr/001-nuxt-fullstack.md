@@ -1,4 +1,4 @@
-# ADR-001: Nuxt 3 as the fullstack framework
+# ADR-001: Nuxt 4 as the fullstack framework
 
 - **Status:** Accepted
 - **Date:** 2026-07-14
@@ -11,7 +11,7 @@ application and low operational complexity.
 
 ## Decision
 
-Use **Nuxt 3** with its built-in **Nitro** server engine as a single fullstack application.
+Use **Nuxt 4** with its built-in **Nitro** server engine as a single fullstack application.
 API routes live in `server/api`; no separate backend service.
 
 ## Consequences
