@@ -1,9 +1,9 @@
-// Runtime UI theme (NuxtUI). Placeholder color aliases; the exact brand
-// palette from the SDLC STYLE_GUIDE is applied in the design-tokens step.
+// Runtime UI theme (NuxtUI). `primary` maps to the Certra brand scale defined
+// in app/assets/css/main.css (@theme --color-brand-*); neutral uses slate.
 export default defineAppConfig({
   ui: {
     colors: {
-      primary: 'blue',
+      primary: 'brand',
       neutral: 'slate',
     },
   },

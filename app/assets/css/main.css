@@ -1,4 +1,68 @@
-/* Tailwind v4 + NuxtUI entry. Brand design tokens (colors, radius, fonts)
-   from the SDLC STYLE_GUIDE are added in the design-tokens step. */
+/* Tailwind v4 + NuxtUI entry, plus the Certra brand design tokens.
+   Tokens mirror SDLC/01-architecture/STYLE_GUIDE.md (owner-approved palette:
+   colors/radius from taslak.md, icons via Material Symbols). */
 @import "tailwindcss";
 @import "@nuxt/ui";
+
+@theme {
+  /* Brand primary scale (500 = #2456E6, 600 = hover #1B45C4). Used by NuxtUI as `primary`. */
+  --color-brand-50: #eaf0ff;
+  --color-brand-100: #d6e3fb;
+  --color-brand-200: #b7c9f7;
+  --color-brand-300: #8fa8f0;
+  --color-brand-400: #5b7eea;
+  --color-brand-500: #2456e6;
+  --color-brand-600: #1b45c4;
+  --color-brand-700: #163aa3;
+  --color-brand-800: #15327f;
+  --color-brand-900: #152c66;
+  --color-brand-950: #0e1b3d;
+
+  /* AI / tertiary — used only for AI-generated content. */
+  --color-ai: #6d5ae6;
+  --color-ai-wash: #f0edfd;
+
+  /* Surfaces and ink. */
+  --color-canvas: #f5f7fa;
+  --color-surface: #ffffff;
+  --color-surface-2: #fafbfc;
+  --color-line: #e4e9f0;
+  --color-ink: #0e1b2c;
+  --color-ink-soft: #55627a;
+  --color-ink-muted: #8a94a6;
+  --color-primary-wash: #eaf0ff;
+
+  /* Status tokens (text + background pairs). */
+  --color-status-approved: #1e8e5a;
+  --color-status-approved-bg: #e7f5ee;
+  --color-status-review: #b9770a;
+  --color-status-review-bg: #fbf1de;
+  --color-status-deficiency: #c43d3d;
+  --color-status-deficiency-bg: #fbe9e9;
+  --color-status-draft: #6b7688;
+  --color-status-draft-bg: #eef1f5;
+
+  /* Radius scale (card/panel 10, input/button 8, chip/badge 6). */
+  --radius-chip: 6px;
+  --radius-btn: 8px;
+  --radius-card: 10px;
+
+  /* Brand fonts (provisioned by @nuxt/fonts). */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
+}
+
+/* NuxtUI component radius baseline = button radius (8px). */
+:root {
+  --ui-radius: 0.5rem;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+}
