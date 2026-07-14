@@ -12,8 +12,25 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxt/fonts": "^0.14.0",
+    "@nuxt/ui": "^4.9.0",
+    "better-sqlite3": "^12.11.1",
+    "drizzle-orm": "^0.45.2",
     "nuxt": "^4.4.8",
+    "nuxt-auth-utils": "^0.5.29",
     "vue": "^3.5.0",
-    "vue-router": "^4.5.0"
+    "vue-router": "^4.5.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@iconify-json/material-symbols": "^1.2.84",
+    "@nuxt/eslint": "^1.16.0",
+    "@nuxt/test-utils": "^4.0.3",
+    "@vue/test-utils": "^2.4.11",
+    "drizzle-kit": "^0.31.10",
+    "eslint": "^10.7.0",
+    "happy-dom": "^20.10.6",
+    "vitest": "^4.1.10",
+    "vue-tsc": "^3.3.7"
   }
 }

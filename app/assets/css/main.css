@@ -1,0 +1,4 @@
+/* Tailwind v4 + NuxtUI entry. Brand design tokens (colors, radius, fonts)
+   from the SDLC STYLE_GUIDE are added in the design-tokens step. */
+@import "tailwindcss";
+@import "@nuxt/ui";
