@@ -40,6 +40,7 @@ Drizzle ORM  --->  SQLite (MVP)  /  PostgreSQL (Phase 1+)
 ```
 certra/ (repo root)
   app/
+    app.config.ts              # NuxtUI theme (MUST live under app/, not root — see note below)
     assets/css/main.css        # design tokens (@theme) + base styles
     components/
       common/                  # StatusBadge, SeverityBadge, TraceabilityChip, ReadinessRing, AiPanel, DataTable, BentoCard
@@ -64,7 +65,7 @@ certra/ (repo root)
       demo-requests/index.post.ts
     database/{schema.ts, migrations/, seed.ts}
     middleware/auth.ts         # server-side session check
-    utils/{db.ts, auditorRules.ts, auditLog.ts}
+    utils/{createDb.ts, db.ts, auth.ts, auditorRules.ts, auditLog.ts}
   shared/
     types/                     # technical-file.ts, gspr.ts, risk.ts, user.ts, ...
     constants/                 # gspr.ts, device-classes.ts
@@ -73,9 +74,32 @@ certra/ (repo root)
   tests/{unit,integration}/
   AGENTS.md                    # session-protocol bridge for agent tools
   .github/workflows/{ci.yml, deploy.yml}
-  Dockerfile docker-compose.yml drizzle.config.ts nuxt.config.ts app.config.ts
+  Dockerfile docker-compose.yml drizzle.config.ts nuxt.config.ts
   .env.example eslint.config.mjs README.md CHANGELOG.md
 ```
+
+**`app.config.ts` location (S2 finding):** Nuxt resolves `app.config.ts` from `dirs.app`
+(the srcDir, `app/` in Nuxt 4), not the project root. A root-level `app.config.ts` is
+silently ignored — no error, it just never applies, which is easy to miss (NuxtUI falls
+back to its own default theme instead of throwing). Always place it at `app/app.config.ts`.
+
+**`server/utils/createDb.ts` vs `db.ts` (S1/S2 finding):** `createDb(path)` is a pure
+factory (no module-level side effects); `db.ts` builds the app's singleton `db` from it at
+import time. Keeping them separate matters because importing *anything* from a module also
+runs that module's top-level code — if the singleton lived in the same file as the factory,
+tests importing `createDb` for an in-memory database would also open the real file-based
+database as a side effect, which caused `SqliteError: database is locked` under parallel
+test workers. App code imports `db` from `db.ts`; tests import `createDb` from `createDb.ts`
+directly and never touch the real database file.
+
+**Migrations path resolution (S2 finding):** `createDb.ts` resolves the migrations folder
+via `resolve(process.cwd(), 'server/database/migrations')`, not `import.meta.url`. Nitro's
+dev bundler does not preserve the real source file location, so an `import.meta.url`-relative
+path silently pointed at a non-existent directory and `migrate()` threw "Can't find
+meta/_journal.json file" at dev-server startup. `process.cwd()` works consistently in `nuxt
+dev` (project root) and will keep working in Docker as long as the S9 image's `WORKDIR` and
+the copied `server/database/migrations` path preserve the same relative layout (see
+[`deployment.md`](deployment.md)).
 
 File-size rule: keep source files under 500 lines and functions around 30 lines; split by
 responsibility when exceeded (e.g. schema or a large page split into sub-modules/partials).
@@ -88,13 +112,22 @@ responsibility when exceeded (e.g. schema or a large page split into sub-modules
    Drizzle, and writes an audit entry via `auditLog.ts`.
 4. Typed result returns; the composable updates local state; the UI reflects it.
 
-## Auth flow (MVP)
+## Auth flow (MVP) — implemented in S2
 
-- `nuxt-auth-utils` stores an encrypted session cookie (`httpOnly`, `secure`, `sameSite`).
-- Passwords hashed with scrypt (via nuxt-auth-utils helpers).
-- `server/middleware/auth.ts` enforces auth on protected API routes; `app/middleware/auth.ts`
-  guards app pages and redirects unauthenticated users to `/login`.
+- `nuxt-auth-utils` stores an encrypted session cookie (`httpOnly`, `secure`, `sameSite=lax`).
+- Passwords hashed with scrypt (via nuxt-auth-utils' `hashPassword`/`verifyPassword`).
+- `server/middleware/auth.ts` protects `/api/*` by default, allowlisting only
+  `/api/auth/*`, `/api/demo-requests`, `/api/dev/*` as public; every new resource API is
+  protected automatically without touching this file. `app/middleware/auth.ts` is a named
+  (not global) client middleware, applied per-page via `definePageMeta({ middleware:
+  ['auth'] })` (currently just the `dashboard.vue` placeholder).
+- Auth domain logic (`createUser`, `verifyCredentials`, `findUserByEmail` in
+  `server/utils/auth.ts`) explicitly imports from `h3` rather than relying on Nitro's
+  auto-imports, so it is unit-testable with plain Vitest and no Nuxt runtime.
 - Requires `NUXT_SESSION_PASSWORD` (see `.env.example`).
+- Verified end-to-end against a real running dev server (not just unit tests): register ->
+  protected route without session (401) -> with session (passes the guard) -> wrong-password
+  login (401) -> correct login -> logout clears the cookie -> protected route 401s again.
 - **MVP simplifications (explicit):** registration has no email verification; the "Forgot
   password" link is shown but password reset is deferred to Phase 1; session expiry uses the
   library default and is revisited in Phase 1.

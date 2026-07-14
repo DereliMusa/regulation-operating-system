@@ -50,6 +50,16 @@ server/api/auth/__tests__/login.test.ts
   never the dev/prod database.
 - Seed a known fixture per suite and reset between tests (fresh DB or transaction rollback)
   so tests are deterministic and independent of order.
+- **Keep pure factories separate from app singletons (S1/S2 finding).** `server/utils/db.ts`
+  originally created its file-based singleton (`export const db = createDb(dbPath)`) at
+  module scope; any test importing `createDb` from that same file also evaluated that
+  top-level singleton, opening the real database file as a side effect. Under Vitest's
+  parallel workers this produced intermittent `SqliteError: database is locked` failures
+  that had nothing to do with the test's actual assertions. Fix: the pure factory lives in
+  `createDb.ts` with no module-level side effects; `db.ts` builds the singleton from it.
+  Tests import `createDb` directly from `createDb.ts`, never from `db.ts`. Apply the same
+  split to any future module that both (a) exports a reusable factory and (b) instantiates
+  an app-wide singleton from it.
 
 ## CI
 

@@ -5,13 +5,13 @@ A living, prioritized task inventory. Detailed sprint breakdowns are in
 
 Status legend: `todo` / `doing` / `done` / `blocked`.
 
-## MVP (Gate B — awaiting owner go-ahead)
+## MVP (Gate B — in progress)
 
 | ID | Task | Req | Status |
 |---|---|---|---|
-| B-01 | Scaffold Nuxt + tooling + design tokens | S0 | todo |
-| B-02 | Drizzle schema + migrations + seed + shared types | S1 | todo |
-| B-03 | Auth (register/login/logout/session/guards) | FR-AUTH-1..4 | todo |
+| B-01 | Scaffold Nuxt + tooling + design tokens | S0 | done |
+| B-02 | Drizzle schema + migrations + seed + shared types | S1 | done |
+| B-03 | Auth (register/login/logout/session/guards) | FR-AUTH-1..4 | done |
 | B-04 | App shell (sidebar/topbar/footer) | FR (shell) | todo |
 | B-05 | Shared UI components (badges/chips/table/ring/AI panel/bento) | S3 | todo |
 | B-06 | Dashboard + stats API | FR-DASH-1..4 | todo |

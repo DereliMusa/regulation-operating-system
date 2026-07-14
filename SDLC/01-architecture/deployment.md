@@ -48,13 +48,25 @@ Note: SQLite in a container needs a **persistent volume** (otherwise data resets
 redeploy). This is acceptable for a single-user demo; real multi-user production uses
 PostgreSQL (Phase 1).
 
+**Migrations directory must ship alongside `.output` (S9 requirement, found in S2):**
+`server/utils/createDb.ts` resolves the migrations folder as
+`resolve(process.cwd(), 'server/database/migrations')` rather than via `import.meta.url`,
+because Nitro's dev bundler does not preserve real source file locations. This means the
+Docker image's production stage must **also `COPY server/database/migrations` into the
+image** at the same relative path from `WORKDIR`, alongside `.output` — `npm run build`
+alone does not include it. Verify after building the S9 image that a fresh container boots
+without a "Can't find meta/_journal.json file" error.
+
 ## Database migrations & seeding
 
-- Schema changes: `drizzle-kit generate` produces SQL migrations checked into
-  `server/database/migrations/`.
-- Migrations are applied on deploy/startup (or via an explicit `npm run db:migrate`).
-- **Seeding is guarded**: demo seed runs only in development / an explicit demo mode, never
-  silently against production data. Seed content is clearly demonstrative.
+- Schema changes: `drizzle-kit generate` (`npm run db:generate`) produces SQL migrations
+  checked into `server/database/migrations/`.
+- Migrations are applied **automatically** the first time any server code imports `db` from
+  `server/utils/db.ts` (`createDb()` calls Drizzle's `migrate()` before returning) — there is
+  no separate manual apply step for the MVP.
+- **Seeding is guarded**: the dev-only `POST /api/dev/seed` endpoint (404s outside
+  development) is the only way to populate demo data; nothing seeds automatically or against
+  production. Seed content is clearly demonstrative (see `server/database/seed-data.ts`).
 
 ## Rollout notes
 
