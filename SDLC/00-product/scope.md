@@ -42,6 +42,18 @@ for these modules arrives in Phase 1.
 - Solutions and Pricing marketing pages.
 - i18n, email sending, error monitoring.
 
+### Scope decisions to confirm (owner)
+
+- **Traceability Thread (recommended add to MVP).** The product's signature visual — linked
+  Risk <-> Test <-> Clinical <-> GSPR with connector lines and mono reference chips. A
+  read-only, seed-driven version inside the Technical File detail is cheap and high-impact
+  for the demo. Recommendation: include a static version in the MVP. The full interactive
+  matrix + change-impact analysis stays in Phase 1.
+- **AI Document Generator and Change & Approvals pages.** Core to the vision but Phase 1
+  (they need real AI and a workflow engine). In the MVP the AI story is conveyed by the
+  Dashboard "AI activity" mock cards and the Auditor Simulation. Confirm the demo does not
+  need a mock generator page.
+
 ## Phase 1 scope (adds to MVP)
 
 - **Real AI** (Claude API): document generation (CER, GSPR rationale, risk report,

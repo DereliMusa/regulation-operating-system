@@ -33,9 +33,21 @@ code yet.
 - `chore: add gitignore and stop tracking .DS_Store`
 - SDLC documentation set (multiple `docs(sdlc): ...` commits).
 
+## Addendum — gap review (same session)
+
+- Compared the SDLC against the three source files in `eski-veriler/` and backfilled gaps:
+  business/market/competitors/team/IP, the complete module map, and STYLE_GUIDE
+  microcopy/component states.
+- Owner resolved the design-source conflict: colors/radius follow `taslak.md`
+  (primary `#2456E6`, AI `#6D5AE6`, radius 10/8/6), icons use Material Symbols.
+- Captured architecture details that were implicit: API conventions, file storage & report/
+  PDF generation, deployment/CI/env/migrations, auth edge cases + RBAC scope, test isolation.
+- Raised two MVP scope decisions for the owner: a static Traceability Thread visual
+  (recommended) and whether a mock AI Document Generator page is needed for the demo.
+
 ## Next session
 
-- Confirm Gate A docs with the owner; collect design assets (logo, photos, social-proof
-  decision, certification badges).
+- Confirm Gate A docs and the two scope decisions; collect design assets (logo, photos,
+  social-proof decision, certification badges).
 - On explicit go-ahead, begin Gate B / S0: scaffold the Nuxt project per
   `03-planning/mvp-plan.md`.

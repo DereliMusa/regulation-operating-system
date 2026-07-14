@@ -43,6 +43,9 @@ been written and none should be written until the product owner explicitly says 
 - **Gap analysis vs source files** (`eski-veriler/` plan, taslak.md, TUBITAK form): added
   `00-product/market-and-business.md` (market, competitors, team, IP), `00-product/module-map.md`
   (complete module inventory), and STYLE_GUIDE microcopy/component-state sections.
+- **Architecture detail gaps captured:** `01-architecture/api-conventions.md`,
+  `storage-and-reports.md`, `deployment.md` (CI/CD, env vars, migrations/seed), plus auth
+  edge cases + RBAC scope in `architecture.md` and test-data isolation in testing-strategy.
 
 ## In progress
 
@@ -62,6 +65,9 @@ been written and none should be written until the product owner explicitly says 
   See [`../01-architecture/STYLE_GUIDE.md`](../01-architecture/STYLE_GUIDE.md).
 - (Resolved) Design-source reconciliation: colors/radius follow `taslak.md`, icons use
   Material Symbols. Applied in `STYLE_GUIDE.md`; recorded in Confirmed decisions above.
+- Scope decisions to confirm: (a) include a static **Traceability Thread** visual in the MVP
+  (recommended); (b) confirm the MVP needs no mock **AI Document Generator** page.
+  See `00-product/scope.md` -> "Scope decisions to confirm".
 
 ## Working branch
 
