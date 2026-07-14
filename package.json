@@ -11,6 +11,7 @@
     "preview": "nuxt preview",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "db:generate": "drizzle-kit generate",
     "typecheck": "nuxt typecheck",
     "test": "vitest run",
     "test:watch": "vitest",
