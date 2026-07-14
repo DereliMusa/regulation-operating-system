@@ -1,0 +1,19 @@
+{
+  "name": "certra",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "AI-assisted MDR/IVDR regulatory compliance platform",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "nuxt": "^4.4.8",
+    "vue": "^3.5.0",
+    "vue-router": "^4.5.0"
+  }
+}
