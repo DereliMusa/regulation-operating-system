@@ -1,7 +1,7 @@
 // Populates the database with realistic MVP demo data. Content lives in
 // seed-data.ts; this module only orchestrates the inserts and keeps
 // referential integrity (technical file -> gspr/risk/clinical/pms/findings).
-import type { Db } from '../utils/db'
+import type { Db } from '../utils/createDb'
 import {
   users,
   technicalFiles,

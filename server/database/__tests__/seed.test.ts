@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { sql } from 'drizzle-orm'
-import { createDb } from '../../utils/db'
+import { createDb } from '../../utils/createDb'
 import { seedDatabase } from '../seed'
 import { users, technicalFiles, gsprEntries, riskEntries, auditLog } from '../schema'
 
