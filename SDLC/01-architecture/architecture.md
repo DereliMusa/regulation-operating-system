@@ -95,6 +95,12 @@ responsibility when exceeded (e.g. schema or a large page split into sub-modules
 - `server/middleware/auth.ts` enforces auth on protected API routes; `app/middleware/auth.ts`
   guards app pages and redirects unauthenticated users to `/login`.
 - Requires `NUXT_SESSION_PASSWORD` (see `.env.example`).
+- **MVP simplifications (explicit):** registration has no email verification; the "Forgot
+  password" link is shown but password reset is deferred to Phase 1; session expiry uses the
+  library default and is revisited in Phase 1.
+- **RBAC scope (MVP):** any authenticated user can use the app; the `role` field is stored
+  and displayed but not yet enforced per action. Per-action enforcement lands in Phase 1;
+  multi-tenant isolation in Phase 2.
 
 ## AI (mock) architecture
 

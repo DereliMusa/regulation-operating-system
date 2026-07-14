@@ -44,6 +44,13 @@ server/api/auth/login.post.ts
 server/api/auth/__tests__/login.test.ts
 ```
 
+## Test data isolation
+
+- Integration tests run against a **separate SQLite database** (in-memory or a temp file),
+  never the dev/prod database.
+- Seed a known fixture per suite and reset between tests (fresh DB or transaction rollback)
+  so tests are deterministic and independent of order.
+
 ## CI
 
 `npm run test` runs in GitHub Actions on every push/PR and must pass before build/deploy.
