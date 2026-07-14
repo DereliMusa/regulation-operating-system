@@ -75,6 +75,14 @@ backlog and plans. Each FR notes its phase: **M** = MVP, **1** = Phase 1, **2** 
 - **FR-MKT-2 (M)** Book a Demo form (6 fields) persisting to `demo_requests`.
 - **FR-MKT-3 (1)** Solutions and Pricing pages; demo-request email notification.
 
+### Additional modules (Phase 1/2)
+
+Electronic Forms, V&V/Tests, Standards Library, Documents/e-signature, Settings
+(org/members/NB), CAPA, complaint/vigilance, supplier management, UDI/EUDAMED, and the
+Notified Body portal are part of the full product; their phase and depth are in
+[`../00-product/module-map.md`](../00-product/module-map.md). Requirement IDs will be added
+when each is scheduled.
+
 ## Non-functional requirements
 
 - **NFR-PERF-1** Typical page interactions respond under ~200 ms locally; SSR landing is fast.
