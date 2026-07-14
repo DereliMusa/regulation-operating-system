@@ -22,6 +22,8 @@ been written and none should be written until the product owner explicitly says 
 - AI in MVP: mock (rule/template based); real Claude integration in Phase 1.
 - Repo: single Nuxt app at repo root; `SDLC/` is the source of truth; `planlama/` archived to `eski-veriler/`.
 - Commits and docs carry no tool-attribution trailers (owner preference).
+- Design tokens: colors/radius per `taslak.md` (primary `#2456E6`, AI `#6D5AE6`, radius
+  10/8/6, bg `#F5F7FA`, ink `#0E1B2C`); icons use Material Symbols.
 
 ## Timeline framing
 
@@ -38,6 +40,9 @@ been written and none should be written until the product owner explicitly says 
 - **Gate A complete:** full SDLC knowledge base authored (product, architecture,
   STYLE_GUIDE, ADRs, standards, requirements, phase plans, references), root `AGENTS.md`
   and `README.md` added, committed in logical groups on `docs/sdlc-bootstrap`.
+- **Gap analysis vs source files** (`eski-veriler/` plan, taslak.md, TUBITAK form): added
+  `00-product/market-and-business.md` (market, competitors, team, IP), `00-product/module-map.md`
+  (complete module inventory), and STYLE_GUIDE microcopy/component-state sections.
 
 ## In progress
 
@@ -55,6 +60,8 @@ been written and none should be written until the product owner explicitly says 
 - Design assets: logo (SVG + favicon), 3-5 marketing photos, social-proof decision
   (real vs. clearly-labelled sample), ISO 13485/HIPAA badges only if truly certified.
   See [`../01-architecture/STYLE_GUIDE.md`](../01-architecture/STYLE_GUIDE.md).
+- (Resolved) Design-source reconciliation: colors/radius follow `taslak.md`, icons use
+  Material Symbols. Applied in `STYLE_GUIDE.md`; recorded in Confirmed decisions above.
 
 ## Working branch
 

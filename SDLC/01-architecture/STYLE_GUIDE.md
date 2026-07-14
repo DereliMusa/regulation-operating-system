@@ -8,21 +8,30 @@ mockups in `eski-veriler/certa-mvp/*/code.html` and `eski-veriler/certa-web-site
 Design philosophy: **calm, precise, reliable** — a technical/scientific professional tool.
 Rely on 1px hairline borders and tonal layers rather than heavy shadows.
 
+> **Resolved: design-source reconciliation (owner decision).** Where the mockups and
+> `eski-veriler/taslak.md` disagree:
+> - **Colors & radius: use taslak.md.** Primary `#2456E6`, AI `#6D5AE6`, radius card 10 /
+>   button 8 / chip 6, background `#F5F7FA`, ink `#0E1B2C`.
+> - **Icons: use Material Symbols** (from the mockups), via Iconify.
+>
+> Note: the mockup screenshots render primary as `#003dc1`; the implementation follows the
+> taslak tokens above, so the built app's blue is slightly lighter than the screenshots.
+> The tables below reflect this resolved decision.
+
 ## 1. Color tokens
 
 ### Brand / primary
 | Token | Hex |
 |---|---|
-| primary | `#003dc1` |
-| primary-hover | `#1B45C4` |
-| primary-container | `#2456e6` |
+| primary | `#2456E6` |
+| primary-ink (hover/pressed) | `#1B45C4` |
 | primary-wash | `#EAF0FF` |
 | secondary | `#535f73` |
 
 ### AI / tertiary (used only for AI-generated content)
 | Token | Hex |
 |---|---|
-| tertiary (AI) | `#482fbf` |
+| ai | `#6D5AE6` |
 | ai-wash | `#F0EDFD` |
 
 ### Status (text / background pairs)
@@ -38,13 +47,12 @@ Rely on 1px hairline borders and tonal layers rather than heavy shadows.
 | Token | Hex |
 |---|---|
 | surface | `#FFFFFF` |
-| surface-alt | `#FAFBFC` |
-| background | `#f7f9fc` |
+| surface-2 (alt / zebra) | `#FAFBFC` |
+| background (bg) | `#F5F7FA` |
 | line (1px borders) | `#E4E9F0` |
-| on-surface (text) | `#191c1e` |
+| ink (text) | `#0E1B2C` |
 | ink-soft | `#55627A` |
 | ink-muted | `#8A94A6` |
-| on-surface-variant | `#434655` |
 
 **Severity mapping** (risk/finding): critical/high -> deficiency red; major/moderate/medium
 -> review amber; minor/low -> draft gray; resolved/approved -> approved green.
@@ -70,9 +78,10 @@ chips) use **Geist Mono**.
 
 ## 3. Spacing, radius, layout
 
-- Spacing grid (4px base): xs 4, sm 8, md 16, lg 24, xl 32; gutter 24px.
-- Border radius: default 4px, lg 8px (buttons), xl 12px (cards/panels), full 9999px (pills).
+- Spacing grid (4px base): 4, 8, 12, 16, 24, 32, 48, 64; gutter 24px.
+- Border radius: card/panel 10px, input/button 8px, chip/badge 6px, avatar full. No oval/pill excess.
 - Layout: 12-column fluid grid, max content width 1280px, 24px gutters.
+- Density: Comfortable rows 44px, Compact 36px (tables support both).
 - App shell: fixed left sidebar (~240px), fixed topbar (~56px).
 
 ## 4. Iconography
@@ -161,3 +170,26 @@ app is built).
 
 Integrity note: any certification, customer, or testimonial claim that is not real must be
 labelled "sample" so the TUBITAK demo is never misleading.
+
+## 11. Microcopy and writing (from taslak.md 1.8)
+
+- Active verbs, sentence case: "Save changes", "Send for approval", "Generate draft".
+- One action keeps one name end to end (a `Publish` button -> a `Published` toast).
+- Name what the user controls, not the system internals.
+- Error messages do not apologize; they say what happened and how to fix it.
+- Empty states invite action and suggest one primary next step.
+- UI text is English; documentation prose may be Turkish (see project language rule).
+
+## 12. Additional component states (from taslak.md 1.7)
+
+- **Buttons:** Primary (filled), Secondary (border), **Ghost** (transparent, hover
+  `surface-alt`), **Danger** (deficiency red, destructive only). Sizes: sm 32 / md 40 / lg 44.
+- **Inputs:** 40px height, `line` border, focus = primary border + focus ring; label above
+  (caption), optional help text below (small, `ink-muted`); error = red border + red help.
+- **Tabs:** underline style; active tab has primary underline + `on-surface` text.
+- **Modal:** centered, max ~560px, shadow-md, overlay `rgba(14,27,44,.4)`.
+- **Drawer:** slides from the right (detail/review), ~480-640px.
+- **Toast:** bottom-right, ~4s, green left bar on success, red on error; copy matches the action.
+- **Empty state:** icon + one guiding sentence + one primary action.
+
+Focus ring: `0 0 0 3px rgba(36,86,230,.30)` on every interactive element (keyboard a11y).
