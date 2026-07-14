@@ -1,10 +1,12 @@
 <script setup lang="ts">
-// Root component. Replaced by the app shell + pages in later sprints.
+// Root component: renders the active layout (auth/app/marketing) and page.
 </script>
 
 <template>
   <div>
     <NuxtRouteAnnouncer />
-    <NuxtWelcome />
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
   </div>
 </template>
