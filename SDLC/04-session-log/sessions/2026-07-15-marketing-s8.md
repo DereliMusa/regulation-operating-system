@@ -97,8 +97,19 @@ console errors, repeated successfully.
 
 Committed as `fix(auth): stop blocking Nuxt modules' own /api/_* endpoints`.
 
+**Not yet confirmed by the owner in their own browser.** They tried again after the fix,
+said "açılmadı ama önemli değil" (didn't open, but never mind) and ended the session there.
+Treat this as unconfirmed, not resolved, until they verify it directly — see STATE.md
+"Open items" (first thing to check next session).
+
+Session closed here at the owner's request ("bugünlük bu kadar yeterli"). Dev server
+stopped (`pkill -f "nuxt dev"`); `.data/certra.db` still holds this session's seed data +
+one test `demo_requests` row from earlier verification, harmless to leave or reseed.
+
 ## Next session
 
+- **First:** confirm the `/api/_*` auth fix actually works for the owner (see addendum
+  above and STATE.md "Open items") before moving on.
 - **S3 — App shell + shared components**, per `mvp-plan.md` (unchanged by this session).
 - Still waiting on the owner for: design assets (logo, photos, social-proof decision,
   certification badges) and the two MVP scope decisions (Traceability Thread, AI Document

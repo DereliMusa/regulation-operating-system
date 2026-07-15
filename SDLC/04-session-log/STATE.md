@@ -124,6 +124,13 @@ is architecturally independent of the app shell (its own layout/nav/footer — s
 
 ## Open items awaiting the owner
 
+- **Confirm the `/api/_*` auth fix in an actual browser.** It's verified on this end (curl,
+  unit test, and a scripted realistic-timing browser login all pass — see "Done" above),
+  but the owner's own manual retry at the end of the 2026-07-15 session didn't get
+  confirmed working before they had to leave ("açılmadı ama önemli değil"). First thing
+  next session: have the owner click Sign in on `/login` with `demo@certra.app` /
+  `CertraDemo!2026` and confirm it lands on `/dashboard`. If it still doesn't, treat it as
+  unresolved, not fixed.
 - Design assets: logo (SVG + favicon), 3-5 marketing photos, social-proof decision
   (real vs. clearly-labelled sample), ISO 13485/HIPAA badges only if truly certified.
   See [`../01-architecture/STYLE_GUIDE.md`](../01-architecture/STYLE_GUIDE.md). The S8
