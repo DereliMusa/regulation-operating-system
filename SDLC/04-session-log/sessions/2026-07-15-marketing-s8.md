@@ -65,6 +65,38 @@ persistence test`, `feat(layout): add marketing shell`, `feat(marketing): add la
 page`, `feat(marketing): add book a demo page`, `docs(sdlc): record s8 built ahead of
 schedule`. No tool-attribution trailers (owner preference).
 
+## Addendum — owner manual review found a real S2 bug (same session)
+
+After the marketing pages, the owner asked to run the app itself and manually clicked
+through login -> dashboard (not just marketing). They hit "click Sign in, nothing happens",
+with a `401 (Authentication required)` visible in the browser console.
+
+Root cause: `server/middleware/auth.ts` protects all of `/api/*` except a small allowlist,
+and that allowlist didn't cover Nuxt modules' own internal endpoints — nuxt-auth-utils' own
+session check (`GET /api/_auth/session`, which should return `{}` when logged out, not
+401) and Nuxt Icon's icon fetch (`/api/_nuxt_icon/*`, used by e.g. `UButton`'s loading
+spinner) were both getting blocked by *our* middleware before nuxt-auth-utils' or Nuxt
+Icon's own handler ever ran. In practice, `refreshSession()` right after a successful login
+POST hit the blocked session-check endpoint, so the redirect to `/dashboard` didn't happen.
+
+This had been sitting in code from S2, which that session's own verification (`curl` +
+one Playwright screenshot of a page that doesn't require a post-login re-check) never
+exercised — a good example of why an owner clicking through the real UI still finds things
+automated checks miss.
+
+Fix: exempt `/api/_*` generally (the convention Nuxt modules use for their own routes)
+instead of allowlisting module by module. Split the exemption logic into
+`server/utils/publicApiPaths.ts` (pure, unit-tested) so `server/middleware/auth.ts` stays
+a thin wrapper, same reasoning as the `createDb.ts`/`db.ts` split from S1/S2. Documented in
+`01-architecture/api-conventions.md`.
+
+**Verified:** `npm run lint`/`typecheck`/`test` (13/13)/`build` all green; `curl` confirmed
+both previously-blocked endpoints now return 200; a scripted browser login (realistic
+timing — a pause before typing, small pauses between fields) reached `/dashboard` with zero
+console errors, repeated successfully.
+
+Committed as `fix(auth): stop blocking Nuxt modules' own /api/_* endpoints`.
+
 ## Next session
 
 - **S3 — App shell + shared components**, per `mvp-plan.md` (unchanged by this session).

@@ -67,6 +67,20 @@ is architecturally independent of the app shell (its own layout/nav/footer — s
   workers. See [`../01-architecture/tech-stack.md`](../01-architecture/tech-stack.md),
   [`../01-architecture/architecture.md`](../01-architecture/architecture.md), and
   [`../02-standards/testing-strategy.md`](../02-standards/testing-strategy.md).
+- **A fourth S2 bug, found later (2026-07-15) by the owner manually clicking through the
+  app:** `server/middleware/auth.ts` protected all of `/api/*` except a small allowlist,
+  which didn't cover Nuxt modules' own internal endpoints — nuxt-auth-utils' own session
+  check (`/api/_auth/session`) and Nuxt Icon's icon fetch (`/api/_nuxt_icon/*`) were both
+  getting a 401 from *this* middleware instead of their own handler. In practice: the
+  login form could appear to do nothing, because `refreshSession()` right after a
+  successful login POST hit the blocked session-check endpoint. The S2 session's own
+  verification didn't catch this because it drove the flow with `curl` (which never
+  triggers `useUserSession()`'s client-side re-check) rather than an actual browser click.
+  Fixed by exempting `/api/_*` generally (the convention Nuxt modules use for their own
+  routes) instead of allowlisting module by module; the prefix check now lives in
+  `server/utils/publicApiPaths.ts`, unit-tested. Documented in
+  [`../01-architecture/api-conventions.md`](../01-architecture/api-conventions.md) and the
+  session log (`sessions/2026-07-15-marketing-s8.md`).
 - Documentation gap analysis vs the original source files (`eski-veriler/taslak.md`, the
   TUBITAK form): `00-product/market-and-business.md`, `00-product/module-map.md`,
   `01-architecture/api-conventions.md`, `storage-and-reports.md`, `deployment.md`, plus
@@ -131,6 +145,6 @@ is architecturally independent of the app shell (its own layout/nav/footer — s
 
 ## Working branch
 
-- `dev` (Gate B implementation), 20 commits ahead of `main`. Default branch `main` holds the
+- `dev` (Gate B implementation), 21 commits ahead of `main`. Default branch `main` holds the
   SDLC docs (merged and pushed). `dev` has not been merged/pushed yet — do that at a
   natural milestone (e.g., after S3, or now if the owner wants incremental visibility).
