@@ -11,6 +11,13 @@ export default defineNuxtConfig({
     'nuxt-auth-utils',
   ],
 
+  // Keep subfolder organization (layout/, marketing/, ...) without Nuxt's
+  // default folder-name prefix on component tags (e.g. `MarketingNav`, not
+  // `LayoutMarketingNav`).
+  components: [
+    { path: '~/components', pathPrefix: false },
+  ],
+
   // NuxtUI + Tailwind v4 entry and design tokens (see SDLC STYLE_GUIDE).
   css: ['~/assets/css/main.css'],
 
