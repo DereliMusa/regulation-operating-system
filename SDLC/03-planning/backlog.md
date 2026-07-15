@@ -23,8 +23,8 @@ Status legend: `todo` / `doing` / `done` / `blocked`.
 | B-12 | Clinical Evaluation screen | FR-CER-1 | todo |
 | B-13 | Post-Market screen | FR-PMS-1 | todo |
 | B-14 | Audit Log screen + auto-write on mutations | FR-LOG-1..2 | todo |
-| B-15 | Landing (Product Overview) | FR-MKT-1 | todo |
-| B-16 | Book a Demo form + API | FR-MKT-2 | todo |
+| B-15 | Landing (Product Overview) | FR-MKT-1 | done |
+| B-16 | Book a Demo form + API | FR-MKT-2 | done |
 | B-17 | CI/CD + Docker + Coolify deploy | S9 | todo |
 | B-18 | Polish + coverage + docs | S9 | todo |
 

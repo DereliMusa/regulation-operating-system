@@ -1,6 +1,6 @@
 # Project State (read this first)
 
-> Last updated: 2026-07-14 — session `2026-07-14-mvp-s0-s2`
+> Last updated: 2026-07-15 — session `2026-07-15-marketing-s8`
 
 This file is the fast, always-current snapshot of where the project stands. Read it at
 the start of every session. Update it at the end of every session.
@@ -11,7 +11,12 @@ the start of every session. Update it at the end of every session.
 `dev` (see [`../03-planning/mvp-plan.md`](../03-planning/mvp-plan.md)). **S0, S1, and S2 are
 done and verified** (lint, typecheck, tests, build all green; auth flow verified end-to-end
 against a real running dev server, including a visual screenshot check of brand styling).
-Next up: **S3 — app shell + shared components**.
+
+**S8 — Marketing was built next, out of sequence, on the owner's explicit instruction**
+(the corporate/marketing site had not been started yet; the owner asked for it directly
+rather than waiting for S3-S7). This was low-risk to reorder because the marketing shell
+is architecturally independent of the app shell (its own layout/nav/footer — see
+`architecture.md`). **S3 — app shell + shared components** is next for the app-side screens.
 
 ## Confirmed decisions (owner-approved)
 
@@ -51,8 +56,8 @@ Next up: **S3 — app shell + shared components**.
   logic unit-tested in isolation (`server/utils/auth.ts`, explicit `h3` import so it needs no
   Nuxt runtime to test); server-side guard middleware (allowlist-based, protects `/api/*` by
   default); named client middleware + login/register pages + a guarded `dashboard.vue`
-  placeholder (real content lands in S4) + a public `index.vue` placeholder (real content
-  lands in S8). **Verified two ways:** (1) automated — 8 Vitest unit/integration tests
+  placeholder (real content lands in S4) + a public `index.vue` placeholder (replaced by the
+  real landing page in S8, see below). **Verified two ways:** (1) automated — 8 Vitest unit/integration tests
   green; (2) manual — full curl-based session flow against a live dev server, and a
   Playwright screenshot confirming the brand palette (`#2456E6`) actually renders.
 - **Three real bugs found and fixed during S2** (all documented in the relevant
@@ -66,10 +71,29 @@ Next up: **S3 — app shell + shared components**.
   TUBITAK form): `00-product/market-and-business.md`, `00-product/module-map.md`,
   `01-architecture/api-conventions.md`, `storage-and-reports.md`, `deployment.md`, plus
   STYLE_GUIDE microcopy/component-state sections and design-token reconciliation.
+- **S8 — Marketing (built ahead of S3-S7, see "Current phase" above):** `marketing` layout
+  + `MarketingNav`/`MarketingFooter`; Product Overview landing (`index.vue`, replacing the
+  S2 placeholder) with hero, module bento, human-in-the-loop trust section, and CTA band;
+  `book-a-demo.vue` (value props + form) posting to `POST /api/demo-requests`
+  (Zod-validated, backed by `server/utils/demoRequests.ts`, unit-tested). Nav intentionally
+  shows only "Product" (an in-page anchor) — Solutions/Pricing are Phase 1 pages that don't
+  exist yet, so they're omitted rather than linked as dead routes (see
+  `00-product/scope.md`). No stock photography, customer logos, testimonial, or
+  certification badges were added: those are still open owner decisions (see "Open items"
+  below and `01-architecture/STYLE_GUIDE.md` section 10); the hero/trust visuals are
+  CSS-only placeholders instead. Added `components: [{ path: '~/components', pathPrefix:
+  false }]` to `nuxt.config.ts` so component tags match their filename regardless of
+  subfolder (e.g. `MarketingNav`, not `LayoutMarketingNav`) — keep naming components with
+  an explicit feature prefix in the filename (as done here) to avoid collisions now that
+  folder-based prefixing is off; this will matter for S3's own component library too.
+  **Verified:** `npm run lint`/`typecheck`/`test`/`build` all green (10/10 tests); manual
+  check against a live dev server (`curl` POST persisted a row, invalid input got a 400);
+  Playwright screenshots of `/` and `/book-a-demo` at 1280px and 375px confirmed the brand
+  palette, icons, and responsive layout render correctly.
 
 ## In progress
 
-- Nothing mid-flight. S2 is fully committed and verified; ready to start S3.
+- Nothing mid-flight. S8 is fully committed and verified; ready to start S3.
 
 ## Next
 
@@ -79,8 +103,8 @@ Next up: **S3 — app shell + shared components**.
    `definePageMeta({ layout: 'app' })` once it exists (currently uses no layout, by design
    — see architecture.md).
 2. Then S4 (dashboard), S5 (technical files), S6 (auditor simulation), S7 (module screens),
-   S8 (marketing), S9 (CI/CD + Docker) per
-   [`../03-planning/mvp-plan.md`](../03-planning/mvp-plan.md).
+   S9 (CI/CD + Docker) per [`../03-planning/mvp-plan.md`](../03-planning/mvp-plan.md).
+   S8 (marketing) is already done — see "Done" above.
 3. S9 note: the Dockerfile must `COPY server/database/migrations` into the image
    alongside `.output` (see [`../01-architecture/deployment.md`](../01-architecture/deployment.md)).
 
@@ -88,7 +112,9 @@ Next up: **S3 — app shell + shared components**.
 
 - Design assets: logo (SVG + favicon), 3-5 marketing photos, social-proof decision
   (real vs. clearly-labelled sample), ISO 13485/HIPAA badges only if truly certified.
-  See [`../01-architecture/STYLE_GUIDE.md`](../01-architecture/STYLE_GUIDE.md).
+  See [`../01-architecture/STYLE_GUIDE.md`](../01-architecture/STYLE_GUIDE.md). The S8
+  landing/book-a-demo pages are live now without these (CSS-only hero/trust visuals, no
+  testimonial or badges) — swapping in real assets is a follow-up, not a blocker.
 - Scope decisions to confirm: (a) include a static **Traceability Thread** visual in the MVP
   (recommended); (b) confirm the MVP needs no mock **AI Document Generator** page.
   See `00-product/scope.md` -> "Scope decisions to confirm".
@@ -105,6 +131,6 @@ Next up: **S3 — app shell + shared components**.
 
 ## Working branch
 
-- `dev` (Gate B implementation), 14 commits ahead of `main`. Default branch `main` holds the
+- `dev` (Gate B implementation), 20 commits ahead of `main`. Default branch `main` holds the
   SDLC docs (merged and pushed). `dev` has not been merged/pushed yet — do that at a
   natural milestone (e.g., after S3, or now if the owner wants incremental visibility).
