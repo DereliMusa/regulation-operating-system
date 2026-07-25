@@ -12,12 +12,12 @@ Status legend: `todo` / `doing` / `done` / `blocked`.
 | B-01 | Scaffold Nuxt + tooling + design tokens | S0 | done |
 | B-02 | Drizzle schema + migrations + seed + shared types | S1 | done |
 | B-03 | Auth (register/login/logout/session/guards) | FR-AUTH-1..4 | done |
-| B-04 | App shell (sidebar/topbar/footer) | FR (shell) | todo |
-| B-05 | Shared UI components (badges/chips/table/ring/AI panel/bento) | S3 | todo |
-| B-06 | Dashboard + stats API | FR-DASH-1..4 | todo |
-| B-07 | Technical files list + detail | FR-TF-1..4 | todo |
-| B-08 | GSPR matrix CRUD | FR-GSPR-1 | todo |
-| B-09 | Risk register CRUD | FR-RISK-1 | todo |
+| B-04 | App shell (sidebar/topbar/footer) | FR (shell) | done |
+| B-05 | Shared UI components (badges/chips/table/ring/AI panel/bento) | S3 | done |
+| B-06 | Dashboard + stats API | FR-DASH-1..4 | done |
+| B-07 | Technical files list + detail | FR-TF-1..4 | done |
+| B-08 | GSPR matrix CRUD | FR-GSPR-1 | done |
+| B-09 | Risk register CRUD | FR-RISK-1 | done |
 | B-10 | Auditor Simulation (rule engine + UI + export) | FR-AUD-1..2 | todo |
 | B-11 | Risk Management standalone screen | FR-RISK-2 | todo |
 | B-12 | Clinical Evaluation screen | FR-CER-1 | todo |

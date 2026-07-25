@@ -1,6 +1,6 @@
 # Project State (read this first)
 
-> Last updated: 2026-07-25 — session `2026-07-25-dashboard-s4`
+> Last updated: 2026-07-26 — session `2026-07-26-technical-files-s5`
 
 This file is the fast, always-current snapshot of where the project stands. Read it at
 the start of every session. Update it at the end of every session.
@@ -9,14 +9,14 @@ the start of every session. Update it at the end of every session.
 
 **Gate B — Implementation (in progress).** Building the MVP sprint by sprint on branch
 `dev` (see [`../03-planning/mvp-plan.md`](../03-planning/mvp-plan.md)). **S0, S1, S2, S3, S4,
-and S8 are done and verified** (lint, typecheck, tests, build all green; flows verified against
-a real running dev server, including headless-browser screenshots of brand styling, the app
-shell, and the data-driven dashboard).
+S5, and S8 are done and verified** (lint, typecheck, tests, build all green; flows verified
+against a real running dev server — the S5 technical-file CRUD and live readiness recompute were
+exercised end-to-end via the API and confirmed rendering server-side).
 
-**S8 — Marketing was built out of sequence** (owner instruction), then **S3 — app shell** and
-**S4 — Dashboard** were built. The remaining app-side screens are **S5-S7** (S5 next) and
-**S9**. The two shells (marketing vs app) are architecturally independent (each has its own
-layout/nav/footer — see `architecture.md`).
+**S8 — Marketing was built out of sequence** (owner instruction), then **S3 — app shell**,
+**S4 — Dashboard**, and **S5 — Technical files** were built. The remaining app-side screens are
+**S6 (next)** and **S7**, plus **S9** (CI/CD + Docker). The two shells (marketing vs app) are
+architecturally independent (each has its own layout/nav/footer — see `architecture.md`).
 
 ## Confirmed decisions (owner-approved)
 
@@ -128,22 +128,42 @@ layout/nav/footer — see `architecture.md`).
   relaxed to `T extends object` so typed row interfaces work. **Verified:** lint/typecheck/test
   (34 pass)/build green; API 401 without a session and correct aggregates with one; headless
   Chromium screenshots at 1280px + 390px. See `sessions/2026-07-25-dashboard-s4.md`.
-- **Auth cookie fix (this session):** session cookie made `Secure` in production only (see
+- **Auth cookie fix (2026-07-25):** session cookie made `Secure` in production only (see
   "Open items" — the browser login bug the owner hit is resolved).
+- **S5 — Technical files (2026-07-26, FR-TF-*, FR-GSPR-1, FR-RISK-1):** the full technical-file
+  module. **Backend** (committed by the prior, unlogged session — `85c41d7`, `979b289`,
+  `6b581ca`): list (filters/pagination), get-detail (file + GSPR + risks), create, patch, and
+  GSPR + Risk CRUD as pure `server/utils/{technicalFiles,gspr,risk}.ts` behind thin routes, with
+  readiness recomputed from GSPR conformity (`refreshReadiness`); +12 unit tests. **Frontend**
+  (written by the prior session, verified/fixed/committed this session as `a47670c`): list page
+  (`technical-files/index.vue`) and detail page (`[id].vue` — Overview / GSPR matrix / Risk
+  register tabs) composed from six `app/components/technical-file/*` components + a shared
+  `common/ConfirmDialog`. **The prior frontend was never type-checked**; this session fixed 7
+  `vue-tsc` errors before committing — three UForm reactive states whose enum fields inferred as
+  `string` (cast the initial value to its union type) and four inline `@click` handlers that
+  returned a value (NuxtUI handlers are `void | Promise<void>` — use named void handlers). Both
+  recorded in `coding-standards.md`. **Verified:** lint/typecheck/test (**46 pass**)/build green;
+  a live dev server exercised the full create -> add GSPR -> readiness recompute
+  (0->100->50->25->0) -> delete cycle, risk CRUD, filters/search, 401 without a session, 400 on
+  bad input, and SSR-rendered the list + detail pages with zero component-resolution warnings.
+  See `sessions/2026-07-26-technical-files-s5.md`.
+- **S5 mutations do not yet write audit-log entries** (`server/utils/auditLog.ts` doesn't exist
+  yet). Per `mvp-plan.md` this is S7's job (it wires `auditLog.ts` across all earlier mutations),
+  so it's expected — flagged here so S7 doesn't miss it.
 
 ## In progress
 
-- Nothing mid-flight. S4 is fully committed and verified; ready to start S5.
+- Nothing mid-flight. S5 is fully committed and verified; ready to start S6.
 
 ## Next
 
-1. **S5 — Technical files (FR-TF-*, FR-GSPR-1, FR-RISK-1):** list page (filters, pagination) +
-   detail page (Overview / GSPR / Risk tabs); technical-files / gspr / risk APIs; readiness
-   recomputed from GSPR conformity. Replaces the `/technical-files` S3 placeholder and backs
-   the dashboard's "View all" / per-file links.
-2. Then S6 (auditor simulation), S7 (standalone module
-   screens — these replace the S3 placeholder pages for risk / clinical-evaluation /
-   post-market / audit-log), S9 (CI/CD + Docker) per
+1. **S6 — Auditor Simulation (FR-AUD-1..2):** `server/utils/auditorRules.ts` rule engine +
+   `server/api/auditor/simulate.post.ts`; UI to pick a technical file, run it, show findings
+   (severity + related GSPR ref + recommendation), and export the report (Markdown/HTML print
+   view — no server-side PDF in the MVP, see `storage-and-reports.md`). Rule-engine unit tests.
+2. Then S7 (standalone module screens — these replace the S3 placeholder pages for risk /
+   clinical-evaluation / post-market / audit-log, plus `auditLog.ts` auto-write on mutations),
+   then S9 (CI/CD + Docker) per
    [`../03-planning/mvp-plan.md`](../03-planning/mvp-plan.md). S8 (marketing) is already done.
 3. S9 note: the Dockerfile must `COPY server/database/migrations` into the image
    alongside `.output` (see [`../01-architecture/deployment.md`](../01-architecture/deployment.md)).
@@ -185,7 +205,8 @@ layout/nav/footer — see `architecture.md`).
 
 ## Working branch
 
-- `dev` (Gate B implementation), ahead of `main` by the S0-S3 + S8 implementation commits.
-  Default branch `main` holds the SDLC docs (merged and pushed). `dev` has **not** been
-  pushed yet — a natural milestone to push is now (S3 done) if the owner wants remote
-  visibility; otherwise push before/after S4. Pushing is the owner's call.
+- `dev` (Gate B implementation), ahead of `main` by the S0-S5 + S8 implementation commits and
+  ahead of `origin/dev` by 22 local commits. Default branch `main` holds the SDLC docs (merged
+  and pushed). `dev` has local commits not pushed this session — a natural milestone to push is
+  now (S5 done) if the owner wants remote visibility. Pushing (and any `dev -> main` merge) is
+  the owner's call.
