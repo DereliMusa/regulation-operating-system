@@ -1,6 +1,6 @@
 # Project State (read this first)
 
-> Last updated: 2026-07-26 — session `2026-07-26-auditor-s6`
+> Last updated: 2026-07-26 — session `2026-07-26-modules-s7`
 
 This file is the fast, always-current snapshot of where the project stands. Read it at
 the start of every session. Update it at the end of every session.
@@ -8,16 +8,16 @@ the start of every session. Update it at the end of every session.
 ## Current phase
 
 **Gate B — Implementation (in progress).** Building the MVP sprint by sprint on branch
-`dev` (see [`../03-planning/mvp-plan.md`](../03-planning/mvp-plan.md)). **S0, S1, S2, S3, S4,
-S5, S6, and S8 are done and verified** (lint, typecheck, tests, build all green; flows verified
-against a real running dev server — the S6 Auditor Simulation was exercised end-to-end via the API
-and confirmed in a headless browser, findings rendering on the technical-file detail tab).
+`dev` (see [`../03-planning/mvp-plan.md`](../03-planning/mvp-plan.md)). **S0-S8 are all done and
+verified** (lint, typecheck, tests, build all green; every flow exercised against a real running
+dev server and confirmed in a headless browser). **Only S9 (CI/CD + Docker + polish) remains** to
+complete the MVP.
 
-**S8 — Marketing was built out of sequence** (owner instruction), then **S3 — app shell**,
-**S4 — Dashboard**, **S5 — Technical files**, and **S6 — Auditor Simulation** were built. The
-remaining app-side screen is **S7 (next)**, plus **S9** (CI/CD + Docker). The two shells
-(marketing vs app) are architecturally independent (each has its own layout/nav/footer — see
-`architecture.md`).
+**Build order** (S8 marketing was built out of sequence on owner instruction): S0-S2 foundation,
+then S8 marketing, then S3 app shell, S4 dashboard, S5 technical files, S6 auditor simulation, and
+S7 the four standalone module screens (Risk / Clinical / Post-Market / Audit Log) with audit
+auto-write. The two shells (marketing vs app) are architecturally independent (each has its own
+layout/nav/footer — see `architecture.md`).
 
 ## Confirmed decisions (owner-approved)
 
@@ -148,9 +148,9 @@ remaining app-side screen is **S7 (next)**, plus **S9** (CI/CD + Docker). The tw
   (0->100->50->25->0) -> delete cycle, risk CRUD, filters/search, 401 without a session, 400 on
   bad input, and SSR-rendered the list + detail pages with zero component-resolution warnings.
   See `sessions/2026-07-26-technical-files-s5.md`.
-- **S5 mutations do not yet write audit-log entries** (`server/utils/auditLog.ts` doesn't exist
-  yet). Per `mvp-plan.md` this is S7's job (it wires `auditLog.ts` across all earlier mutations),
-  so it's expected — flagged here so S7 doesn't miss it.
+- **S5 mutations now write audit-log entries (RESOLVED in S7).** `server/utils/auditLog.ts`
+  (`writeAuditLog`) is called by every technical-file / GSPR / risk mutation route; the Audit Log
+  screen lists them (FR-LOG-1/2).
 - **S6 — Auditor Simulation (2026-07-26, FR-AUD-1..2):** a deterministic mock rule engine
   (`server/utils/auditorRules.ts`, `runAuditorSimulation`) over a file's GSPR conformity and ISO
   14971 risk state — missing GSPR = critical, partial = major, unmitigated high-severity risk =
@@ -164,21 +164,31 @@ remaining app-side screen is **S7 (next)**, plus **S9** (CI/CD + Docker). The tw
   body, CardioGuard pass (0 findings) and GlucoCheck 6 findings (3 critical / 3 major,
   critical-first); a headless-Chromium run clicked the tab and confirmed findings and the pass
   banner render with zero console errors. See `sessions/2026-07-26-auditor-s6.md`.
+- **S7 — Standalone module screens (2026-07-26, FR-RISK-2, FR-CER-1, FR-PMS-1, FR-LOG-1..2):** the
+  four seed-driven screens replacing the S3 placeholders — Risk Management (portfolio ISO 14971
+  register + summary cards), Clinical Evaluation (evidence table + AI-suggestions panel), Post-Market
+  (milestone timeline + plans table + AI insight), and Audit Log (KPI cards + actor/impact filters +
+  table), each backed by a pure `server/utils/{riskRegister,clinical,postMarket}.ts` + GET route.
+  **`server/utils/auditLog.ts` now auto-writes an audit entry on every mutation** (technical-file /
+  GSPR / risk create/update/delete via `writeAuditLog` in each route; `getAuditLogView` backs the
+  screen with KPIs + filters) — this **resolves the S5 deferral above**. Commits `611b4ba` (audit),
+  `813417f` (risk), `c7e6b9b` (cer), `a32831d` (pms). **Verified:** lint/typecheck/test (**58 pass**,
+  +6)/build green; live API returned correct aggregates for all four endpoints and a create mutation
+  wrote a "Created technical file" audit entry that surfaced at the top of the log (FR-LOG-1); all
+  four screens SSR-render and were confirmed in a headless browser with zero console errors. See
+  `sessions/2026-07-26-modules-s7.md`.
 
 ## In progress
 
-- Nothing mid-flight. S6 is fully committed and verified; ready to start S7.
+- Nothing mid-flight. S7 is fully committed and verified. **All MVP app + marketing screens (S0-S8)
+  are done**; only **S9 (CI/CD + Docker + polish)** remains.
 
 ## Next
 
-1. **S7 — Standalone module screens (FR-RISK-2, FR-CER-1, FR-PMS-1, FR-LOG-1..2):** the Risk
-   Management, Clinical Evaluation, Post-Market, and Audit Log screens (seed-driven, read-mostly),
-   replacing the S3 placeholder pages, plus `server/utils/auditLog.ts` wired to auto-write an audit
-   entry on every mutation from earlier sprints (technical-file / GSPR / risk create/update/delete).
-   The Audit Log screen then lists those entries with filters + KPI cards.
-2. Then S9 (CI/CD + Docker) per
-   [`../03-planning/mvp-plan.md`](../03-planning/mvp-plan.md). S8 (marketing) is already done.
-3. S9 note: the Dockerfile must `COPY server/database/migrations` into the image
+1. **S9 — CI/CD, deploy & polish:** GitHub Actions (`ci.yml`: lint + test + build; `deploy.yml`:
+   Docker build + Coolify deploy); the production Dockerfile; responsive/hover polish; coverage
+   check; README / CHANGELOG. This is the final MVP sprint.
+2. S9 note: the Dockerfile must `COPY server/database/migrations` into the image
    alongside `.output` (see [`../01-architecture/deployment.md`](../01-architecture/deployment.md)).
 
 ## Open items awaiting the owner
@@ -218,7 +228,7 @@ remaining app-side screen is **S7 (next)**, plus **S9** (CI/CD + Docker). The tw
 
 ## Working branch
 
-- `dev` (Gate B implementation), ahead of `main` by the S0-S5 + S8 implementation commits.
-  **Pushed to `origin/dev` this session** (S5 done), so the remote branch is current. Default
-  branch `main` holds the SDLC docs (merged and pushed); a `dev -> main` merge is still the
-  owner's call.
+- `dev` (Gate B implementation), ahead of `main` by the S0-S8 implementation commits.
+  **Pushed to `origin/dev` this session** (S7 done), so the remote branch is current. Default
+  branch `main` holds the SDLC docs (merged and pushed); a `dev -> main` merge (the MVP is now all
+  screens complete, only S9 left) is the owner's call.

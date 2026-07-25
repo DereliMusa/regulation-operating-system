@@ -19,10 +19,10 @@ Status legend: `todo` / `doing` / `done` / `blocked`.
 | B-08 | GSPR matrix CRUD | FR-GSPR-1 | done |
 | B-09 | Risk register CRUD | FR-RISK-1 | done |
 | B-10 | Auditor Simulation (rule engine + UI + export) | FR-AUD-1..2 | done |
-| B-11 | Risk Management standalone screen | FR-RISK-2 | todo |
-| B-12 | Clinical Evaluation screen | FR-CER-1 | todo |
-| B-13 | Post-Market screen | FR-PMS-1 | todo |
-| B-14 | Audit Log screen + auto-write on mutations | FR-LOG-1..2 | todo |
+| B-11 | Risk Management standalone screen | FR-RISK-2 | done |
+| B-12 | Clinical Evaluation screen | FR-CER-1 | done |
+| B-13 | Post-Market screen | FR-PMS-1 | done |
+| B-14 | Audit Log screen + auto-write on mutations | FR-LOG-1..2 | done |
 | B-15 | Landing (Product Overview) | FR-MKT-1 | done |
 | B-16 | Book a Demo form + API | FR-MKT-2 | done |
 | B-17 | CI/CD + Docker + Coolify deploy | S9 | todo |
