@@ -80,5 +80,4 @@ No logic changed — these were type-annotation / handler-shape fixes only.
   `auditor/simulate.post.ts`; pick a file, run, show severity findings + recommendations, export
   the report (Markdown/HTML print view — no server-side PDF in the MVP). Rule-engine unit tests.
 - Then S7 (standalone screens + `auditLog.ts` auto-write) and S9 (CI/CD + Docker).
-- `dev` is 22 commits ahead of `origin/dev`; pushing / any `dev -> main` merge remains the
-  owner's call.
+- `dev` was pushed to `origin/dev` this session; any `dev -> main` merge remains the owner's call.

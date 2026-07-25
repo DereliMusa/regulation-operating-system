@@ -205,8 +205,7 @@ architecturally independent (each has its own layout/nav/footer — see `archite
 
 ## Working branch
 
-- `dev` (Gate B implementation), ahead of `main` by the S0-S5 + S8 implementation commits and
-  ahead of `origin/dev` by 22 local commits. Default branch `main` holds the SDLC docs (merged
-  and pushed). `dev` has local commits not pushed this session — a natural milestone to push is
-  now (S5 done) if the owner wants remote visibility. Pushing (and any `dev -> main` merge) is
-  the owner's call.
+- `dev` (Gate B implementation), ahead of `main` by the S0-S5 + S8 implementation commits.
+  **Pushed to `origin/dev` this session** (S5 done), so the remote branch is current. Default
+  branch `main` holds the SDLC docs (merged and pushed); a `dev -> main` merge is still the
+  owner's call.
