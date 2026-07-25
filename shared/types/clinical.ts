@@ -12,3 +12,23 @@ export interface ClinicalEvidence {
   confidence: number | null
   updatedAt: string
 }
+
+/** A clinical evidence record joined to its device name. */
+export interface ClinicalEvidenceItem extends ClinicalEvidence {
+  deviceName: string
+}
+
+export interface ClinicalSummary {
+  total: number
+  approved: number
+  inReview: number
+  avgConfidence: number
+}
+
+/** Clinical Evaluation screen payload (GET /api/clinical). */
+export interface ClinicalOverview {
+  items: ClinicalEvidenceItem[]
+  summary: ClinicalSummary
+  /** Records carrying a mock AI summary, highest confidence first. */
+  aiSuggestions: ClinicalEvidenceItem[]
+}
