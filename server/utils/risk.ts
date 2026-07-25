@@ -62,11 +62,11 @@ export function updateRisk(db: Db, id: number, input: UpdateRiskInput): RiskEntr
   return entry
 }
 
-/** Delete a risk entry. */
-export function deleteRisk(db: Db, id: number): { id: number } {
+/** Delete a risk entry. Returns the deleted risk's ref for the audit trail. */
+export function deleteRisk(db: Db, id: number): { id: number, riskId: string } {
   const [existing] = db.select().from(riskEntries).where(eq(riskEntries.id, id)).all()
   if (!existing) throw createError({ statusCode: 404, statusMessage: 'Risk entry not found' })
 
   db.delete(riskEntries).where(eq(riskEntries.id, id)).run()
-  return { id }
+  return { id, riskId: existing.riskId }
 }
