@@ -1,32 +1,15 @@
 <script setup lang="ts">
-// Placeholder guarded route for S2 (auth). Replaced with the real
-// dashboard content in S4; the route, guard, and layout wiring stay.
-definePageMeta({ middleware: ['auth'] })
+// Dashboard route. In S3 it adopts the app shell; the full metrics dashboard
+// (readiness, files, approvals, deadlines, AI activity, findings) lands in S4.
+definePageMeta({ layout: 'app', middleware: ['auth'] })
 
-const { user, clear } = useUserSession()
-
-async function onSignOut() {
-  await $fetch('/api/auth/logout', { method: 'POST' })
-  await clear()
-  await navigateTo('/login')
-}
+useHead({ title: 'Dashboard - Certra' })
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-canvas px-4">
-    <UCard class="w-full max-w-sm text-center">
-      <p class="text-sm text-ink-muted">
-        Signed in as
-      </p>
-      <p class="font-display text-lg font-semibold text-ink">
-        {{ user?.name }}
-      </p>
-      <p class="mb-4 text-sm text-ink-muted">
-        {{ user?.email }}
-      </p>
-      <UButton color="neutral" variant="soft" block @click="onSignOut">
-        Sign out
-      </UButton>
-    </UCard>
-  </div>
+  <ModulePlaceholder
+    icon="i-material-symbols-dashboard"
+    title="Dashboard"
+    description="Your compliance readiness, active technical files, approvals, deadlines, AI activity, and open findings appear here in the next sprint (S4)."
+  />
 </template>
