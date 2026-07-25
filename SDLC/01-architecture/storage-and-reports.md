@@ -10,7 +10,8 @@ phase. It was an implicit gap in the initial architecture; captured here explici
   reference lists, not binary files. The Technical File "Documents" tab is deferred to Phase 1.
 - **Report export (Auditor Simulation):** export findings as **Markdown/HTML**. A printable
   view enables browser "print to PDF" without a heavy dependency. No server-side PDF library
-  in the MVP.
+  in the MVP. **S6 shipped** a client-side **Markdown** download (`buildAuditorReportMarkdown`);
+  the printable HTML / print-to-PDF view remains a follow-up.
 - Rationale: keeps the MVP simple and dependency-light while still demoing "Export report".
 
 ## Phase 1

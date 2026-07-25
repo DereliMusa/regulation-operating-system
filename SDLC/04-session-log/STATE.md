@@ -1,6 +1,6 @@
 # Project State (read this first)
 
-> Last updated: 2026-07-26 — session `2026-07-26-technical-files-s5`
+> Last updated: 2026-07-26 — session `2026-07-26-auditor-s6`
 
 This file is the fast, always-current snapshot of where the project stands. Read it at
 the start of every session. Update it at the end of every session.
@@ -9,14 +9,15 @@ the start of every session. Update it at the end of every session.
 
 **Gate B — Implementation (in progress).** Building the MVP sprint by sprint on branch
 `dev` (see [`../03-planning/mvp-plan.md`](../03-planning/mvp-plan.md)). **S0, S1, S2, S3, S4,
-S5, and S8 are done and verified** (lint, typecheck, tests, build all green; flows verified
-against a real running dev server — the S5 technical-file CRUD and live readiness recompute were
-exercised end-to-end via the API and confirmed rendering server-side).
+S5, S6, and S8 are done and verified** (lint, typecheck, tests, build all green; flows verified
+against a real running dev server — the S6 Auditor Simulation was exercised end-to-end via the API
+and confirmed in a headless browser, findings rendering on the technical-file detail tab).
 
 **S8 — Marketing was built out of sequence** (owner instruction), then **S3 — app shell**,
-**S4 — Dashboard**, and **S5 — Technical files** were built. The remaining app-side screens are
-**S6 (next)** and **S7**, plus **S9** (CI/CD + Docker). The two shells (marketing vs app) are
-architecturally independent (each has its own layout/nav/footer — see `architecture.md`).
+**S4 — Dashboard**, **S5 — Technical files**, and **S6 — Auditor Simulation** were built. The
+remaining app-side screen is **S7 (next)**, plus **S9** (CI/CD + Docker). The two shells
+(marketing vs app) are architecturally independent (each has its own layout/nav/footer — see
+`architecture.md`).
 
 ## Confirmed decisions (owner-approved)
 
@@ -150,20 +151,32 @@ architecturally independent (each has its own layout/nav/footer — see `archite
 - **S5 mutations do not yet write audit-log entries** (`server/utils/auditLog.ts` doesn't exist
   yet). Per `mvp-plan.md` this is S7's job (it wires `auditLog.ts` across all earlier mutations),
   so it's expected — flagged here so S7 doesn't miss it.
+- **S6 — Auditor Simulation (2026-07-26, FR-AUD-1..2):** a deterministic mock rule engine
+  (`server/utils/auditorRules.ts`, `runAuditorSimulation`) over a file's GSPR conformity and ISO
+  14971 risk state — missing GSPR = critical, partial = major, unmitigated high-severity risk =
+  critical/major, mitigated-without-verification = minor, readiness < 70% = major. `POST
+  /api/auditor/simulate` returns the **ephemeral** findings (not persisted; the seeded
+  `auditor_findings` still back the dashboard). UI is a new **Auditor sim** tab on the
+  technical-file detail that runs on mount and shows a pass banner or a severity summary + findings
+  list; **Export report** downloads a Markdown report (pure `buildAuditorReportMarkdown`,
+  unit-tested). Commits `e52c288` (engine + api + tests) and `47e3bc1` (ui + export). **Verified:**
+  lint/typecheck/test (**52 pass**, +6)/build green; live API gave 401 unauth, 404 missing, 400 bad
+  body, CardioGuard pass (0 findings) and GlucoCheck 6 findings (3 critical / 3 major,
+  critical-first); a headless-Chromium run clicked the tab and confirmed findings and the pass
+  banner render with zero console errors. See `sessions/2026-07-26-auditor-s6.md`.
 
 ## In progress
 
-- Nothing mid-flight. S5 is fully committed and verified; ready to start S6.
+- Nothing mid-flight. S6 is fully committed and verified; ready to start S7.
 
 ## Next
 
-1. **S6 — Auditor Simulation (FR-AUD-1..2):** `server/utils/auditorRules.ts` rule engine +
-   `server/api/auditor/simulate.post.ts`; UI to pick a technical file, run it, show findings
-   (severity + related GSPR ref + recommendation), and export the report (Markdown/HTML print
-   view — no server-side PDF in the MVP, see `storage-and-reports.md`). Rule-engine unit tests.
-2. Then S7 (standalone module screens — these replace the S3 placeholder pages for risk /
-   clinical-evaluation / post-market / audit-log, plus `auditLog.ts` auto-write on mutations),
-   then S9 (CI/CD + Docker) per
+1. **S7 — Standalone module screens (FR-RISK-2, FR-CER-1, FR-PMS-1, FR-LOG-1..2):** the Risk
+   Management, Clinical Evaluation, Post-Market, and Audit Log screens (seed-driven, read-mostly),
+   replacing the S3 placeholder pages, plus `server/utils/auditLog.ts` wired to auto-write an audit
+   entry on every mutation from earlier sprints (technical-file / GSPR / risk create/update/delete).
+   The Audit Log screen then lists those entries with filters + KPI cards.
+2. Then S9 (CI/CD + Docker) per
    [`../03-planning/mvp-plan.md`](../03-planning/mvp-plan.md). S8 (marketing) is already done.
 3. S9 note: the Dockerfile must `COPY server/database/migrations` into the image
    alongside `.output` (see [`../01-architecture/deployment.md`](../01-architecture/deployment.md)).

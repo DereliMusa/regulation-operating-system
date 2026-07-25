@@ -18,7 +18,7 @@ Status legend: `todo` / `doing` / `done` / `blocked`.
 | B-07 | Technical files list + detail | FR-TF-1..4 | done |
 | B-08 | GSPR matrix CRUD | FR-GSPR-1 | done |
 | B-09 | Risk register CRUD | FR-RISK-1 | done |
-| B-10 | Auditor Simulation (rule engine + UI + export) | FR-AUD-1..2 | todo |
+| B-10 | Auditor Simulation (rule engine + UI + export) | FR-AUD-1..2 | done |
 | B-11 | Risk Management standalone screen | FR-RISK-2 | todo |
 | B-12 | Clinical Evaluation screen | FR-CER-1 | todo |
 | B-13 | Post-Market screen | FR-PMS-1 | todo |
