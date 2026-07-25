@@ -1,4 +1,4 @@
-<script setup lang="ts" generic="T extends Record<string, unknown>">
+<script setup lang="ts" generic="T extends object">
 import type { DataTableColumn } from '~/utils/table'
 // Generic data table (STYLE_GUIDE 5): surface-2 header with uppercase captions,
 // hairline row dividers, hover highlight, mono IDs in primary. Per-column

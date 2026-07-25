@@ -17,7 +17,7 @@ export interface DataTableColumn {
  * @param key - property key, dot-separated for nested access
  * @returns the resolved value, or undefined when any segment is missing
  */
-export function resolveCellValue(row: Record<string, unknown>, key: string): unknown {
+export function resolveCellValue(row: object, key: string): unknown {
   return key.split('.').reduce<unknown>((acc, part) => {
     if (acc !== null && typeof acc === 'object') {
       return (acc as Record<string, unknown>)[part]
