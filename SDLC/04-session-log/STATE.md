@@ -1,6 +1,6 @@
 # Project State (read this first)
 
-> Last updated: 2026-07-15 — session `2026-07-15-marketing-s8`
+> Last updated: 2026-07-25 — session `2026-07-25-app-shell-s3`
 
 This file is the fast, always-current snapshot of where the project stands. Read it at
 the start of every session. Update it at the end of every session.
@@ -8,15 +8,16 @@ the start of every session. Update it at the end of every session.
 ## Current phase
 
 **Gate B — Implementation (in progress).** Building the MVP sprint by sprint on branch
-`dev` (see [`../03-planning/mvp-plan.md`](../03-planning/mvp-plan.md)). **S0, S1, and S2 are
-done and verified** (lint, typecheck, tests, build all green; auth flow verified end-to-end
-against a real running dev server, including a visual screenshot check of brand styling).
+`dev` (see [`../03-planning/mvp-plan.md`](../03-planning/mvp-plan.md)). **S0, S1, S2, S3, and
+S8 are done and verified** (lint, typecheck, tests, build all green; flows verified against a
+real running dev server, including headless-browser screenshots of brand styling and the app
+shell).
 
-**S8 — Marketing was built next, out of sequence, on the owner's explicit instruction**
-(the corporate/marketing site had not been started yet; the owner asked for it directly
-rather than waiting for S3-S7). This was low-risk to reorder because the marketing shell
-is architecturally independent of the app shell (its own layout/nav/footer — see
-`architecture.md`). **S3 — app shell + shared components** is next for the app-side screens.
+**S8 — Marketing was built out of sequence** (owner instruction), then **S3 — app shell +
+shared components** was built next (this session). The remaining app-side screens are
+**S4 — Dashboard** (next), then S5-S7 and S9. S3 was low-risk to build after S8 because the
+two shells are architecturally independent (each has its own layout/nav/footer — see
+`architecture.md`).
 
 ## Confirmed decisions (owner-approved)
 
@@ -104,33 +105,49 @@ is architecturally independent of the app shell (its own layout/nav/footer — s
   check against a live dev server (`curl` POST persisted a row, invalid input got a 400);
   Playwright screenshots of `/` and `/book-a-demo` at 1280px and 375px confirmed the brand
   palette, icons, and responsive layout render correctly.
+- **S3 — App shell + shared components (this session, 2026-07-25):** the authenticated `app`
+  layout (`AppSidebar` fixed 240px + mobile drawer, `AppTopbar` with breadcrumb / search /
+  notifications / user menu + sign out, slim `AppFooter`), a shared component library in
+  `app/components/common/` (ToneBadge + StatusBadge/SeverityBadge, TraceabilityChip,
+  ReadinessRing, ReadinessBar, AiPanel, DataTable, BentoCard, ModulePlaceholder), and the
+  navigation model in composables (`useAppNav`, `useSidebar`). Badge/table/readiness logic is
+  extracted to pure, unit-tested `app/utils/{badges,readiness,table}.ts` (single tone
+  vocabulary for all status/severity enums). `dashboard.vue` now uses `layout: 'app'`; every
+  sidebar link resolves to a real guarded page (five module placeholders replaced in S4-S7),
+  so there are no dead routes; Settings/Support render disabled (out of MVP scope). Component
+  render tests use `@nuxt/test-utils` (`mountSuspended`) with a Node-default `vitest.config.ts`.
+  **Verified:** lint/typecheck/test (32 pass)/build all green; curl smoke test of every route;
+  headless-Chromium UI login lands on `/dashboard` with the shell rendering, screenshots at
+  1280px + 390px. See `sessions/2026-07-25-app-shell-s3.md`. STYLE_GUIDE section 6 updated
+  (slim app footer) and `eslint.config.mjs` disables `vue/require-default-prop` for TS props.
 
 ## In progress
 
-- Nothing mid-flight. S8 is fully committed and verified; ready to start S3.
+- Nothing mid-flight. S3 is fully committed and verified; ready to start S4.
 
 ## Next
 
-1. **S3 — App shell + shared components:** `app` layout (sidebar/topbar/footer per
-   STYLE_GUIDE) and shared components (StatusBadge, SeverityBadge, TraceabilityChip,
-   ReadinessRing/Bar, AiPanel, DataTable, BentoCard). Wire `dashboard.vue` to
-   `definePageMeta({ layout: 'app' })` once it exists (currently uses no layout, by design
-   — see architecture.md).
-2. Then S4 (dashboard), S5 (technical files), S6 (auditor simulation), S7 (module screens),
-   S9 (CI/CD + Docker) per [`../03-planning/mvp-plan.md`](../03-planning/mvp-plan.md).
-   S8 (marketing) is already done — see "Done" above.
+1. **S4 — Dashboard (FR-DASH-1..4):** `server/api/dashboard/stats.get.ts` + the real
+   `dashboard.vue` (currently a placeholder in the app shell) built from the S3 component
+   library (BentoCard, ReadinessRing, DataTable, AiPanel) and seed data.
+2. Then S5 (technical files + GSPR/Risk CRUD), S6 (auditor simulation), S7 (standalone module
+   screens — these replace the S3 placeholder pages for risk / clinical-evaluation /
+   post-market / audit-log), S9 (CI/CD + Docker) per
+   [`../03-planning/mvp-plan.md`](../03-planning/mvp-plan.md). S8 (marketing) is already done.
 3. S9 note: the Dockerfile must `COPY server/database/migrations` into the image
    alongside `.output` (see [`../01-architecture/deployment.md`](../01-architecture/deployment.md)).
 
 ## Open items awaiting the owner
 
-- **Confirm the `/api/_*` auth fix in an actual browser.** It's verified on this end (curl,
-  unit test, and a scripted realistic-timing browser login all pass — see "Done" above),
-  but the owner's own manual retry at the end of the 2026-07-15 session didn't get
-  confirmed working before they had to leave ("açılmadı ama önemli değil"). First thing
-  next session: have the owner click Sign in on `/login` with `demo@certra.app` /
-  `CertraDemo!2026` and confirm it lands on `/dashboard`. If it still doesn't, treat it as
-  unresolved, not fixed.
+- **RESOLVED (2026-07-25): the `/api/_*` auth fix is confirmed in a real browser.** A
+  headless-Chromium UI login (fill the form -> click Sign in) landed on `/dashboard` with the
+  shell rendered; `/api/_auth/session` returns 200 with and without a cookie. This exercises
+  the exact client re-check that used to 401. A final owner sanity click is welcome but it is
+  no longer a blocker. (Kept here for traceability; move to "Done" history next session.)
+- **Seed endpoint is not idempotent (dev tooling):** `POST /api/dev/seed` returns 500
+  (`UNIQUE constraint failed: users.email`) once the local `.data` DB is already seeded.
+  Harmless (data + login work), but re-seeding a populated DB fails; consider clear-then-seed
+  or a graceful 409. Not an S3 change.
 - Design assets: logo (SVG + favicon), 3-5 marketing photos, social-proof decision
   (real vs. clearly-labelled sample), ISO 13485/HIPAA badges only if truly certified.
   See [`../01-architecture/STYLE_GUIDE.md`](../01-architecture/STYLE_GUIDE.md). The S8
@@ -152,6 +169,7 @@ is architecturally independent of the app shell (its own layout/nav/footer — s
 
 ## Working branch
 
-- `dev` (Gate B implementation), 21 commits ahead of `main`. Default branch `main` holds the
-  SDLC docs (merged and pushed). `dev` has not been merged/pushed yet — do that at a
-  natural milestone (e.g., after S3, or now if the owner wants incremental visibility).
+- `dev` (Gate B implementation), ahead of `main` by the S0-S3 + S8 implementation commits.
+  Default branch `main` holds the SDLC docs (merged and pushed). `dev` has **not** been
+  pushed yet — a natural milestone to push is now (S3 done) if the owner wants remote
+  visibility; otherwise push before/after S4. Pushing is the owner's call.

@@ -119,8 +119,10 @@ chips) use **Geist Mono**.
   2px primary right border.
 - **Topbar**: breadcrumb (e.g. Workspace > Dashboard); "Search technical files..."; a
   context action ("Verify AI" / "Export"); notifications bell; user avatar.
-- **Footer**: brand + tagline; Product / Solutions / Compliance / Resources / Privacy /
-  Terms links.
+- **Footer**: the authenticated app uses a **slim** footer (brand wordmark + copyright +
+  tagline) rather than a link directory — inside the app, a marketing-style link footer would
+  be mostly dead routes. The full multi-column link footer (Product / Solutions / Compliance /
+  Resources / Privacy / Terms) is the **marketing** footer, on public pages.
 - **Marketing shell** (public pages) uses a distinct top nav (logo, Product/Solutions/
   Pricing, Sign in, Book a demo) and a 4-column footer, sharing the same tokens.
 
