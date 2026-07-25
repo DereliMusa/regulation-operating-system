@@ -16,3 +16,17 @@ export interface TechnicalFile {
   createdAt: string
   updatedAt: string
 }
+
+/** Paginated technical-file list response (GET /api/technical-files). */
+export interface TechnicalFileList {
+  items: TechnicalFile[]
+  total: number
+  page: number
+  pageSize: number
+}
+
+/** A technical file with its GSPR matrix and risk register (detail response). */
+export interface TechnicalFileDetail extends TechnicalFile {
+  gspr: import('./gspr').GsprEntry[]
+  risks: import('./risk').RiskEntry[]
+}
