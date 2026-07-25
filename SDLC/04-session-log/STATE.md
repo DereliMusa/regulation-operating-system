@@ -1,6 +1,6 @@
 # Project State (read this first)
 
-> Last updated: 2026-07-25 — session `2026-07-25-app-shell-s3`
+> Last updated: 2026-07-25 — session `2026-07-25-dashboard-s4`
 
 This file is the fast, always-current snapshot of where the project stands. Read it at
 the start of every session. Update it at the end of every session.
@@ -8,16 +8,15 @@ the start of every session. Update it at the end of every session.
 ## Current phase
 
 **Gate B — Implementation (in progress).** Building the MVP sprint by sprint on branch
-`dev` (see [`../03-planning/mvp-plan.md`](../03-planning/mvp-plan.md)). **S0, S1, S2, S3, and
-S8 are done and verified** (lint, typecheck, tests, build all green; flows verified against a
-real running dev server, including headless-browser screenshots of brand styling and the app
-shell).
+`dev` (see [`../03-planning/mvp-plan.md`](../03-planning/mvp-plan.md)). **S0, S1, S2, S3, S4,
+and S8 are done and verified** (lint, typecheck, tests, build all green; flows verified against
+a real running dev server, including headless-browser screenshots of brand styling, the app
+shell, and the data-driven dashboard).
 
-**S8 — Marketing was built out of sequence** (owner instruction), then **S3 — app shell +
-shared components** was built next (this session). The remaining app-side screens are
-**S4 — Dashboard** (next), then S5-S7 and S9. S3 was low-risk to build after S8 because the
-two shells are architecturally independent (each has its own layout/nav/footer — see
-`architecture.md`).
+**S8 — Marketing was built out of sequence** (owner instruction), then **S3 — app shell** and
+**S4 — Dashboard** were built. The remaining app-side screens are **S5-S7** (S5 next) and
+**S9**. The two shells (marketing vs app) are architecturally independent (each has its own
+layout/nav/footer — see `architecture.md`).
 
 ## Confirmed decisions (owner-approved)
 
@@ -120,17 +119,29 @@ two shells are architecturally independent (each has its own layout/nav/footer �
   headless-Chromium UI login lands on `/dashboard` with the shell rendering, screenshots at
   1280px + 390px. See `sessions/2026-07-25-app-shell-s3.md`. STYLE_GUIDE section 6 updated
   (slim app footer) and `eslint.config.mjs` disables `vue/require-default-prop` for TS props.
+- **S4 — Dashboard (this session, 2026-07-25):** `GET /api/dashboard/stats` (auth-protected)
+  backed by `getDashboardStats(db)` in `server/utils/dashboard.ts` (pure, unit-tested), plus
+  the real `dashboard.vue` composed entirely from the S3 component library. Surfaces portfolio
+  readiness (65% mean), per-file readiness bars toned by status, pending approvals (4),
+  upcoming PMS deadlines (live days-remaining), mock AI drafts (3, by confidence), and open
+  deficiency findings (4, critical-first, with GSPR traceability chips). `DataTable`'s generic
+  relaxed to `T extends object` so typed row interfaces work. **Verified:** lint/typecheck/test
+  (34 pass)/build green; API 401 without a session and correct aggregates with one; headless
+  Chromium screenshots at 1280px + 390px. See `sessions/2026-07-25-dashboard-s4.md`.
+- **Auth cookie fix (this session):** session cookie made `Secure` in production only (see
+  "Open items" — the browser login bug the owner hit is resolved).
 
 ## In progress
 
-- Nothing mid-flight. S3 is fully committed and verified; ready to start S4.
+- Nothing mid-flight. S4 is fully committed and verified; ready to start S5.
 
 ## Next
 
-1. **S4 — Dashboard (FR-DASH-1..4):** `server/api/dashboard/stats.get.ts` + the real
-   `dashboard.vue` (currently a placeholder in the app shell) built from the S3 component
-   library (BentoCard, ReadinessRing, DataTable, AiPanel) and seed data.
-2. Then S5 (technical files + GSPR/Risk CRUD), S6 (auditor simulation), S7 (standalone module
+1. **S5 — Technical files (FR-TF-*, FR-GSPR-1, FR-RISK-1):** list page (filters, pagination) +
+   detail page (Overview / GSPR / Risk tabs); technical-files / gspr / risk APIs; readiness
+   recomputed from GSPR conformity. Replaces the `/technical-files` S3 placeholder and backs
+   the dashboard's "View all" / per-file links.
+2. Then S6 (auditor simulation), S7 (standalone module
    screens — these replace the S3 placeholder pages for risk / clinical-evaluation /
    post-market / audit-log), S9 (CI/CD + Docker) per
    [`../03-planning/mvp-plan.md`](../03-planning/mvp-plan.md). S8 (marketing) is already done.
