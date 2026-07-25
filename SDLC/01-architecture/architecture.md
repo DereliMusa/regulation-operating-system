@@ -114,7 +114,16 @@ responsibility when exceeded (e.g. schema or a large page split into sub-modules
 
 ## Auth flow (MVP) — implemented in S2
 
-- `nuxt-auth-utils` stores an encrypted session cookie (`httpOnly`, `secure`, `sameSite=lax`).
+- `nuxt-auth-utils` stores an encrypted session cookie (`httpOnly`, `sameSite=lax`, and
+  `secure` **in production only** — set from `NODE_ENV` via
+  `runtimeConfig.session.cookie.secure` in `nuxt.config.ts`).
+  **Finding (2026-07-25):** the cookie's default `secure: true` made login silently fail in
+  dev over `http://localhost` in Safari and Firefox — those browsers refuse to *store* a
+  `Secure` cookie on an `http://` origin, so the session cookie was never saved and the
+  post-login `/api/_auth/session` re-check returned no user, bouncing the user back to
+  `/login`. Chromium allows `Secure` cookies on localhost, which masked the bug in automated
+  testing. Fix: keep `secure` on only in production (served over HTTPS); off in dev. This is
+  distinct from the S2 `/api/_*` middleware bug below.
 - Passwords hashed with scrypt (via nuxt-auth-utils' `hashPassword`/`verifyPassword`).
 - `server/middleware/auth.ts` protects `/api/*` by default, allowlisting only
   `/api/auth/*`, `/api/demo-requests`, `/api/dev/*` as public; every new resource API is

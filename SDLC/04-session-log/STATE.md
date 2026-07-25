@@ -139,11 +139,16 @@ two shells are architecturally independent (each has its own layout/nav/footer �
 
 ## Open items awaiting the owner
 
-- **RESOLVED (2026-07-25): the `/api/_*` auth fix is confirmed in a real browser.** A
-  headless-Chromium UI login (fill the form -> click Sign in) landed on `/dashboard` with the
-  shell rendered; `/api/_auth/session` returns 200 with and without a cookie. This exercises
-  the exact client re-check that used to 401. A final owner sanity click is welcome but it is
-  no longer a blocker. (Kept here for traceability; move to "Done" history next session.)
+- **RESOLVED (2026-07-25), two distinct auth bugs:**
+  1. The S2 `/api/_*` middleware 401 — confirmed fixed (`/api/_auth/session` returns 200 with
+     and without a cookie).
+  2. **Session cookie `Secure`-over-http** — found when the owner tested login in their own
+     browser and it would not reach `/dashboard`. The cookie's default `secure: true` is
+     rejected over `http://localhost` by Safari/Firefox (Chromium allows it, which is why the
+     headless-Chromium check passed and masked it). Fixed in `nuxt.config.ts`:
+     `runtimeConfig.session.cookie.secure = NODE_ENV === 'production'` (Secure in prod/HTTPS,
+     off in dev). Verified: dev `Set-Cookie` no longer carries `Secure`; login + session both
+     200. See `architecture.md` auth section. **Owner: hard-reload `/login` and retry.**
 - **Seed endpoint is not idempotent (dev tooling):** `POST /api/dev/seed` returns 500
   (`UNIQUE constraint failed: users.email`) once the local `.data` DB is already seeded.
   Harmless (data + login work), but re-seeding a populated DB fails; consider clear-then-seed
