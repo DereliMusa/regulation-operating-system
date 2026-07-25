@@ -40,6 +40,11 @@ Conventions:
 | owner_id | INTEGER FK -> users.id | |
 | created_at, updated_at | TEXT | |
 
+Readiness (`readiness_percent`) is **derived**, not entered: the mean GSPR conformity score of
+the file's `gspr_entries` (conforming = 100, partial = 50, missing = 0), rounded, and 0 when
+there are none. It is recomputed and persisted on every GSPR create/update/delete
+(`refreshReadiness` in `server/utils/technicalFiles.ts`). See FR-TF-4.
+
 ### gspr_entries
 GSPR = General Safety and Performance Requirements (MDR Annex I).
 | Column | Type | Notes |
