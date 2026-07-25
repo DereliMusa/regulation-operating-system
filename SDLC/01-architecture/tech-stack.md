@@ -8,7 +8,7 @@ phase truly needs it** (KISS / YAGNI). Decisions with meaningful trade-offs have
 
 | Layer | Choice | Why |
 |---|---|---|
-| Framework / server engine | **Nuxt 3** (Nitro) | Fullstack, SSR, built-in API routes; one codebase. See [ADR-001](adr/001-nuxt-fullstack.md) |
+| Framework / server engine | **Nuxt 4** (Nitro) | Fullstack, SSR, built-in API routes; one codebase. See [ADR-001](adr/001-nuxt-fullstack.md) |
 | Language | **TypeScript** (strict) | Type safety across app + server + shared |
 | Runtime / package manager | **Node.js 22 LTS + npm** | Stable, fully Nuxt-tested; fastest safe path |
 | UI | **NuxtUI (free) + TailwindCSS** | Nuxt-native components; no paid license |
@@ -46,9 +46,15 @@ phase truly needs it** (KISS / YAGNI). Decisions with meaningful trade-offs have
 
 ## Notable compatibility notes
 
-- NuxtUI v3 uses **Tailwind CSS v4**; design tokens are defined via CSS `@theme` in
-  `app/assets/css/main.css` plus `app.config.ts`. Exact versions are pinned during S0 and
-  recorded here once the scaffold exists.
+- NuxtUI v4 uses **Tailwind CSS v4**; design tokens are defined via CSS `@theme` in
+  `app/assets/css/main.css` plus `app/app.config.ts`. Pinned versions (S0/S2): Nuxt 4.4.8,
+  `@nuxt/ui` 4.9.0.
+- **`vue-router` must be pinned to `^5.1.0`, not `^4.x`.** Nuxt 4.4.8 depends on
+  `vue-router@5.1.0` (its typed-router/Volar-plugin major). A root-level `^4.5.0` constraint
+  (an S0 mistake, fixed in S2) causes npm to install two `vue-router` copies; `vue-tsc` then
+  resolves the older v4 copy, which lacks the `./volar/sfc-route-blocks` export and makes
+  `npm run typecheck` fail with `ERR_PACKAGE_PATH_NOT_EXPORTED`. Run `npm ls vue-router` —
+  it must dedupe to a single version.
 - The Drizzle SQLite -> PostgreSQL switch is a dialect/config change; the schema stays
   largely the same. This is the main reason Drizzle was chosen over raw SQL.
 

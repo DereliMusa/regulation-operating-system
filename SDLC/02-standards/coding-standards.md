@@ -40,6 +40,15 @@ codebase.
 - Type props with `defineProps<...>()` and emits with `defineEmits<...>()`.
 - Keep components presentational; data access goes through composables -> server API.
 - **No database access from frontend code.** Database logic lives only in `server/`.
+- **NuxtUI event handlers must return `void`.** A component prop like `@click` is typed
+  `(e) => void | Promise<void>`; TS's void-widening does not apply to that union, so an inline
+  handler that *returns a value* (`@click="open = true"`, `@click="page++"`) fails `vue-tsc`.
+  Use a named void handler or a block-body arrow (`@click="() => { open = true }"`). Native DOM
+  elements are unaffected (their handler type is bare `void`). Found in S5.
+- **UForm state: cast enum fields to their union type.** When a `reactive({...})` form state has
+  more fields than its Zod `:schema` and an enum field is initialized with a string literal, TS
+  infers `string` and `<UForm :state>` won't match the schema's inferred type. Annotate the
+  initial value (`conformity: 'missing' as GsprConformity`). See the S5 technical-file modals.
 
 ## Comments and documentation
 

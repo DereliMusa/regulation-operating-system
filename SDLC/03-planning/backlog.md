@@ -5,26 +5,26 @@ A living, prioritized task inventory. Detailed sprint breakdowns are in
 
 Status legend: `todo` / `doing` / `done` / `blocked`.
 
-## MVP (Gate B — awaiting owner go-ahead)
+## MVP (Gate B — in progress)
 
 | ID | Task | Req | Status |
 |---|---|---|---|
-| B-01 | Scaffold Nuxt + tooling + design tokens | S0 | todo |
-| B-02 | Drizzle schema + migrations + seed + shared types | S1 | todo |
-| B-03 | Auth (register/login/logout/session/guards) | FR-AUTH-1..4 | todo |
-| B-04 | App shell (sidebar/topbar/footer) | FR (shell) | todo |
-| B-05 | Shared UI components (badges/chips/table/ring/AI panel/bento) | S3 | todo |
-| B-06 | Dashboard + stats API | FR-DASH-1..4 | todo |
-| B-07 | Technical files list + detail | FR-TF-1..4 | todo |
-| B-08 | GSPR matrix CRUD | FR-GSPR-1 | todo |
-| B-09 | Risk register CRUD | FR-RISK-1 | todo |
+| B-01 | Scaffold Nuxt + tooling + design tokens | S0 | done |
+| B-02 | Drizzle schema + migrations + seed + shared types | S1 | done |
+| B-03 | Auth (register/login/logout/session/guards) | FR-AUTH-1..4 | done |
+| B-04 | App shell (sidebar/topbar/footer) | FR (shell) | done |
+| B-05 | Shared UI components (badges/chips/table/ring/AI panel/bento) | S3 | done |
+| B-06 | Dashboard + stats API | FR-DASH-1..4 | done |
+| B-07 | Technical files list + detail | FR-TF-1..4 | done |
+| B-08 | GSPR matrix CRUD | FR-GSPR-1 | done |
+| B-09 | Risk register CRUD | FR-RISK-1 | done |
 | B-10 | Auditor Simulation (rule engine + UI + export) | FR-AUD-1..2 | todo |
 | B-11 | Risk Management standalone screen | FR-RISK-2 | todo |
 | B-12 | Clinical Evaluation screen | FR-CER-1 | todo |
 | B-13 | Post-Market screen | FR-PMS-1 | todo |
 | B-14 | Audit Log screen + auto-write on mutations | FR-LOG-1..2 | todo |
-| B-15 | Landing (Product Overview) | FR-MKT-1 | todo |
-| B-16 | Book a Demo form + API | FR-MKT-2 | todo |
+| B-15 | Landing (Product Overview) | FR-MKT-1 | done |
+| B-16 | Book a Demo form + API | FR-MKT-2 | done |
 | B-17 | CI/CD + Docker + Coolify deploy | S9 | todo |
 | B-18 | Polish + coverage + docs | S9 | todo |
 

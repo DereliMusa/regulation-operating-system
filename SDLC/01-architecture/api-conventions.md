@@ -52,6 +52,13 @@ secrets in responses.
 - Protected routes rely on the session set by `nuxt-auth-utils`; `server/middleware/auth.ts`
   rejects unauthenticated requests to app APIs with 401.
 - Public routes (auth, demo-requests, landing data) are explicitly exempt.
+- `/api/_*` (leading underscore) is always exempt too: that's the convention Nuxt modules
+  use for their own internal endpoints (nuxt-auth-utils' `/api/_auth/session`, Nuxt Icon's
+  `/api/_nuxt_icon/*`, ...). This middleware runs before those modules' own handlers, so
+  without the exemption they get a 401 from *our* middleware instead of behaving normally —
+  found the hard way when it made the login form appear to do nothing (see STATE.md). Real
+  app resource routes never use a `_`-prefixed segment, so this is safe to exempt as a
+  whole.
 
 ## Side effects
 

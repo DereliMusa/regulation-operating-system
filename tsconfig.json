@@ -1,0 +1,5 @@
+{
+  // Root tsconfig delegates to the generated Nuxt config.
+  // https://nuxt.com/docs/guide/concepts/typescript
+  "extends": "./.nuxt/tsconfig.json"
+}

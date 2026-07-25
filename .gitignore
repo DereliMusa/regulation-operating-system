@@ -11,6 +11,7 @@ npm-debug.log*
 
 # Nuxt / Nitro build output (populated once implementation starts)
 .nuxt/
+.nuxtrc
 .output/
 .data/
 dist/

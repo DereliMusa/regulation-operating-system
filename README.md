@@ -20,7 +20,7 @@ Start here:
 
 ## Planned stack
 
-Nuxt 3 (Nitro) + TypeScript, NuxtUI + Tailwind, Drizzle ORM (SQLite for the MVP,
+Nuxt 4 (Nitro) + TypeScript, NuxtUI + Tailwind, Drizzle ORM (SQLite for the MVP,
 PostgreSQL later), nuxt-auth-utils, Vitest, Docker + GitHub Actions. Details and rationale:
 [`SDLC/01-architecture/tech-stack.md`](SDLC/01-architecture/tech-stack.md).
 

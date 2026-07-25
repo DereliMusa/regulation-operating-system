@@ -6,7 +6,7 @@ made or changed. Never edit a decided ADR's meaning in place; supersede it with 
 
 | ADR | Title | Status |
 |---|---|---|
-| [001](001-nuxt-fullstack.md) | Nuxt 3 as the fullstack framework | Accepted |
+| [001](001-nuxt-fullstack.md) | Nuxt 4 as the fullstack framework | Accepted |
 | [002](002-sqlite-for-mvp.md) | SQLite for the MVP database | Accepted |
 | [003](003-drizzle-orm.md) | Drizzle ORM instead of raw SQL | Accepted |
 | [004](004-session-auth.md) | Session-based auth for the MVP | Accepted |
