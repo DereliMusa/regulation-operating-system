@@ -9,9 +9,10 @@ Conventions:
 - Timestamps: `created_at` / `updated_at` as ISO 8601 **TEXT** (portable across SQLite/PG).
 - Enumerated fields: stored as TEXT, constrained in application code via Zod and shared
   constants (`shared/constants`).
-- List-valued fields (evidence/standard/traceability references): stored as **JSON TEXT**
-  in the MVP; these become proper relations/link tables in Phase 1 when the traceability
-  matrix needs to be queried and traversed.
+- List-valued fields (evidence/standard/traceability references): stored as **JSON TEXT**.
+  Phase 1 (P1-03) derives the traceability graph/matrix from them in memory (see the
+  Traceability section below); promoting them to relational link tables remains a later
+  Phase 1 increment.
 
 ## Entities
 
@@ -154,9 +155,22 @@ Lead capture from the public "Book a Demo" form.
 ## Traceability (MVP vs Phase 1)
 
 In the MVP, cross-artifact links (GSPR <-> risk <-> test <-> clinical) are stored as JSON
-reference lists and rendered as traceability chips. There is **no** graph traversal or
-change-impact computation yet. Phase 1 promotes these to real link tables and adds the
-traceability matrix + change-impact analysis.
+reference lists and rendered as traceability chips, with no graph traversal.
+
+**Phase 1 (P1-03, 2026-07-27):** a pure builder (`server/utils/traceability.ts`,
+`buildTraceabilityGraph`) now **derives** the traceability graph from those same reference
+fields — `risk_entries.traceability_refs` (-> GSPR), `risk_entries.verification_ref` /
+`control_measure_ref` (-> test/evidence), `gspr_entries.standard_refs` (-> standard),
+`gspr_entries.evidence_refs` (-> clinical/test). The graph backs a GSPR x risk coverage matrix,
+coverage-gap detection, and undirected change-impact analysis (all in `FR-TRC-2`), exposed at
+`GET /api/technical-files/:id/traceability` and surfaced as a Traceability tab on the
+technical-file detail. Edges are matched by reference string (faithful to how the data is
+authored, but not referentially enforced).
+
+**Still deferred:** promoting the JSON reference lists to real relational link tables (foreign
+keys, editable links). The graph builder is a stable seam so that promotion changes only the
+builder's internals, not its consumers — see
+[`adr/008-derived-traceability-graph.md`](adr/008-derived-traceability-graph.md).
 
 ## Seed data
 

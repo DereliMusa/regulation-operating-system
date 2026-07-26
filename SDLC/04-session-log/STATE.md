@@ -1,11 +1,20 @@
 # Project State (read this first)
 
-> Last updated: 2026-07-26 — session `2026-07-26-cicd-s9`
+> Last updated: 2026-07-27 — session `2026-07-27-traceability-p1-03`
 
 This file is the fast, always-current snapshot of where the project stands. Read it at
 the start of every session. Update it at the end of every session.
 
 ## Current phase
+
+**Phase 1 — in progress (parallel feature branches off `dev`).** The MVP (S0-S9) is code-complete
+and verified. Phase 1 work is now split across two independent feature branches, each awaiting its
+own PR into `dev` (Phase 1 makes PR + review mandatory — see `../02-standards/branching.md`):
+- **P1-02 — Clinical + Post-Market full CRUD** on `feat/clinical-pms-crud` (see that branch; not on
+  `dev` yet).
+- **P1-03 — Traceability matrix + change-impact** on `feat/traceability-matrix` (**this session**).
+The two branches are disjoint in the files they touch except for shared docs (`STATE.md`,
+`phase-1-plan.md`, `data-model.md`) — expect a small docs merge when the second one lands.
 
 **Gate B — Implementation: MVP complete (S0-S9).** Built the MVP sprint by sprint on branch
 `dev` (see [`../03-planning/mvp-plan.md`](../03-planning/mvp-plan.md)). **All ten sprints are done
@@ -197,24 +206,48 @@ layout/nav/footer — see `architecture.md`).
   present) but the image must be built once on a Docker host or by the first `deploy.yml` run. See
   `sessions/2026-07-26-cicd-s9.md`.
 
+### Phase 1
+
+- **P1-03 — Traceability matrix + change-impact (2026-07-27, FR-TRC-2):** cross-artifact traceability
+  for a technical file, delivered as the user-facing half of Phase 1 workstream #3. A **pure graph
+  builder** (`server/utils/traceability.ts`, `buildTraceabilityGraph`) **derives** the graph
+  (GSPR <-> risk <-> test <-> clinical, plus standards) from the existing reference fields
+  (`risk.traceabilityRefs/verificationRef/controlMeasureRef`, `gspr.standardRefs/evidenceRefs`) — no
+  schema migration; promoting those JSON refs to relational link tables stays deferred, with the
+  builder as the stable seam (**ADR-008**). New `GET /api/technical-files/:id/traceability` (thin
+  route, mirrors the auditor route), a **Traceability tab** on the file detail
+  (`TraceabilityMatrix` + `TraceabilityGrid` + `TraceNodeChip`) showing a GSPR x risk coverage
+  matrix, coverage-gap list, click-a-node **change-impact** (undirected BFS, `app/utils/traceability.ts`),
+  and a Markdown export. Seed data enriched with realistic cross-refs so the matrix/gaps/impact are
+  demonstrable. +14 unit tests. **Verified:** lint / typecheck / test (**72 pass**, +14) / build all
+  green; live API gave 401 unauth, 400 bad id, 404 missing, and correct graphs for three files —
+  CardioGuard 100% coverage / 0 gaps, NeuroScan 67% / gaps [GSPR 10.2, RISK-015], Orthopedic Fusion
+  50% / gap [GSPR 1]; the detail page SSR-renders with the new tab and zero Vue warnings. **Not
+  browser-driven this session** (Chrome extension not connected) — a click-through of the tab's
+  change-impact interaction is a pre-merge follow-up. On `feat/traceability-matrix`. See
+  `sessions/2026-07-27-traceability-p1-03.md`.
+
 ## In progress
 
-- Nothing mid-flight. S9 is fully committed. **The MVP (S0-S9) is code-complete and its local
-  quality gate is green.** The only outstanding step before calling the MVP fully done is the
-  one-time Docker image verification (see Open items) and the owner's `dev -> main` merge/deploy.
+- **P1-03 awaits its PR into `dev`** (feature branch `feat/traceability-matrix`, off `dev`).
+  Code-complete, quality gate green; a browser click-through of the Traceability tab (select a GSPR/risk
+  header and confirm the change-impact highlight + list) is the recommended pre-merge check.
+- **P1-02 also awaits its PR into `dev`** (parallel branch `feat/clinical-pms-crud`; see the
+  "Current phase" note). Nothing else mid-flight.
 
 ## Next
 
-1. **Verify the Docker image** on a machine with Docker (or let the first push to `main` run
-   `deploy.yml`): `docker build -t certra .`, run it with a `NUXT_SESSION_PASSWORD` and a volume on
-   `/app/.data`, and confirm a fresh container boots without a "Can't find meta/_journal.json"
-   error and serves `/`.
-2. **Set the deploy secrets** in GitHub (repo settings -> Actions secrets): `COOLIFY_WEBHOOK`,
-   `COOLIFY_TOKEN`. Until they are set, `deploy.yml` still builds and pushes the image to GHCR but
-   skips the Coolify redeploy step.
-3. **Owner call: merge `dev -> main`** to ship the MVP (triggers `deploy.yml`), then start Phase 1
-   planning (real Claude AI, PostgreSQL, Solutions/Pricing marketing pages). See
-   [`../03-planning/phase-1-plan.md`](../03-planning/phase-1-plan.md).
+1. **Open the two Phase 1 PRs into `dev`** (`feat/traceability-matrix` and `feat/clinical-pms-crud`),
+   each after its recommended browser click-through. When the second merges, resolve the small docs
+   overlap in `STATE.md` / `phase-1-plan.md` / `data-model.md`.
+2. **Pick the next Phase 1 thread.** Flagship is #1 real AI (Claude) integration; the natural
+   follow-on to P1-03 is the **link-table promotion** (workstream #3 remainder) or #7
+   Solutions/Pricing marketing pages. See [`../03-planning/phase-1-plan.md`](../03-planning/phase-1-plan.md).
+3. **Still open from the MVP (owner-gated):** verify the Docker image on a Docker host (or via the
+   first `deploy.yml` run) — `docker build -t certra .`, run with a `NUXT_SESSION_PASSWORD` and a
+   volume on `/app/.data`, confirm a fresh container boots without a "Can't find meta/_journal.json"
+   error; set the deploy secrets (`COOLIFY_WEBHOOK`, `COOLIFY_TOKEN`); and merge `dev -> main` to ship
+   the MVP (triggers `deploy.yml`).
 
 ## Open items awaiting the owner
 
@@ -253,11 +286,8 @@ layout/nav/footer — see `architecture.md`).
 
 ## Working branch
 
-- `dev` (Gate B implementation), ahead of `main` by the S0-S9 implementation commits. The five S9
-  commits (`470ad38`, `03d25ef`, `be4870c`, `c6107a0`, and this session-log commit) are **local on
-  `dev`, not yet pushed** — push to `origin/dev` when ready. Default branch `main` holds the SDLC
-  docs; a `dev -> main` merge (the MVP is now code-complete) is the owner's call and triggers
-  `deploy.yml`.
-- Note: the working tree also has an unrelated unstaged deletion of the root
-  `regulation-operation-system-summary.md` (not made by this session, left untouched — decide
-  whether to restore or commit it separately).
+- **`feat/traceability-matrix`** (off `dev`) holds the P1-03 work — open a PR into `dev` (Phase 1
+  requires PR + review).
+- **`feat/clinical-pms-crud`** (off `dev`) holds the parallel P1-02 work — also awaiting a PR into `dev`.
+- `dev` carries the full S0-S9 MVP and is pushed to `origin/dev`. Default branch `main` holds the SDLC
+  docs; a `dev -> main` merge (the MVP is code-complete) is the owner's call and triggers `deploy.yml`.

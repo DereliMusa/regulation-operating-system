@@ -22,6 +22,11 @@ PR + review become mandatory ([`../02-standards/branching.md`](../02-standards/b
 - Promote JSON reference lists to real link tables.
 - Traceability matrix visualization; change-impact analysis (if X changes, flag linked
   risk/test/CER/GSPR).
+- **Delivered (2026-07-27, P1-03):** the traceability matrix (GSPR x risk coverage), coverage-gap
+  detection, and undirected change-impact analysis (FR-TRC-2), computed by a pure graph builder
+  that derives the graph from the existing reference fields (ADR-008). Exposed at
+  `GET /api/technical-files/:id/traceability` and as a Traceability tab with a Markdown export.
+  **Still open in this workstream:** promoting the JSON reference lists to relational link tables.
 
 ### 4. Change control & approvals (FR-CHG-1..2)
 - Change-request workflow, impact matrix, approval chain, basic e-signature.

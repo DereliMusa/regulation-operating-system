@@ -13,3 +13,4 @@ made or changed. Never edit a decided ADR's meaning in place; supersede it with 
 | [005](005-mock-ai-for-mvp.md) | Mock AI for the MVP | Accepted |
 | [006](006-single-app-repo-and-sdlc.md) | Single-app repo + SDLC knowledge base | Accepted |
 | [007](007-nuxtui-free-tailwind.md) | NuxtUI (free) + Tailwind for UI | Accepted |
+| [008](008-derived-traceability-graph.md) | Derive traceability graph before link tables | Accepted |
