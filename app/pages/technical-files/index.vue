@@ -6,10 +6,10 @@ definePageMeta({ layout: 'app', middleware: ['auth'] })
 useHead({ title: 'Technical Documentation - Certra' })
 
 const PAGE_SIZE = 10
-const filters = reactive({ status: '', regulation: '', search: '', page: 1 })
+const filters = reactive({ status: 'all', regulation: 'all', search: '', page: 1 })
 const query = computed(() => ({
-  status: filters.status || undefined,
-  regulation: filters.regulation || undefined,
+  status: filters.status === 'all' ? undefined : filters.status,
+  regulation: filters.regulation === 'all' ? undefined : filters.regulation,
   search: filters.search || undefined,
   page: filters.page,
   pageSize: PAGE_SIZE,
@@ -41,10 +41,10 @@ const columns: DataTableColumn[] = [
   { key: 'updatedAt', label: 'Updated', width: 'w-32' },
 ]
 const statusOptions = [
-  { label: 'All statuses', value: '' }, { label: 'Draft', value: 'draft' }, { label: 'In review', value: 'in_review' },
+  { label: 'All statuses', value: 'all' }, { label: 'Draft', value: 'draft' }, { label: 'In review', value: 'in_review' },
   { label: 'Approved', value: 'approved' }, { label: 'Deficiency', value: 'deficiency' },
 ]
-const regulationOptions = [{ label: 'All regs', value: '' }, { label: 'MDR', value: 'MDR' }, { label: 'IVDR', value: 'IVDR' }]
+const regulationOptions = [{ label: 'All regs', value: 'all' }, { label: 'MDR', value: 'MDR' }, { label: 'IVDR', value: 'IVDR' }]
 
 function fmtDate(iso: string): string {
   return new Date(iso).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })

@@ -6,10 +6,10 @@ import type { AuditLogView, AuditActorType } from '#shared/types/audit-log'
 definePageMeta({ layout: 'app', middleware: ['auth'] })
 useHead({ title: 'Audit Log - Certra' })
 
-const filters = reactive({ actorType: '', impact: '' })
+const filters = reactive({ actorType: 'all', impact: 'all' })
 const query = computed(() => ({
-  actorType: filters.actorType || undefined,
-  impact: filters.impact || undefined,
+  actorType: filters.actorType === 'all' ? undefined : filters.actorType,
+  impact: filters.impact === 'all' ? undefined : filters.impact,
 }))
 const { data } = await useFetch<AuditLogView>('/api/audit-log', { query })
 const items = computed(() => data.value?.items ?? [])
@@ -26,11 +26,11 @@ const cards = computed(() => {
 })
 
 const actorOptions = [
-  { label: 'All actors', value: '' }, { label: 'User', value: 'user' },
+  { label: 'All actors', value: 'all' }, { label: 'User', value: 'user' },
   { label: 'AI', value: 'ai' }, { label: 'System', value: 'system' },
 ]
 const impactOptions = [
-  { label: 'All impact', value: '' }, { label: 'Critical', value: 'critical' },
+  { label: 'All impact', value: 'all' }, { label: 'Critical', value: 'critical' },
   { label: 'High', value: 'high' }, { label: 'Medium', value: 'medium' }, { label: 'Low', value: 'low' },
 ]
 
