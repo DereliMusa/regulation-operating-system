@@ -49,6 +49,12 @@ codebase.
   more fields than its Zod `:schema` and an enum field is initialized with a string literal, TS
   infers `string` and `<UForm :state>` won't match the schema's inferred type. Annotate the
   initial value (`conformity: 'missing' as GsprConformity`). See the S5 technical-file modals.
+- **USelect items must not use `value: ''`.** NuxtUI's `USelect` (reka-ui) reserves the empty
+  string for "clear selection", so an item with `value: ''` throws at runtime the moment the
+  dropdown opens (`A <SelectItem /> must have a value prop that is not an empty string`) — it does
+  not fail on initial render, so automated checks that don't open the dropdown miss it. For an
+  "All" / "Not set" option use a non-empty sentinel (`'all'`, `'none'`) and map it back to
+  `undefined` / `null` in the query/submit. Found by manual testing in S7.
 
 ## Comments and documentation
 
