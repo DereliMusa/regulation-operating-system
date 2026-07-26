@@ -5,7 +5,7 @@ A living, prioritized task inventory. Detailed sprint breakdowns are in
 
 Status legend: `todo` / `doing` / `done` / `blocked`.
 
-## MVP (Gate B — in progress)
+## MVP (Gate B — complete)
 
 | ID | Task | Req | Status |
 |---|---|---|---|
@@ -25,20 +25,20 @@ Status legend: `todo` / `doing` / `done` / `blocked`.
 | B-14 | Audit Log screen + auto-write on mutations | FR-LOG-1..2 | done |
 | B-15 | Landing (Product Overview) | FR-MKT-1 | done |
 | B-16 | Book a Demo form + API | FR-MKT-2 | done |
-| B-17 | CI/CD + Docker + Coolify deploy | S9 | todo |
-| B-18 | Polish + coverage + docs | S9 | todo |
+| B-17 | CI/CD + Docker + Coolify deploy | S9 | done |
+| B-18 | Polish + coverage + docs | S9 | done |
 
 ## Phase 1 (summary — see phase-1-plan.md)
 
-| ID | Task | Req |
-|---|---|---|
-| P1-01 | Claude API integration (doc gen + auditor) | FR-*-AI |
-| P1-02 | Full CRUD: Clinical Evaluation, Post-Market | FR-CER-2, FR-PMS-2 |
-| P1-03 | Traceability matrix + change impact | FR-TRC-2 |
-| P1-04 | Change control & approvals + e-sign | FR-CHG-1..2 |
-| P1-05 | PostgreSQL + Redis migration | NFR-OPS |
-| P1-06 | Sentry + i18n | NFR-OPS-1, NFR-I18N-1 |
-| P1-07 | Solutions + Pricing + email | FR-MKT-3 |
+| ID | Task | Req | Status |
+|---|---|---|---|
+| P1-01 | Claude API integration (doc gen + auditor) | FR-*-AI | todo |
+| P1-02 | Full CRUD: Clinical Evaluation, Post-Market | FR-CER-2, FR-PMS-2 | done (CRUD; AI drafting -> P1-01) |
+| P1-03 | Traceability matrix + change impact | FR-TRC-2 | todo |
+| P1-04 | Change control & approvals + e-sign | FR-CHG-1..2 | todo |
+| P1-05 | PostgreSQL + Redis migration | NFR-OPS | todo |
+| P1-06 | Sentry + i18n | NFR-OPS-1, NFR-I18N-1 | todo |
+| P1-07 | Solutions + Pricing + email | FR-MKT-3 | todo |
 
 ## Phase 2 (summary — see phase-2-plan.md)
 

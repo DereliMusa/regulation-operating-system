@@ -17,6 +17,9 @@ PR + review become mandatory ([`../02-standards/branching.md`](../02-standards/b
 ### 2. Full CRUD across modules
 - Clinical Evaluation and Post-Market get full create/edit/delete; deeper Audit views.
 - FR-RISK-3, FR-CER-2, FR-PMS-2.
+- **Delivered (2026-07-26, P1-02):** Clinical Evaluation + Post-Market create/edit/delete
+  (CRUD portion of FR-CER-2 / FR-PMS-2), each mutation audit-logged. The AI-drafting portion of
+  those requirements stays with workstream #1. See `../04-session-log/STATE.md`.
 
 ### 3. Traceability & change impact (FR-TRC-2, FR-CHG-1)
 - Promote JSON reference lists to real link tables.
