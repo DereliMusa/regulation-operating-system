@@ -1,14 +1,37 @@
 <script setup lang="ts">
 import type { DataTableColumn } from '~/utils/table'
-import type { PostMarketOverview } from '#shared/types/post-market'
-// Post-Market screen (FR-PMS-1): milestone timeline, surveillance-plans table,
-// and an AI insight, read-mostly over seed data.
+import type { PmsPlanItem, PostMarketOverview } from '#shared/types/post-market'
+import type { TechnicalFileList } from '#shared/types/technical-file'
+// Post-Market screen (FR-PMS-1 read, FR-PMS-2 CRUD): milestone timeline,
+// surveillance-plans table with add/edit/delete, and an AI insight.
 definePageMeta({ layout: 'app', middleware: ['auth'] })
 useHead({ title: 'Post-Market - Certra' })
 
-const { data } = await useFetch<PostMarketOverview>('/api/post-market')
+const { data, refresh } = await useFetch<PostMarketOverview>('/api/post-market')
+const { data: filesData } = await useFetch<TechnicalFileList>('/api/technical-files', { query: { pageSize: 50 } })
 const items = computed(() => data.value?.items ?? [])
 const summary = computed(() => data.value?.summary)
+const deviceOptions = computed(() => (filesData.value?.items ?? []).map(f => ({ label: f.deviceName, value: f.id })))
+
+const modal = reactive({ open: false, plan: null as PmsPlanItem | null })
+const confirm = reactive({ open: false, planId: 0, pending: false })
+
+function openAdd(): void { modal.plan = null; modal.open = true }
+function openEdit(plan: PmsPlanItem): void { modal.plan = plan; modal.open = true }
+function askDelete(planId: number): void { confirm.planId = planId; confirm.open = true }
+
+async function onConfirmDelete(): Promise<void> {
+  confirm.pending = true
+  try {
+    await $fetch(`/api/post-market/${confirm.planId}`, { method: 'DELETE' })
+    confirm.open = false
+    await refresh()
+  }
+  finally {
+    confirm.pending = false
+  }
+}
+async function onSaved(): Promise<void> { await refresh() }
 
 const cards = computed(() => {
   const s = summary.value
@@ -38,6 +61,7 @@ const columns: DataTableColumn[] = [
   { key: 'nextDue', label: 'Next due', width: 'w-36' },
   { key: 'daysRemaining', label: 'Remaining', width: 'w-32' },
   { key: 'status', label: 'Status', width: 'w-32' },
+  { key: 'actions', label: '', align: 'right', width: 'w-24' },
 ]
 
 function fmtDate(iso: string): string {
@@ -50,9 +74,12 @@ function remainingLabel(days: number): string {
 
 <template>
   <div class="space-y-5">
-    <header>
-      <h1 class="font-display text-xl font-semibold text-ink">Post-Market Surveillance</h1>
-      <p class="text-sm text-ink-soft">PMS, PMCF, and PSUR plans and their upcoming deadlines.</p>
+    <header class="flex flex-wrap items-center justify-between gap-3">
+      <div>
+        <h1 class="font-display text-xl font-semibold text-ink">Post-Market Surveillance</h1>
+        <p class="text-sm text-ink-soft">PMS, PMCF, and PSUR plans and their upcoming deadlines.</p>
+      </div>
+      <UButton icon="i-material-symbols-add" :disabled="!deviceOptions.length" @click="openAdd">Add plan</UButton>
     </header>
 
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -99,6 +126,21 @@ function remainingLabel(days: number): string {
       <template #status="{ row }">
         <StatusBadge :status="row.status" />
       </template>
+      <template #actions="{ row }">
+        <div class="flex justify-end gap-1">
+          <UButton icon="i-material-symbols-edit-outline" color="neutral" variant="ghost" size="xs" aria-label="Edit" @click="openEdit(row)" />
+          <UButton icon="i-material-symbols-delete-outline" color="error" variant="ghost" size="xs" aria-label="Delete" @click="askDelete(row.id)" />
+        </div>
+      </template>
     </DataTable>
+
+    <PmsPlanFormModal v-model:open="modal.open" :plan="modal.plan" :device-options="deviceOptions" @saved="onSaved" />
+    <ConfirmDialog
+      v-model:open="confirm.open"
+      title="Delete this surveillance plan?"
+      message="This permanently removes the plan from the portfolio."
+      :pending="confirm.pending"
+      @confirm="onConfirmDelete"
+    />
   </div>
 </template>
