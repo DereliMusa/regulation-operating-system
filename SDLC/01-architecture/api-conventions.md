@@ -22,6 +22,9 @@ and the API predictable.
   `shared/types`.
 - List endpoints return a paginated envelope:
   `{ items: T[], total: number, page: number, pageSize: number }`.
+- Read-mostly overview endpoints (the S7 module screens — `risk`, `clinical`, `post-market`,
+  `audit-log`) instead return the full seed-driven set plus a `summary` / `kpis` object, since they
+  back dashboard-style screens rather than long paginated lists.
 - Timestamps are ISO 8601 UTC strings.
 
 ## Errors
