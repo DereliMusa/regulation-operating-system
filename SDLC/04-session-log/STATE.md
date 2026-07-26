@@ -1,17 +1,19 @@
 # Project State (read this first)
 
-> Last updated: 2026-07-26 — session `2026-07-26-modules-s7`
+> Last updated: 2026-07-26 — session `2026-07-26-cicd-s9`
 
 This file is the fast, always-current snapshot of where the project stands. Read it at
 the start of every session. Update it at the end of every session.
 
 ## Current phase
 
-**Gate B — Implementation (in progress).** Building the MVP sprint by sprint on branch
-`dev` (see [`../03-planning/mvp-plan.md`](../03-planning/mvp-plan.md)). **S0-S8 are all done and
-verified** (lint, typecheck, tests, build all green; every flow exercised against a real running
-dev server and confirmed in a headless browser). **Only S9 (CI/CD + Docker + polish) remains** to
-complete the MVP.
+**Gate B — Implementation: MVP complete (S0-S9).** Built the MVP sprint by sprint on branch
+`dev` (see [`../03-planning/mvp-plan.md`](../03-planning/mvp-plan.md)). **All ten sprints are done
+and verified** (lint, typecheck, tests, build, and coverage all green; every flow exercised against
+a real running dev server and confirmed in a headless browser). S9 (CI/CD + Docker) shipped the
+GitHub Actions pipelines, the production Dockerfile, and a coverage check — the one caveat is that
+`docker build` could not be run in the S9 session's environment (no Docker daemon), so the image
+must be built once on a Docker host or via the first `deploy.yml` run (see Open items).
 
 **Build order** (S8 marketing was built out of sequence on owner instruction): S0-S2 foundation,
 then S8 marketing, then S3 app shell, S4 dashboard, S5 technical files, S6 auditor simulation, and
@@ -177,19 +179,42 @@ layout/nav/footer — see `architecture.md`).
   wrote a "Created technical file" audit entry that surfaced at the top of the log (FR-LOG-1); all
   four screens SSR-render and were confirmed in a headless browser with zero console errors. See
   `sessions/2026-07-26-modules-s7.md`.
+- **S9 — CI/CD, Docker & coverage (2026-07-26, final MVP sprint):** two GitHub Actions workflows —
+  `ci.yml` (push to `main`/`dev` + PRs to `main`: `npm ci` -> lint -> typecheck -> test -> build)
+  and `deploy.yml` (push to `main`: build the image, push to GHCR `latest` + short-SHA, then a
+  Coolify redeploy webhook that self-skips when the secrets are unset). A multi-stage
+  `node:22-alpine` **Dockerfile** (build stage copies full source before `npm ci` so `nuxt prepare`
+  + better-sqlite3's native build both run; runtime stage adds `libstdc++`, runs as non-root `node`,
+  and **`COPY`s `server/database/migrations` alongside `.output`** per the S2 finding), plus
+  `.dockerignore` and a `docker-compose.yml` (named volume for the SQLite file). Coverage wired up:
+  `@vitest/coverage-v8`, a `test:coverage` script, and a 60% threshold in `vitest.config.ts` scoped
+  to `server/utils` + `app/utils`. Root `README.md` rewritten (MVP built; run/Docker instructions),
+  new `CHANGELOG.md`, and `deployment.md` synced. Commits `470ad38` (ci), `03d25ef` (docker),
+  `be4870c` (coverage), `c6107a0` (docs). **Verified:** lint / typecheck / test (**58 pass**) /
+  build all green, and coverage **93.8% stmts, 80% branch, 97.8% funcs, 96.8% lines** (>> 60%
+  threshold). **Not verified locally: `docker build`** — no Docker daemon in this environment; the
+  Dockerfile/paths were checked by inspection (`.output` and `server/database/migrations` both
+  present) but the image must be built once on a Docker host or by the first `deploy.yml` run. See
+  `sessions/2026-07-26-cicd-s9.md`.
 
 ## In progress
 
-- Nothing mid-flight. S7 is fully committed and verified. **All MVP app + marketing screens (S0-S8)
-  are done**; only **S9 (CI/CD + Docker + polish)** remains.
+- Nothing mid-flight. S9 is fully committed. **The MVP (S0-S9) is code-complete and its local
+  quality gate is green.** The only outstanding step before calling the MVP fully done is the
+  one-time Docker image verification (see Open items) and the owner's `dev -> main` merge/deploy.
 
 ## Next
 
-1. **S9 — CI/CD, deploy & polish:** GitHub Actions (`ci.yml`: lint + test + build; `deploy.yml`:
-   Docker build + Coolify deploy); the production Dockerfile; responsive/hover polish; coverage
-   check; README / CHANGELOG. This is the final MVP sprint.
-2. S9 note: the Dockerfile must `COPY server/database/migrations` into the image
-   alongside `.output` (see [`../01-architecture/deployment.md`](../01-architecture/deployment.md)).
+1. **Verify the Docker image** on a machine with Docker (or let the first push to `main` run
+   `deploy.yml`): `docker build -t certra .`, run it with a `NUXT_SESSION_PASSWORD` and a volume on
+   `/app/.data`, and confirm a fresh container boots without a "Can't find meta/_journal.json"
+   error and serves `/`.
+2. **Set the deploy secrets** in GitHub (repo settings -> Actions secrets): `COOLIFY_WEBHOOK`,
+   `COOLIFY_TOKEN`. Until they are set, `deploy.yml` still builds and pushes the image to GHCR but
+   skips the Coolify redeploy step.
+3. **Owner call: merge `dev -> main`** to ship the MVP (triggers `deploy.yml`), then start Phase 1
+   planning (real Claude AI, PostgreSQL, Solutions/Pricing marketing pages). See
+   [`../03-planning/phase-1-plan.md`](../03-planning/phase-1-plan.md).
 
 ## Open items awaiting the owner
 
@@ -228,7 +253,11 @@ layout/nav/footer — see `architecture.md`).
 
 ## Working branch
 
-- `dev` (Gate B implementation), ahead of `main` by the S0-S8 implementation commits.
-  **Pushed to `origin/dev` this session** (S7 done), so the remote branch is current. Default
-  branch `main` holds the SDLC docs (merged and pushed); a `dev -> main` merge (the MVP is now all
-  screens complete, only S9 left) is the owner's call.
+- `dev` (Gate B implementation), ahead of `main` by the S0-S9 implementation commits. The five S9
+  commits (`470ad38`, `03d25ef`, `be4870c`, `c6107a0`, and this session-log commit) are **local on
+  `dev`, not yet pushed** — push to `origin/dev` when ready. Default branch `main` holds the SDLC
+  docs; a `dev -> main` merge (the MVP is now code-complete) is the owner's call and triggers
+  `deploy.yml`.
+- Note: the working tree also has an unrelated unstaged deletion of the root
+  `regulation-operation-system-summary.md` (not made by this session, left untouched — decide
+  whether to restore or commit it separately).
