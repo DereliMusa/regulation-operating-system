@@ -29,8 +29,11 @@ Drizzle ORM  --->  SQLite (MVP)  /  PostgreSQL (Phase 1+)
   touch the database directly.
 - **Server API (`server/api`)** — the only place with business logic and data mutations;
   each route validates input with Zod, checks auth, calls Drizzle, and returns typed data.
-- **Server utils (`server/utils`)** — `db.ts` (Drizzle instance), `auditorRules.ts` (mock
-  AI rule engine), `auditLog.ts` (writes audit entries on mutations).
+- **Server utils (`server/utils`)** — `db.ts` (Drizzle instance), `auditLog.ts` (writes an audit
+  entry on every mutation; `getAuditLogView` for the screen), and pure, unit-testable per-resource
+  domain logic the thin routes call (`dashboard.ts`, `technicalFiles.ts`, `gspr.ts`, `risk.ts`,
+  `riskRegister.ts`, `clinical.ts`, `postMarket.ts`, `auditorRules.ts`, plus small shared helpers
+  `patch.ts` / `routeParams.ts`).
 - **Shared (`shared/`)** — TypeScript types and constants used by both client and server.
 
 **Hard rule:** no database access from frontend code. All data flows through `server/api`.

@@ -15,3 +15,20 @@ export interface RiskEntry {
   traceabilityRefs: string[]
   updatedAt: string
 }
+
+/** A risk entry joined to its device name, for the standalone register. */
+export interface RiskRegisterItem extends RiskEntry {
+  deviceName: string
+}
+
+export interface RiskRegisterSummary {
+  total: number
+  bySeverity: Record<RiskSeverity, number>
+  unmitigated: number
+}
+
+/** Portfolio risk register payload (GET /api/risk). */
+export interface RiskRegisterView {
+  items: RiskRegisterItem[]
+  summary: RiskRegisterSummary
+}

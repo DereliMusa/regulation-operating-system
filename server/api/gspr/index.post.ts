@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { createGspr } from '../../utils/gspr'
+import { writeAuditLog } from '../../utils/auditLog'
 import { db } from '../../utils/db'
 import type { GsprEntry } from '#shared/types/gspr'
 
@@ -14,6 +15,12 @@ const createSchema = z.object({
 })
 
 export default defineEventHandler(async (event): Promise<GsprEntry> => {
+  const { user } = await requireUserSession(event)
   const body = await readValidatedBody(event, createSchema.parse)
-  return createGspr(db, body)
+  const entry = createGspr(db, body)
+  writeAuditLog(db, {
+    actorType: 'user', actorName: user.name, action: 'Added GSPR entry',
+    impact: 'medium', entityType: 'gspr_entries', entityRef: entry.gsprRef,
+  })
+  return entry
 })

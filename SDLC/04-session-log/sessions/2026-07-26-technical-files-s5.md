@@ -73,6 +73,18 @@ No logic changed — these were type-annotation / handler-shape fixes only.
   a gap. Flagging it so it isn't forgotten in S7.
 - Seed endpoint still not idempotent (pre-existing open item); design assets and the two MVP
   scope decisions still pending (see STATE.md "Open items").
+- **No component render tests for the new `GsprMatrix` / `RiskRegister` tables.** S5 added
+  backend unit tests (+12) but not `@nuxt/test-utils` render tests for these two tables, which
+  `testing-strategy.md` lists as critical components. They are thin wrappers over the already
+  tested `DataTable`; focused render tests are a small, worthwhile follow-up.
+
+## Doc reconciliation (follow-up, same session)
+
+After the initial close-out, re-audited every SDLC doc against the built S5 code and reconciled
+three drifts: `api-conventions.md` (technical-files uses `search`, not `q`; no `class` filter;
+`pageSize` default 10 / max 50, not 20/100), `data-model.md` (documented the readiness-derivation
+rule), and `architecture.md` (server-utils bullet now lists the real per-resource domain modules
+and marks `auditorRules.ts` / `auditLog.ts` as planned S6/S7).
 
 ## Next
 

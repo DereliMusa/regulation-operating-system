@@ -10,12 +10,13 @@ const id = computed(() => Number(route.params.id))
 const { data: file, refresh } = await useFetch<TechnicalFileDetail>(() => `/api/technical-files/${id.value}`)
 useHead({ title: () => `${file.value?.deviceName ?? 'Technical file'} - Certra` })
 
-type TabKey = 'overview' | 'gspr' | 'risk'
+type TabKey = 'overview' | 'gspr' | 'risk' | 'auditor'
 const tab = ref<TabKey>('overview')
 const tabs: Array<{ key: TabKey, label: string }> = [
   { key: 'overview', label: 'Overview' },
   { key: 'gspr', label: 'GSPR matrix' },
   { key: 'risk', label: 'Risk register' },
+  { key: 'auditor', label: 'Auditor sim' },
 ]
 
 const editOpen = ref(false)
@@ -90,12 +91,13 @@ async function onSaved(): Promise<void> {
       @delete="(entryId) => askDelete('gspr', entryId)"
     />
     <RiskRegister
-      v-else
+      v-else-if="tab === 'risk'"
       :entries="file.risks"
       @add="openRiskAdd"
       @edit="openRiskEdit"
       @delete="(entryId) => askDelete('risk', entryId)"
     />
+    <AuditorSimulation v-else :technical-file-id="file.id" :device-name="file.deviceName" />
 
     <TechnicalFileFormModal v-model:open="editOpen" :file="file" @saved="onSaved" />
     <GsprFormModal v-model:open="gsprModal.open" :technical-file-id="file.id" :entry="gsprModal.entry" @saved="onSaved" />

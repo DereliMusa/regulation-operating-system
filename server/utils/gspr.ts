@@ -59,12 +59,12 @@ export function updateGspr(db: Db, id: number, input: UpdateGsprInput): GsprEntr
   return entry
 }
 
-/** Delete a GSPR entry and refresh its file's readiness. */
-export function deleteGspr(db: Db, id: number): { id: number } {
+/** Delete a GSPR entry and refresh its file's readiness. Returns the deleted ref. */
+export function deleteGspr(db: Db, id: number): { id: number, gsprRef: string } {
   const [existing] = db.select().from(gsprEntries).where(eq(gsprEntries.id, id)).all()
   if (!existing) throw createError({ statusCode: 404, statusMessage: 'GSPR entry not found' })
 
   db.delete(gsprEntries).where(eq(gsprEntries.id, id)).run()
   refreshReadiness(db, existing.technicalFileId)
-  return { id }
+  return { id, gsprRef: existing.gsprRef }
 }

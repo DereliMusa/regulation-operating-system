@@ -22,6 +22,9 @@ and the API predictable.
   `shared/types`.
 - List endpoints return a paginated envelope:
   `{ items: T[], total: number, page: number, pageSize: number }`.
+- Read-mostly overview endpoints (the S7 module screens — `risk`, `clinical`, `post-market`,
+  `audit-log`) instead return the full seed-driven set plus a `summary` / `kpis` object, since they
+  back dashboard-style screens rather than long paginated lists.
 - Timestamps are ISO 8601 UTC strings.
 
 ## Errors
@@ -42,10 +45,13 @@ secrets in responses.
 
 ## Pagination, filtering, sorting
 
-- Query params: `page` (1-based, default 1), `pageSize` (default 20, max 100).
-- Filters are explicit per resource, documented in the route (e.g. technical-files:
-  `class`, `status`, `regulation`, `q` for text search).
-- Sorting: `sort` = field, `order` = `asc`|`desc` where supported.
+- Query params: `page` (1-based, default 1) and `pageSize` (per-resource default and cap).
+  Technical-files (the first list endpoint, S5) uses `pageSize` default 10, max 50.
+- Filters are explicit per resource and Zod-validated at entry. Technical-files (S5):
+  `status`, `regulation`, and `search` (device-name text search, SQL `LIKE %term%`). A `class`
+  filter is not in the MVP.
+- Sorting: technical-files returns newest-updated first (`updatedAt` desc). A general
+  `sort` = field, `order` = `asc`|`desc` convention applies where a resource supports it.
 
 ## Auth
 

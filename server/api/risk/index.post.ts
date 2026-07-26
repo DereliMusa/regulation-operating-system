@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { createRisk } from '../../utils/risk'
+import { writeAuditLog } from '../../utils/auditLog'
 import { db } from '../../utils/db'
 import type { RiskEntry } from '#shared/types/risk'
 
@@ -17,6 +18,12 @@ const createSchema = z.object({
 })
 
 export default defineEventHandler(async (event): Promise<RiskEntry> => {
+  const { user } = await requireUserSession(event)
   const body = await readValidatedBody(event, createSchema.parse)
-  return createRisk(db, body)
+  const entry = createRisk(db, body)
+  writeAuditLog(db, {
+    actorType: 'user', actorName: user.name, action: 'Added risk entry',
+    impact: 'medium', entityType: 'risk_entries', entityRef: entry.riskId,
+  })
+  return entry
 })
