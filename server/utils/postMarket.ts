@@ -1,8 +1,19 @@
-// Post-Market overview (FR-PMS-1): surveillance plans joined to their device
-// with days-until-due, soonest first (the milestone timeline), plus a summary.
+// Post-Market module (FR-PMS-1 read, FR-PMS-2 CRUD): surveillance plans joined
+// to their device with days-until-due, soonest first (the milestone timeline),
+// a summary, plus create/update/delete of plans. Pure and Nuxt-free so it is
+// unit-testable against an in-memory database.
+import { createError } from 'h3'
+import { eq } from 'drizzle-orm'
 import type { Db } from './createDb'
+import { definedFields } from './patch'
 import { pmsPlans, technicalFiles } from '../database/schema'
-import type { PmsPlanType, PmsPlanItem, PostMarketOverview } from '#shared/types/post-market'
+import type {
+  PmsPlan,
+  PmsPlanItem,
+  PmsPlanStatus,
+  PmsPlanType,
+  PostMarketOverview,
+} from '#shared/types/post-market'
 
 /** Whole days from now until an ISO date (negative once past). */
 function daysUntil(dateIso: string, now = Date.now()): number {
@@ -39,4 +50,57 @@ export function getPostMarketOverview(db: Db): PostMarketOverview {
       dueSoon: items.filter(p => p.daysRemaining >= 0 && p.daysRemaining <= 30).length,
     },
   }
+}
+
+export interface CreatePmsPlanInput {
+  technicalFileId: number
+  planType: PmsPlanType
+  nextDue: string
+  deviceRef?: string | null
+  status?: PmsPlanStatus
+  confidence?: number | null
+}
+
+export interface UpdatePmsPlanInput {
+  planType?: PmsPlanType
+  nextDue?: string
+  deviceRef?: string | null
+  status?: PmsPlanStatus
+  confidence?: number | null
+}
+
+/** Add a post-market plan to a technical file (FR-PMS-2). */
+export function createPmsPlan(db: Db, input: CreatePmsPlanInput): PmsPlan {
+  const [plan] = db.insert(pmsPlans).values({
+    technicalFileId: input.technicalFileId,
+    planType: input.planType,
+    deviceRef: input.deviceRef ?? null,
+    nextDue: input.nextDue,
+    status: input.status ?? 'pending_review',
+    confidence: input.confidence ?? null,
+    updatedAt: new Date().toISOString(),
+  }).returning().all()
+  if (!plan) throw createError({ statusCode: 500, statusMessage: 'Failed to create post-market plan' })
+  return plan
+}
+
+/** Update a post-market plan (FR-PMS-2). */
+export function updatePmsPlan(db: Db, id: number, input: UpdatePmsPlanInput): PmsPlan {
+  const [existing] = db.select().from(pmsPlans).where(eq(pmsPlans.id, id)).all()
+  if (!existing) throw createError({ statusCode: 404, statusMessage: 'Post-market plan not found' })
+
+  const [plan] = db.update(pmsPlans)
+    .set({ ...definedFields(input), updatedAt: new Date().toISOString() })
+    .where(eq(pmsPlans.id, id)).returning().all()
+  if (!plan) throw createError({ statusCode: 500, statusMessage: 'Failed to update post-market plan' })
+  return plan
+}
+
+/** Delete a post-market plan. Returns its type/id for the audit trail. */
+export function deletePmsPlan(db: Db, id: number): { id: number, planType: PmsPlanType } {
+  const [existing] = db.select().from(pmsPlans).where(eq(pmsPlans.id, id)).all()
+  if (!existing) throw createError({ statusCode: 404, statusMessage: 'Post-market plan not found' })
+
+  db.delete(pmsPlans).where(eq(pmsPlans.id, id)).run()
+  return { id, planType: existing.planType }
 }

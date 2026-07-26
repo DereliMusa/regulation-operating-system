@@ -1,17 +1,25 @@
 # Project State (read this first)
 
-> Last updated: 2026-07-26 — session `2026-07-26-modules-s7`
+> Last updated: 2026-07-26 — session `2026-07-26-clinical-pms-crud-p1-02`
 
 This file is the fast, always-current snapshot of where the project stands. Read it at
 the start of every session. Update it at the end of every session.
 
 ## Current phase
 
-**Gate B — Implementation (in progress).** Building the MVP sprint by sprint on branch
-`dev` (see [`../03-planning/mvp-plan.md`](../03-planning/mvp-plan.md)). **S0-S8 are all done and
-verified** (lint, typecheck, tests, build all green; every flow exercised against a real running
-dev server and confirmed in a headless browser). **Only S9 (CI/CD + Docker + polish) remains** to
-complete the MVP.
+**Phase 1 — started.** The MVP (S0-S9) is code-complete and verified; Phase 1 work has begun on
+the "full product" per [`../03-planning/phase-1-plan.md`](../03-planning/phase-1-plan.md). The first
+Phase 1 increment — **P1-02: full CRUD for Clinical Evaluation + Post-Market** — is done and verified
+on branch `feat/clinical-pms-crud` (off `dev`). Phase 1 makes feature branches + PR mandatory
+(see `../02-standards/branching.md`), so this awaits a PR into `dev`.
+
+**MVP (Gate B) recap — complete (S0-S9).** Built sprint by sprint on branch `dev` (see
+[`../03-planning/mvp-plan.md`](../03-planning/mvp-plan.md)). **All ten sprints are done and verified**
+(lint, typecheck, tests, build, and coverage all green; every flow exercised against a real running
+dev server and confirmed in a headless browser). S9 (CI/CD + Docker) shipped the GitHub Actions
+pipelines, the production Dockerfile, and a coverage check — the one caveat is that `docker build`
+could not be run in the S9 session's environment (no Docker daemon), so the image must be built once
+on a Docker host or via the first `deploy.yml` run (see Open items).
 
 **Build order** (S8 marketing was built out of sequence on owner instruction): S0-S2 foundation,
 then S8 marketing, then S3 app shell, S4 dashboard, S5 technical files, S6 auditor simulation, and
@@ -177,19 +185,60 @@ layout/nav/footer — see `architecture.md`).
   wrote a "Created technical file" audit entry that surfaced at the top of the log (FR-LOG-1); all
   four screens SSR-render and were confirmed in a headless browser with zero console errors. See
   `sessions/2026-07-26-modules-s7.md`.
+- **S9 — CI/CD, Docker & coverage (2026-07-26, final MVP sprint):** two GitHub Actions workflows —
+  `ci.yml` (push to `main`/`dev` + PRs to `main`: `npm ci` -> lint -> typecheck -> test -> build)
+  and `deploy.yml` (push to `main`: build the image, push to GHCR `latest` + short-SHA, then a
+  Coolify redeploy webhook that self-skips when the secrets are unset). A multi-stage
+  `node:22-alpine` **Dockerfile** (build stage copies full source before `npm ci` so `nuxt prepare`
+  + better-sqlite3's native build both run; runtime stage adds `libstdc++`, runs as non-root `node`,
+  and **`COPY`s `server/database/migrations` alongside `.output`** per the S2 finding), plus
+  `.dockerignore` and a `docker-compose.yml` (named volume for the SQLite file). Coverage wired up:
+  `@vitest/coverage-v8`, a `test:coverage` script, and a 60% threshold in `vitest.config.ts` scoped
+  to `server/utils` + `app/utils`. Root `README.md` rewritten (MVP built; run/Docker instructions),
+  new `CHANGELOG.md`, and `deployment.md` synced. Commits `470ad38` (ci), `03d25ef` (docker),
+  `be4870c` (coverage), `c6107a0` (docs). **Verified:** lint / typecheck / test (**58 pass**) /
+  build all green, and coverage **93.8% stmts, 80% branch, 97.8% funcs, 96.8% lines** (>> 60%
+  threshold). **Not verified locally: `docker build`** — no Docker daemon in this environment; the
+  Dockerfile/paths were checked by inspection (`.output` and `server/database/migrations` both
+  present) but the image must be built once on a Docker host or by the first `deploy.yml` run. See
+  `sessions/2026-07-26-cicd-s9.md`.
+
+### Phase 1
+
+- **P1-02 — Clinical Evaluation + Post-Market full CRUD (2026-07-26, FR-CER-2 / FR-PMS-2 CRUD
+  portion):** the two S7 read-only module screens now have full create/edit/delete. `clinical.ts` and
+  `postMarket.ts` gained `create/update/delete` (mirroring `risk.ts`: 404 on missing, `definedFields`
+  partial PATCH, delete returns the ref for the audit trail); new `POST` / `PATCH [id]` / `DELETE [id]`
+  routes for `/api/clinical` and `/api/post-market`, each guarded + Zod-validated and writing an
+  audit-log entry (FR-LOG-1). New form modals (`ClinicalEvidenceFormModal`, `PmsPlanFormModal`) with a
+  **device picker** on create (standalone screens have no parent file in context; the picker's `USelect`
+  uses numeric file ids, so the S7 empty-string gotcha does not apply); the two pages gained an
+  "Add …" button, an edit/delete actions column, the modal, and a delete `ConfirmDialog`. +6 unit
+  tests. **Verified:** lint / typecheck / test (**64 pass**) / build / coverage all green (clinical
+  93.75%, post-market 93.33%); live curl round-trips of both modules (create -> join/compute ->
+  patch -> 400 on bad enum -> delete), all six mutations surfaced in the audit log, and both pages
+  SSR-render authenticated with the new controls and zero warnings. **Not browser-driven this session**
+  (API + SSR verified; modal patterns previously browser-verified) — a click-through is a pre-merge
+  follow-up. On `feat/clinical-pms-crud`. See `sessions/2026-07-26-clinical-pms-crud-p1-02.md`.
 
 ## In progress
 
-- Nothing mid-flight. S7 is fully committed and verified. **All MVP app + marketing screens (S0-S8)
-  are done**; only **S9 (CI/CD + Docker + polish)** remains.
+- **P1-02 awaits its PR into `dev`** (feature branch `feat/clinical-pms-crud`). Code-complete and its
+  quality gate is green; a browser click-through of the two new modals is the recommended pre-merge
+  check. Nothing else mid-flight.
 
 ## Next
 
-1. **S9 — CI/CD, deploy & polish:** GitHub Actions (`ci.yml`: lint + test + build; `deploy.yml`:
-   Docker build + Coolify deploy); the production Dockerfile; responsive/hover polish; coverage
-   check; README / CHANGELOG. This is the final MVP sprint.
-2. S9 note: the Dockerfile must `COPY server/database/migrations` into the image
-   alongside `.output` (see [`../01-architecture/deployment.md`](../01-architecture/deployment.md)).
+1. **Open the PR** `feat/clinical-pms-crud -> dev` (Phase 1 requires PR + review) after a browser
+   click-through of the two new form modals (device-picker dropdown especially).
+2. **Pick the next Phase 1 thread.** Flagship is #1 real AI (Claude) integration; other self-contained
+   options: #3 traceability matrix + change impact, #7 Solutions/Pricing marketing pages. See
+   [`../03-planning/phase-1-plan.md`](../03-planning/phase-1-plan.md).
+3. **Still open from the MVP (owner-gated):** verify the Docker image on a Docker host (or via the
+   first `deploy.yml` run) — `docker build -t certra .`, run with a `NUXT_SESSION_PASSWORD` and a
+   volume on `/app/.data`, confirm a fresh container boots without a "Can't find meta/_journal.json"
+   error; set the deploy secrets (`COOLIFY_WEBHOOK`, `COOLIFY_TOKEN`); and merge `dev -> main` to ship
+   the MVP (triggers `deploy.yml`).
 
 ## Open items awaiting the owner
 
@@ -228,7 +277,11 @@ layout/nav/footer — see `architecture.md`).
 
 ## Working branch
 
-- `dev` (Gate B implementation), ahead of `main` by the S0-S8 implementation commits.
-  **Pushed to `origin/dev` this session** (S7 done), so the remote branch is current. Default
-  branch `main` holds the SDLC docs (merged and pushed); a `dev -> main` merge (the MVP is now all
-  screens complete, only S9 left) is the owner's call.
+- **`feat/clinical-pms-crud`** (off `dev`) holds the P1-02 work — open a PR into `dev` (Phase 1
+  requires PR + review).
+- `dev` carries the full S0-S9 MVP and is pushed to `origin/dev` (the S9 commits are no longer
+  local-only). Default branch `main` holds the SDLC docs; a `dev -> main` merge (the MVP is
+  code-complete) is the owner's call and triggers `deploy.yml`.
+- Note: the working tree also has an unrelated unstaged deletion of the root
+  `regulation-operation-system-summary.md` (not made by this session, left untouched — decide
+  whether to restore or commit it separately).

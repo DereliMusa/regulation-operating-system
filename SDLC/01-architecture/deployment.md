@@ -31,12 +31,22 @@ Actions secrets / the host, never in the repo. Prefer Nuxt `runtimeConfig` over 
 ## CI pipeline (`.github/workflows/ci.yml`)
 
 On push to `main`/`dev` and PRs to `main`: checkout, setup Node 22 (npm cache), `npm ci`,
-`npm run lint`, `npm run test`, `npm run build`. All must pass.
+`npm run lint`, `npm run typecheck`, `npm run test`, `npm run build`. All must pass.
+(`typecheck` runs `nuxt typecheck`/`vue-tsc` — added in S9 because it is part of the
+project's standing quality gate, not only lint/test/build.) The build step is given a
+throwaway `NUXT_SESSION_PASSWORD` (build-time only; the real key is injected at runtime).
+
+Coverage is not gated in CI (to keep the pipeline fast and deterministic); run
+`npm run test:coverage` locally for the 60%+ core-logic check (thresholds enforced in
+`vitest.config.ts`, scoped to `server/utils` + `app/utils`). See
+[`../02-standards/testing-strategy.md`](../02-standards/testing-strategy.md).
 
 ## Deploy pipeline (`.github/workflows/deploy.yml`)
 
 On push to `main`: build the Docker image and push to GHCR
-(`ghcr.io/<owner>/<repo>:latest`), then call the Coolify redeploy webhook.
+(`ghcr.io/<owner>/<repo>:latest` plus a short-SHA tag), then call the Coolify redeploy
+webhook. The Coolify step is skipped when `COOLIFY_WEBHOOK`/`COOLIFY_TOKEN` secrets are
+unset, so the image push still works before the host is wired up.
 
 ## Dockerfile
 
@@ -48,14 +58,18 @@ Note: SQLite in a container needs a **persistent volume** (otherwise data resets
 redeploy). This is acceptable for a single-user demo; real multi-user production uses
 PostgreSQL (Phase 1).
 
-**Migrations directory must ship alongside `.output` (S9 requirement, found in S2):**
-`server/utils/createDb.ts` resolves the migrations folder as
-`resolve(process.cwd(), 'server/database/migrations')` rather than via `import.meta.url`,
-because Nitro's dev bundler does not preserve real source file locations. This means the
-Docker image's production stage must **also `COPY server/database/migrations` into the
-image** at the same relative path from `WORKDIR`, alongside `.output` — `npm run build`
-alone does not include it. Verify after building the S9 image that a fresh container boots
-without a "Can't find meta/_journal.json file" error.
+**Migrations directory must ship alongside `.output` (S9 requirement, found in S2 —
+implemented in the Dockerfile):** `server/utils/createDb.ts` resolves the migrations folder
+as `resolve(process.cwd(), 'server/database/migrations')` rather than via `import.meta.url`,
+because Nitro's dev bundler does not preserve real source file locations. The Docker image's
+production stage therefore `COPY --from=build /app/server/database/migrations
+./server/database/migrations` at the same relative path from `WORKDIR` (`/app`), alongside
+`.output` — `npm run build` alone does not include it. After building the image, verify a
+fresh container boots without a "Can't find meta/_journal.json file" error. (The build stage
+copies the full source before `npm ci` so the `postinstall: nuxt prepare` hook and
+better-sqlite3's native-build install script both run with everything they need;
+`--ignore-scripts` is not usable because it would skip better-sqlite3's compile. The runtime
+stage adds `libstdc++` for that native binary and runs as the non-root `node` user.)
 
 ## Database migrations & seeding
 

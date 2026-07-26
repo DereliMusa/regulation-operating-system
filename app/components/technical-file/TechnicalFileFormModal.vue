@@ -15,7 +15,7 @@ const schema = z.object({
 
 const state = reactive({
   deviceName: '',
-  deviceClass: '',
+  deviceClass: 'none',
   regulation: 'MDR' as Regulation,
   notifiedBody: '',
   udiDi: '',
@@ -26,7 +26,7 @@ const pending = ref(false)
 const error = ref('')
 
 const classOptions = [
-  { label: 'Not set', value: '' },
+  { label: 'Not set', value: 'none' },
   { label: 'I', value: 'I' }, { label: 'IIa', value: 'IIa' }, { label: 'IIb', value: 'IIb' }, { label: 'III', value: 'III' },
   { label: 'A', value: 'A' }, { label: 'B', value: 'B' }, { label: 'C', value: 'C' }, { label: 'D', value: 'D' },
 ]
@@ -41,7 +41,7 @@ function reset(): void {
   const f = props.file
   Object.assign(state, {
     deviceName: f?.deviceName ?? '',
-    deviceClass: f?.deviceClass ?? '',
+    deviceClass: f?.deviceClass ?? 'none',
     regulation: f?.regulation ?? 'MDR',
     notifiedBody: f?.notifiedBody ?? '',
     udiDi: f?.udiDi ?? '',
@@ -56,7 +56,7 @@ async function onSubmit(): Promise<void> {
   error.value = ''
   const body = {
     deviceName: state.deviceName,
-    deviceClass: state.deviceClass || null,
+    deviceClass: state.deviceClass === 'none' ? null : state.deviceClass,
     regulation: state.regulation,
     notifiedBody: state.notifiedBody || null,
     udiDi: state.udiDi || null,

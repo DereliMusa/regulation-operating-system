@@ -1,0 +1,24 @@
+# Reproduced inside the image by `npm ci` / `npm run build`.
+node_modules
+.nuxt
+.output
+dist
+
+# Local runtime data and secrets — never bake these into the image.
+.data
+.env
+.env.*
+!.env.example
+
+# VCS, CI, docs, and archived material not needed to build the app.
+.git
+.github
+SDLC
+eski-veriler
+*.md
+!README.md
+
+# Coverage, logs, OS cruft.
+coverage
+*.log
+.DS_Store
