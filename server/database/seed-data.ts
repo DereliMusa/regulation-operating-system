@@ -98,13 +98,13 @@ export const FILE_BLUEPRINTS: FileBlueprint[] = [
     readinessPercent: 100,
     status: 'approved',
     gspr: [
-      { gsprRef: 'GSPR 1', requirementText: 'General safety and performance requirements', conformity: 'conforming', standardRefs: ['ISO 14971'] },
-      { gsprRef: 'GSPR 10.2', requirementText: 'Chemical, physical and biological properties', conformity: 'conforming', standardRefs: ['ISO 10993-1'] },
-      { gsprRef: 'GSPR 14', requirementText: 'Protection against radiation', conformity: 'conforming' },
+      { gsprRef: 'GSPR 1', requirementText: 'General safety and performance requirements', conformity: 'conforming', standardRefs: ['ISO 14971'], evidenceRefs: ['CER-001', 'V&V-101'] },
+      { gsprRef: 'GSPR 10.2', requirementText: 'Chemical, physical and biological properties', conformity: 'conforming', standardRefs: ['ISO 10993-1'], evidenceRefs: ['CER-001'] },
+      { gsprRef: 'GSPR 14', requirementText: 'Protection against radiation', conformity: 'conforming', evidenceRefs: ['V&V-102'] },
     ],
     risks: [
-      { riskId: 'RISK-001', hazardDescription: 'Electrical short circuit during implantation', severity: 'major', probability: 'P2', status: 'mitigated', mitigation: 'Insulated lead housing, redundant fuse.', controlMeasureRef: 'RCM-11', verificationRef: 'V&V-101' },
-      { riskId: 'RISK-002', hazardDescription: 'Battery depletion undetected by patient', severity: 'critical', probability: 'P1', status: 'mitigated', mitigation: 'Low-battery alert via companion app.', controlMeasureRef: 'RCM-12', verificationRef: 'V&V-102' },
+      { riskId: 'RISK-001', hazardDescription: 'Electrical short circuit during implantation', severity: 'major', probability: 'P2', status: 'mitigated', mitigation: 'Insulated lead housing, redundant fuse.', controlMeasureRef: 'RCM-11', verificationRef: 'V&V-101', traceabilityRefs: ['GSPR 1', 'GSPR 14'] },
+      { riskId: 'RISK-002', hazardDescription: 'Battery depletion undetected by patient', severity: 'critical', probability: 'P1', status: 'mitigated', mitigation: 'Low-battery alert via companion app.', controlMeasureRef: 'RCM-12', verificationRef: 'V&V-102', traceabilityRefs: ['GSPR 1'] },
     ],
     clinical: [
       { cerRef: 'CER-001', sourceType: 'literature', title: 'Long-term outcomes of cardiac guard stents', status: 'approved', aiSummary: 'Five-year follow-up shows stable performance across 1,240 patients.', confidence: 96 },
@@ -123,9 +123,9 @@ export const FILE_BLUEPRINTS: FileBlueprint[] = [
     readinessPercent: 78,
     status: 'in_review',
     gspr: [
-      { gsprRef: 'GSPR 1', requirementText: 'General safety and performance requirements', conformity: 'conforming' },
+      { gsprRef: 'GSPR 1', requirementText: 'General safety and performance requirements', conformity: 'conforming', evidenceRefs: ['CER-002'] },
       { gsprRef: 'GSPR 10.2', requirementText: 'Chemical, physical and biological properties', conformity: 'partial', notes: 'Awaiting updated biocompatibility report.' },
-      { gsprRef: 'GSPR 17.1', requirementText: 'Software lifecycle and cybersecurity (IEC 62304)', conformity: 'partial', standardRefs: ['IEC 62304'] },
+      { gsprRef: 'GSPR 17.1', requirementText: 'Software lifecycle and cybersecurity (IEC 62304)', conformity: 'partial', standardRefs: ['IEC 62304'], evidenceRefs: ['V&V-201'] },
     ],
     risks: [
       { riskId: 'RISK-014', hazardDescription: 'AI misclassification of neural signal', severity: 'major', probability: 'P2', status: 'review', mitigation: 'Confidence-threshold gating with human review.', controlMeasureRef: 'RCM-42', verificationRef: 'V&V-201', traceabilityRefs: ['GSPR 17.1'] },
@@ -156,8 +156,8 @@ export const FILE_BLUEPRINTS: FileBlueprint[] = [
       { gsprRef: 'GSPR 20.1', requirementText: 'Performance evaluation (IVDR)', conformity: 'missing' },
     ],
     risks: [
-      { riskId: 'RISK-021', hazardDescription: 'False negative result at low glucose concentration', severity: 'critical', probability: 'P2', status: 'draft' },
-      { riskId: 'RISK-022', hazardDescription: 'Reagent degradation before expiry', severity: 'major', probability: 'P3', status: 'draft' },
+      { riskId: 'RISK-021', hazardDescription: 'False negative result at low glucose concentration', severity: 'critical', probability: 'P2', status: 'draft', traceabilityRefs: ['GSPR 20.1'] },
+      { riskId: 'RISK-022', hazardDescription: 'Reagent degradation before expiry', severity: 'major', probability: 'P3', status: 'draft', traceabilityRefs: ['GSPR 1'] },
     ],
     findings: [
       { severity: 'critical', gsprRef: 'GSPR 17.1', description: 'Missing electrical and software safety evidence.', recommendation: 'Submit IEC 62304 lifecycle documentation before resubmission.' },
@@ -178,7 +178,7 @@ export const FILE_BLUEPRINTS: FileBlueprint[] = [
       { gsprRef: 'GSPR 8', requirementText: 'Mechanical properties and construction', conformity: 'missing' },
     ],
     risks: [
-      { riskId: 'RISK-030', hazardDescription: 'Implant loosening over time', severity: 'moderate', probability: 'P3', status: 'draft' },
+      { riskId: 'RISK-030', hazardDescription: 'Implant loosening over time', severity: 'moderate', probability: 'P3', status: 'draft', traceabilityRefs: ['GSPR 8'] },
     ],
   },
   {
@@ -191,13 +191,13 @@ export const FILE_BLUEPRINTS: FileBlueprint[] = [
     readinessPercent: 88,
     status: 'in_review',
     gspr: [
-      { gsprRef: 'GSPR 1', requirementText: 'General safety and performance requirements', conformity: 'conforming' },
-      { gsprRef: 'GSPR 10.2', requirementText: 'Chemical, physical and biological properties', conformity: 'conforming' },
+      { gsprRef: 'GSPR 1', requirementText: 'General safety and performance requirements', conformity: 'conforming', evidenceRefs: ['CER-003'] },
+      { gsprRef: 'GSPR 10.2', requirementText: 'Chemical, physical and biological properties', conformity: 'conforming', evidenceRefs: ['CER-003'] },
       { gsprRef: 'GSPR 14', requirementText: 'Protection against radiation', conformity: 'partial' },
     ],
     risks: [
-      { riskId: 'RISK-040', hazardDescription: 'Screw thread fatigue under cyclic load', severity: 'minor', probability: 'P3', status: 'mitigated', mitigation: 'Revised thread geometry, fatigue-tested to 10M cycles.' },
-      { riskId: 'RISK-041', hazardDescription: 'MRI compatibility uncertain above 1.5T', severity: 'moderate', probability: 'P2', status: 'review' },
+      { riskId: 'RISK-040', hazardDescription: 'Screw thread fatigue under cyclic load', severity: 'minor', probability: 'P3', status: 'mitigated', mitigation: 'Revised thread geometry, fatigue-tested to 10M cycles.', controlMeasureRef: 'RCM-40', traceabilityRefs: ['GSPR 1'] },
+      { riskId: 'RISK-041', hazardDescription: 'MRI compatibility uncertain above 1.5T', severity: 'moderate', probability: 'P2', status: 'review', traceabilityRefs: ['GSPR 14'] },
     ],
     clinical: [
       { cerRef: 'CER-003', sourceType: 'literature', title: 'Biomechanical fatigue testing of fixation systems', status: 'approved', aiSummary: 'Fatigue testing exceeds ASTM F1717 thresholds by 22%.', confidence: 94 },
