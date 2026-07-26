@@ -10,12 +10,13 @@ const id = computed(() => Number(route.params.id))
 const { data: file, refresh } = await useFetch<TechnicalFileDetail>(() => `/api/technical-files/${id.value}`)
 useHead({ title: () => `${file.value?.deviceName ?? 'Technical file'} - Certra` })
 
-type TabKey = 'overview' | 'gspr' | 'risk' | 'auditor'
+type TabKey = 'overview' | 'gspr' | 'risk' | 'traceability' | 'auditor'
 const tab = ref<TabKey>('overview')
 const tabs: Array<{ key: TabKey, label: string }> = [
   { key: 'overview', label: 'Overview' },
   { key: 'gspr', label: 'GSPR matrix' },
   { key: 'risk', label: 'Risk register' },
+  { key: 'traceability', label: 'Traceability' },
   { key: 'auditor', label: 'Auditor sim' },
 ]
 
@@ -97,6 +98,7 @@ async function onSaved(): Promise<void> {
       @edit="openRiskEdit"
       @delete="(entryId) => askDelete('risk', entryId)"
     />
+    <TraceabilityMatrix v-else-if="tab === 'traceability'" :technical-file-id="file.id" :device-name="file.deviceName" />
     <AuditorSimulation v-else :technical-file-id="file.id" :device-name="file.deviceName" />
 
     <TechnicalFileFormModal v-model:open="editOpen" :file="file" @saved="onSaved" />
