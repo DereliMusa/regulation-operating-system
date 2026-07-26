@@ -1,0 +1,20 @@
+# Run the production image locally to verify the container boots and the SQLite
+# volume persists across restarts. Requires NUXT_SESSION_PASSWORD in the shell
+# or a local .env. This mirrors the Coolify deployment (named volume for data).
+services:
+  certra:
+    build: .
+    image: certra:latest
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      NUXT_SESSION_PASSWORD: ${NUXT_SESSION_PASSWORD:?set NUXT_SESSION_PASSWORD (>= 32 chars)}
+      DATABASE_PATH: /app/.data/certra.db
+      NUXT_PUBLIC_SITE_URL: ${NUXT_PUBLIC_SITE_URL:-http://localhost:3000}
+    volumes:
+      - certra-data:/app/.data
+    restart: unless-stopped
+
+volumes:
+  certra-data:
